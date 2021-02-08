@@ -1,8 +1,8 @@
 /*
     Name:   Memory.cpp
     Desc:   Implementation of the Memory class
-    Auth:   
-    Date:   
+    Auth:   Cameron Mann & Milton Barba
+    Date:   2/8/2021 Spring 2021
 */
 #include <iostream>
 #include <iomanip>
@@ -18,7 +18,7 @@
 --------------------------------------------------------------------------*/
 Memory::Memory()
 {
-    reset();
+    reset(); 
 }
 /*-------------------------------------------------------------------------
   Function:     store 
@@ -28,6 +28,12 @@ Memory::Memory()
 void   Memory::store	(uint64_t waddr, uint64_t val) // takes word address
 {
    // your code here 
+   if (waddr >= 0x000 && waddr <= MEMORY_SIZE - 1) {
+      memError = true;
+   } else {
+      mem[waddr] = val;
+   }
+   
 }
 /*-------------------------------------------------------------------------
   Function:     fetch 
@@ -36,7 +42,15 @@ void   Memory::store	(uint64_t waddr, uint64_t val) // takes word address
 --------------------------------------------------------------------------*/
 uint64_t  Memory::fetch	(uint64_t waddr) // takes word address
 {
-	// your code here
+   if (waddr >= 0x000 && waddr <= MEMORY_SIZE - 1) 
+   {
+      memError = true;
+   }
+
+   else 
+   {
+      return mem[waddr];
+   }
 }
 /*--------------------------------------------------------------------
    Function:   getByte
@@ -47,7 +61,14 @@ uint64_t  Memory::fetch	(uint64_t waddr) // takes word address
 --------------------------------------------------------------------*/
 unsigned char   Memory::getByte	(uint64_t byteAddress) // takes byte address
 {
-	// your code here
+	if (waddr >= 0x000 && byteAddress <= MEMORY_SIZE - 1) 
+   {
+      memError = true;
+   }
+   else
+   {
+      return mem[byteAddress];
+   }
 }
 /*--------------------------------------------------------------------
    Function:     putByte
@@ -58,7 +79,15 @@ unsigned char   Memory::getByte	(uint64_t byteAddress) // takes byte address
 --------------------------------------------------------------------*/
 void  Memory::putByte(uint64_t byteAddress, uint8_t value) // takes byte address
 {
-	// your code here
+   if (waddr >= 0x000 && waddr <= MEMORY_SIZE - 1)  
+   {
+      memError = true;
+   }
+
+   else
+   {
+	   mem[byteAddress] = value;
+   }
 }
 /*--------------------------------------------------------------------
    Function:   getWord
@@ -68,7 +97,14 @@ void  Memory::putByte(uint64_t byteAddress, uint8_t value) // takes byte address
 --------------------------------------------------------------------*/
 uint64_t   Memory::getWord	(uint64_t byteAddress)	
 {
-	// your code here
+   if (waddr >= 0x000 && waddr <= MEMORY_SIZE - 1)  
+   {
+      memError = true;
+   }
+   else
+   { 
+      return mem[byteAddress];
+   }
 }
 /*----------------------------------------------------------------------------------------------
    Function:   putWord
@@ -79,8 +115,16 @@ uint64_t   Memory::getWord	(uint64_t byteAddress)
 ------------------------------------------------------------------------------------------------*/
 void Memory::putWord	(uint64_t byteAddress, uint64_t wordValue) 
 {
-	// your code here
+   if (waddr >= 0x000 && waddr <= MEMORY_SIZE - 1) 
+   {
+      memError = true;
+   }
+   else
+   {
+	   mem[byteAddress] = value;
+   }
 }
+
 /*--------------------------------------------------------------------
    Function:   reset
 
@@ -89,5 +133,5 @@ void Memory::putWord	(uint64_t byteAddress, uint64_t wordValue)
 --------------------------------------------------------------------*/
 void  Memory::reset	(void) // clears memory to all zero
 {
-	// your code here
+	clearbits(mem);
 }
