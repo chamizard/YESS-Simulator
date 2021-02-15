@@ -68,8 +68,8 @@ unsigned char   Memory::getByte	(uint64_t byteAddress) // takes byte address
    {
       uint64_t waddr = byteAddress / 8;
       uint64_t value = fetch(waddr);
-      unsigned char byte = getByteNumber(byteAddress % 8, value);
-      return byte;
+      byte b = Tools::getByteNumber(byteAddress % 8, value);
+      return b;
    }
 }
 /*--------------------------------------------------------------------
@@ -105,17 +105,12 @@ uint64_t   Memory::getWord	(uint64_t byteAddress)
    }
    else
    {
-      uint64_t waddr1 = byteAddress / 8;
-      uint64_t part1 = fetch(waddr1);
-
-      if (byteAddress % 8 > 0) {
-         uint64_t waddr2 = (byteAddress / 8) + 1;
-         uint64_t part2 = fetch(waddr2);
-
-      } else {
-
+      byte values[8];
+      for (int i = 0; i < 8; i++) {
+         values[i] = getByte(byteAddress + i);
       }
-      return mem[byteAddress];
+      uint64_t result = Tools::buildWord(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7]);
+      return result;
    }
 }
 /*----------------------------------------------------------------------------------------------
@@ -127,13 +122,17 @@ uint64_t   Memory::getWord	(uint64_t byteAddress)
 ------------------------------------------------------------------------------------------------*/
 void Memory::putWord	(uint64_t byteAddress, uint64_t wordValue) 
 {
-   if (waddr >= 0 || waddr <= MEMORY_SIZE - 1) 
+   if (byteAddress <= 0 || byteAddress >= (MEMORY_SIZE * 8) - 8) 
    {
       memError = true;
    }
    else
    {
-	   mem[byteAddress] = value;
+      byte values[8];
+      for (int i = 0; i < 8; i++) {
+         values[i] = Tools::getByteNumber(i, wordValue);
+         putByte(byteAddress + i, values[i]);
+      }
    }
 }
 
