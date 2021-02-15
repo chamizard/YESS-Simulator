@@ -127,7 +127,7 @@ uint64_t   Memory::getWord	(uint64_t byteAddress)
 ------------------------------------------------------------------------------------------------*/
 void Memory::putWord	(uint64_t byteAddress, uint64_t wordValue) 
 {
-   if (waddr >= 0 && waddr <= MEMORY_SIZE - 1) 
+   if (waddr >= 0 || waddr <= MEMORY_SIZE - 1) 
    {
       memError = true;
    }
