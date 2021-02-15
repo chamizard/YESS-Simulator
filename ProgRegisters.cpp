@@ -42,7 +42,7 @@ void ProgRegisters:: setReg(unsigned regNum, uint64_t rval)
 --------------------------------------------------------------------------------------------------*/
 uint64_t ProgRegisters:: getReg(unsigned regNum)
 {
-	// your code here
+	return reg[regNum].getState();
 }       
 /*-------------------------------------------------------------------------------------------------
     setCC - Sets the INPUT of the specified CC bit to the specified value (0 or 1)

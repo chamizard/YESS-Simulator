@@ -10,6 +10,8 @@
 #include <cstdint>
 #include "Tools.h"
 
+#include <stdint.h>
+
 namespace Tools {
     
 /*-----------------------------------------------------------------------------------------------

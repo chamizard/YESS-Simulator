@@ -13,8 +13,7 @@
 #include "Memory.h"
 #include "Tools.h"
 
- uint8_t getByteNumber(unsigned byteNum, uint64_t source);
- //uint64_t putByteNumber(unsigned byteNum, uint8_t byteVal, uint64_t source);
+
 
 /*-------------------------------------------------------------------------
   Constructor:  Memory 
