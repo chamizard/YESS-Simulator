@@ -3,9 +3,9 @@
     
     Desc:       Implements functions for the program register file.
     
-    Author:     
+    Author:     Cameron Mann and Milton Barba
     
-    Date:       
+    Date:       2/15/2021 Spring 2021
 */
 #include <iostream>
 #include <cstdlib>
@@ -28,6 +28,10 @@ ProgRegisters::ProgRegisters()
 void ProgRegisters:: clock()
 {
 	// your code here
+    for (uint64_t i = 0; i < NUM_REGISTERS; i++) {
+        reg[i].clock();
+    }
+    CC.clock();
 } 
 
 /*-------------------------------------------------------------------------------------------------
@@ -35,7 +39,8 @@ void ProgRegisters:: clock()
 --------------------------------------------------------------------------------------------------*/
 void ProgRegisters:: setReg(unsigned regNum, uint64_t rval)
 {
-	// your code here} 
+	// TODO: add assertion
+    reg[regNum].setInput(rval);
 }
 /*-------------------------------------------------------------------------------------------------
     getReg - returns STATE of specified register
@@ -49,7 +54,9 @@ uint64_t ProgRegisters:: getReg(unsigned regNum)
 --------------------------------------------------------------------------------------------------*/
 void ProgRegisters:: setCC(unsigned bitNumber, unsigned val)
 {
-	// your code here
+	// TODO: add assertion
+    uint64_t value = CC.getInput();
+    CC.setInput(Tools::assignOneBit(bitNumber, val, value));
 }
 
 /*-------------------------------------------------------------------------------------------------
@@ -57,7 +64,10 @@ void ProgRegisters:: setCC(unsigned bitNumber, unsigned val)
 --------------------------------------------------------------------------------------------------*/
 unsigned ProgRegisters:: getCC(unsigned bitNumber)
 {
-	// your code here
+	// TODO: add assertion
+    unsigned val = 1;
+    val <<= bitNumber;
+    val |= CC.getState();
 }
           
 /*-------------------------------------------------------------------------------------------------
@@ -66,4 +76,8 @@ unsigned ProgRegisters:: getCC(unsigned bitNumber)
 void ProgRegisters:: reset(void)
 {
 	// your code here
+    for (uint64_t i = 0; i < NUM_REGISTERS; i++) {
+        reg[i].reset();
+    }
+    CC.reset();
 } 
