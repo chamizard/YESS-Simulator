@@ -28,7 +28,7 @@ Memory::Memory()
 void   Memory::store	(uint64_t waddr, uint64_t val) // takes word address
 {
    // your code here 
-   if (waddr >= 0x000 && waddr <= MEMORY_SIZE - 1) {
+   if (waddr <= 0x000 && waddr >= MEMORY_SIZE - 1) {
       memError = true;
    } else {
       mem[waddr] = val;
@@ -42,7 +42,7 @@ void   Memory::store	(uint64_t waddr, uint64_t val) // takes word address
 --------------------------------------------------------------------------*/
 uint64_t  Memory::fetch	(uint64_t waddr) // takes word address
 {
-   if (waddr >= 0x000 && waddr <= MEMORY_SIZE - 1) 
+   if (waddr <= 0x000 && waddr >= MEMORY_SIZE - 1)
    {
       memError = true;
    }
@@ -61,7 +61,7 @@ uint64_t  Memory::fetch	(uint64_t waddr) // takes word address
 --------------------------------------------------------------------*/
 unsigned char   Memory::getByte	(uint64_t byteAddress) // takes byte address
 {
-	if (waddr >= 0x000 && byteAddress <= MEMORY_SIZE - 1) 
+	if (waddr <= 0x000 && waddr >= MEMORY_SIZE - 1) 
    {
       memError = true;
    }
@@ -79,7 +79,7 @@ unsigned char   Memory::getByte	(uint64_t byteAddress) // takes byte address
 --------------------------------------------------------------------*/
 void  Memory::putByte(uint64_t byteAddress, uint8_t value) // takes byte address
 {
-   if (waddr >= 0x000 && waddr <= MEMORY_SIZE - 1)  
+   if (waddr <= 0x000 && waddr >= MEMORY_SIZE - 1) 
    {
       memError = true;
    }
@@ -97,7 +97,7 @@ void  Memory::putByte(uint64_t byteAddress, uint8_t value) // takes byte address
 --------------------------------------------------------------------*/
 uint64_t   Memory::getWord	(uint64_t byteAddress)	
 {
-   if (waddr >= 0x000 && waddr <= MEMORY_SIZE - 1)  
+   if (waddr <= 0x000 && waddr >= MEMORY_SIZE - 1)
    {
       memError = true;
    }
@@ -115,7 +115,7 @@ uint64_t   Memory::getWord	(uint64_t byteAddress)
 ------------------------------------------------------------------------------------------------*/
 void Memory::putWord	(uint64_t byteAddress, uint64_t wordValue) 
 {
-   if (waddr >= 0x000 && waddr <= MEMORY_SIZE - 1) 
+   if (waddr <= 0x000 && waddr >= MEMORY_SIZE - 1)
    {
       memError = true;
    }
