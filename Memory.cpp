@@ -61,7 +61,12 @@ uint64_t  Memory::fetch	(uint64_t waddr) // takes word address
 --------------------------------------------------------------------*/
 unsigned char   Memory::getByte	(uint64_t byteAddress) // takes byte address
 {
-	if (waddr <= 0x000 && waddr >= MEMORY_SIZE - 1) 
+   uint64_t waddr =  byteAddress / 8;
+   uint64_t value = fetch(waddr);
+   unsigned char byte;
+   
+
+	if (byteAddress <= 0 || byteAddress >= (MEMORY_SIZE * 8 )- 1) 
    {
       memError = true;
    }
