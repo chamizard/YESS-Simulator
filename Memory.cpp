@@ -8,8 +8,13 @@
 #include <iomanip>
 #include <cstdint>
 
+#include <stdint.h>
+
 #include "Memory.h"
 #include "Tools.h"
+
+ uint8_t getByteNumber(unsigned byteNum, uint64_t source);
+ //uint64_t putByteNumber(unsigned byteNum, uint8_t byteVal, uint64_t source);
 
 /*-------------------------------------------------------------------------
   Constructor:  Memory 
@@ -81,14 +86,17 @@ unsigned char   Memory::getByte	(uint64_t byteAddress) // takes byte address
 --------------------------------------------------------------------*/
 void  Memory::putByte(uint64_t byteAddress, uint8_t value) // takes byte address
 {
-   if (waddr >= 0 && waddr <= MEMORY_SIZE - 1)  
+   if (byteAddress  <=  0 || byteAddress >= (MEMORY_SIZE * 8) - 1)  
    {
       memError = true;
    }
 
    else
    {
-	   mem[byteAddress] = value;
+	   uint64_t waddr = byteAddress / 8;
+      uint64_t word = fetch(waddr);
+      uint64_t edit = Tools::putByteNumber(byteAddress % 8, value, word);
+      store(waddr, edit);
    }
 }
 /*--------------------------------------------------------------------
