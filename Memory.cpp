@@ -28,7 +28,7 @@ Memory::Memory()
 void   Memory::store	(uint64_t waddr, uint64_t val) // takes word address
 {
    // your code here 
-   if (waddr >= 0x000 && waddr <= MEMORY_SIZE - 1) {
+   if (waddr <= 0 || waddr >= MEMORY_SIZE - 1) {
       memError = true;
    } else {
       mem[waddr] = val;
@@ -42,11 +42,10 @@ void   Memory::store	(uint64_t waddr, uint64_t val) // takes word address
 --------------------------------------------------------------------------*/
 uint64_t  Memory::fetch	(uint64_t waddr) // takes word address
 {
-   if (waddr >= 0x000 && waddr <= MEMORY_SIZE - 1) 
+   if (waddr <= 0 || waddr >= MEMORY_SIZE - 1) 
    {
       memError = true;
    }
-
    else 
    {
       return mem[waddr];
@@ -61,13 +60,16 @@ uint64_t  Memory::fetch	(uint64_t waddr) // takes word address
 --------------------------------------------------------------------*/
 unsigned char   Memory::getByte	(uint64_t byteAddress) // takes byte address
 {
-	if (waddr >= 0x000 && byteAddress <= MEMORY_SIZE - 1) 
+	if (byteAddress <= 0 || byteAddress >= (MEMORY_SIZE * 8) - 1) 
    {
       memError = true;
    }
    else
    {
-      return mem[byteAddress];
+      uint64_t waddr = byteAddress / 8;
+      uint64_t value = fetch(waddr);
+      unsigned char byte = getByteNumber(byteAddress % 8, value);
+      return byte;
    }
 }
 /*--------------------------------------------------------------------
@@ -79,7 +81,7 @@ unsigned char   Memory::getByte	(uint64_t byteAddress) // takes byte address
 --------------------------------------------------------------------*/
 void  Memory::putByte(uint64_t byteAddress, uint8_t value) // takes byte address
 {
-   if (waddr >= 0x000 && waddr <= MEMORY_SIZE - 1)  
+   if (waddr >= 0 && waddr <= MEMORY_SIZE - 1)  
    {
       memError = true;
    }
@@ -97,12 +99,22 @@ void  Memory::putByte(uint64_t byteAddress, uint8_t value) // takes byte address
 --------------------------------------------------------------------*/
 uint64_t   Memory::getWord	(uint64_t byteAddress)	
 {
-   if (waddr >= 0x000 && waddr <= MEMORY_SIZE - 1)  
+   if (byteAddress <= 0 || byteAddress >= (MEMORY_SIZE * 8) - 8)  
    {
       memError = true;
    }
    else
-   { 
+   {
+      uint64_t waddr1 = byteAddress / 8;
+      uint64_t part1 = fetch(waddr1);
+
+      if (byteAddress % 8 > 0) {
+         uint64_t waddr2 = (byteAddress / 8) + 1;
+         uint64_t part2 = fetch(waddr2);
+
+      } else {
+
+      }
       return mem[byteAddress];
    }
 }
@@ -115,7 +127,7 @@ uint64_t   Memory::getWord	(uint64_t byteAddress)
 ------------------------------------------------------------------------------------------------*/
 void Memory::putWord	(uint64_t byteAddress, uint64_t wordValue) 
 {
-   if (waddr >= 0x000 && waddr <= MEMORY_SIZE - 1) 
+   if (waddr >= 0 && waddr <= MEMORY_SIZE - 1) 
    {
       memError = true;
    }
@@ -133,5 +145,7 @@ void Memory::putWord	(uint64_t byteAddress, uint64_t wordValue)
 --------------------------------------------------------------------*/
 void  Memory::reset	(void) // clears memory to all zero
 {
-	clearbits(mem);
+   for (uint64_t i = 0; i < MEMORY_SIZE - 1; i++) {
+      store(i, 0);
+   }
 }
