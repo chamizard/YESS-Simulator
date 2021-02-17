@@ -41,7 +41,7 @@ void ProgRegisters:: clock()
 --------------------------------------------------------------------------------------------------*/
 void ProgRegisters:: setReg(unsigned regNum, uint64_t rval)
 {
-    assert(regNum < 16);
+    assert(regNum < NUM_REGISTERS && regNum >= 0);
     reg[regNum].setInput(rval);
 }
 /*-------------------------------------------------------------------------------------------------
@@ -49,6 +49,7 @@ void ProgRegisters:: setReg(unsigned regNum, uint64_t rval)
 --------------------------------------------------------------------------------------------------*/
 uint64_t ProgRegisters:: getReg(unsigned regNum)
 {
+    assert(regNum < NUM_REGISTERS && regNum >= 0);
 	return reg[regNum].getState();
 }       
 /*-------------------------------------------------------------------------------------------------
@@ -79,8 +80,11 @@ unsigned ProgRegisters:: getCC(unsigned bitNumber)
 void ProgRegisters:: reset(void)
 {
 	// your code here
-    for (uint64_t i = 0; i < NUM_REGISTERS; i++) {
+    for (int i = 0; i < NUM_REGISTERS; i++) {
         reg[i].reset();
     }
     CC.reset();
+    //setCC(OF, 0);
+    //setCC(ZF, 1);
+    //setCC(SF, 0);
 } 
