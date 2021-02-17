@@ -35,7 +35,6 @@ int main(int argc, char *argv[])
 
     // Test your Memory (m) and ProgRegisters (reg) functions...
 
-
     std::cout << "\nAOK.\n";
     
 }

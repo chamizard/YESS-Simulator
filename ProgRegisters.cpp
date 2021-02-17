@@ -57,8 +57,7 @@ uint64_t ProgRegisters:: getReg(unsigned regNum)
 void ProgRegisters:: setCC(unsigned bitNumber, unsigned val)
 {
     assert((bitNumber == 0 || bitNumber == 1 || bitNumber == 2) && (val == 0 || val == 1));
-    uint64_t value = CC.getInput();
-    CC.setInput(Tools::assignOneBit(bitNumber, val, value));
+    CC.setInput(Tools::assignOneBit(bitNumber, val, CC.getInput()));
 }
 
 /*-------------------------------------------------------------------------------------------------
@@ -66,10 +65,10 @@ void ProgRegisters:: setCC(unsigned bitNumber, unsigned val)
 --------------------------------------------------------------------------------------------------*/
 unsigned ProgRegisters:: getCC(unsigned bitNumber)
 {
-	// TODO: add assertion
+	assert(bitNumber == 0 || bitNumber == 1 || bitNumber == 2);
     unsigned val = 1;
     val <<= bitNumber;
-    val |= CC.getState();
+    val &= CC.getState();
     return val;
 }
           
@@ -78,12 +77,9 @@ unsigned ProgRegisters:: getCC(unsigned bitNumber)
 --------------------------------------------------------------------------------------------------*/
 void ProgRegisters:: reset(void)
 {
-	// your code here
     for (int i = 0; i < NUM_REGISTERS; i++) {
         reg[i].reset();
     }
     CC.reset();
-    setCC(0, 0);
-    setCC(1, 0);
     setCC(2, 1);
 } 
