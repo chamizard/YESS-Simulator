@@ -10,8 +10,10 @@
 #include <iostream>
 #include <cstdlib>
 #include <cstdint>
+#include <assert.h>
 
 #include "ProgRegisters.h"
+#include "Tools.h"
 
 
 /*-------------------------------------------------------------------------------------------------
@@ -39,7 +41,7 @@ void ProgRegisters:: clock()
 --------------------------------------------------------------------------------------------------*/
 void ProgRegisters:: setReg(unsigned regNum, uint64_t rval)
 {
-	// TODO: add assertion
+    assert(regNum < 16);
     reg[regNum].setInput(rval);
 }
 /*-------------------------------------------------------------------------------------------------
@@ -54,7 +56,7 @@ uint64_t ProgRegisters:: getReg(unsigned regNum)
 --------------------------------------------------------------------------------------------------*/
 void ProgRegisters:: setCC(unsigned bitNumber, unsigned val)
 {
-	// TODO: add assertion
+    assert((bitNumber == 0 || bitNumber == 1 || bitNumber == 2) && (val == 0 || val == 1));
     uint64_t value = CC.getInput();
     CC.setInput(Tools::assignOneBit(bitNumber, val, value));
 }
@@ -68,6 +70,7 @@ unsigned ProgRegisters:: getCC(unsigned bitNumber)
     unsigned val = 1;
     val <<= bitNumber;
     val |= CC.getState();
+    return val;
 }
           
 /*-------------------------------------------------------------------------------------------------

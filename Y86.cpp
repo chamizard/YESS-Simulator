@@ -31,7 +31,7 @@ void Y86::reset()
 ---------------------------------------------------------------------------*/
 void  Y86::clockP0()
 {
-	// your code here
+  regs.clock();
 }
 /*-------------------------------------------------------------------------
   clockP1 - implements functions that run on second half of clock cycle

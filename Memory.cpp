@@ -29,7 +29,6 @@ Memory::Memory()
 --------------------------------------------------------------------------*/
 void   Memory::store	(uint64_t waddr, uint64_t val) // takes word address
 {
-   // your code here 
    if (waddr <= 0 || waddr >= MEMORY_SIZE - 1) {
       memError = true;
    } else {
@@ -48,10 +47,7 @@ uint64_t  Memory::fetch	(uint64_t waddr) // takes word address
    {
       memError = true;
    }
-   else 
-   {
-      return mem[waddr];
-   }
+   return mem[waddr];
 }
 /*--------------------------------------------------------------------
    Function:   getByte
@@ -66,13 +62,10 @@ unsigned char   Memory::getByte	(uint64_t byteAddress) // takes byte address
    {
       memError = true;
    }
-   else
-   {
-      uint64_t waddr = byteAddress / 8;
-      uint64_t value = fetch(waddr);
-      byte b = Tools::getByteNumber(byteAddress % 8, value);
-      return b;
-   }
+   uint64_t waddr = byteAddress / 8;
+   uint64_t value = fetch(waddr);
+   byte b = Tools::getByteNumber(byteAddress % 8, value);
+   return b;
 }
 /*--------------------------------------------------------------------
    Function:     putByte
@@ -108,15 +101,12 @@ uint64_t   Memory::getWord	(uint64_t byteAddress)
    {
       memError = true;
    }
-   else
-   {
-      byte values[8];
-      for (int i = 0; i < 8; i++) {
-         values[i] = getByte(byteAddress + i);
-      }
-      uint64_t result = Tools::buildWord(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7]);
-      return result;
+   byte values[8];
+   for (int i = 0; i < 8; i++) {
+      values[i] = getByte(byteAddress + i);
    }
+   uint64_t result = Tools::buildWord(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7]);
+   return result;
 }
 /*----------------------------------------------------------------------------------------------
    Function:   putWord
@@ -152,4 +142,5 @@ void  Memory::reset	(void) // clears memory to all zero
    for (uint64_t i = 0; i < MEMORY_SIZE - 1; i++) {
       store(i, 0);
    }
+   memError = false;
 }
