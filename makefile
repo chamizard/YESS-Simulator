@@ -9,8 +9,10 @@ OBJTEST =  testSim.o Memory.o ProgRegisters.o Tools.o Y86.o
 
 #complete the following targets with appropriate dependencies and commands
 yess:	$(OBJS)
+	$(CXX) $(CXXFLAGS) $(OBJ) -o yess
 
 ytest:  $(OBJTEST)
+	$(CXX) $(CXXFLAGS) $(OBJTEST) -o ytest
 
 
 #your object file targets below here...

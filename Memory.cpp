@@ -8,7 +8,6 @@
 #include <iomanip>
 #include <cstdint>
 
-#include <stdint.h>
 
 #include "Memory.h"
 #include "Tools.h"
@@ -29,9 +28,10 @@ Memory::Memory()
 --------------------------------------------------------------------------*/
 void   Memory::store	(uint64_t waddr, uint64_t val) // takes word address
 {
-   if (waddr <= 0 || waddr >= MEMORY_SIZE - 1) {
+   if (waddr >= MEMORY_SIZE) {
       memError = true;
    } else {
+      memError = false;
       mem[waddr] = val;
    }
    
@@ -43,11 +43,16 @@ void   Memory::store	(uint64_t waddr, uint64_t val) // takes word address
 --------------------------------------------------------------------------*/
 uint64_t  Memory::fetch	(uint64_t waddr) // takes word address
 {
-   if (waddr <= 0 || waddr >= MEMORY_SIZE - 1) 
+   if (waddr >= MEMORY_SIZE) 
    {
       memError = true;
+      return 0;
    }
-   return mem[waddr];
+   else 
+   {
+      memError = false;
+      return mem[waddr];
+   }
 }
 /*--------------------------------------------------------------------
    Function:   getByte
@@ -58,14 +63,20 @@ uint64_t  Memory::fetch	(uint64_t waddr) // takes word address
 --------------------------------------------------------------------*/
 unsigned char   Memory::getByte	(uint64_t byteAddress) // takes byte address
 {
-	if (byteAddress <= 0 || byteAddress >= (MEMORY_SIZE * 8) - 1) 
+	if (byteAddress >= (MEMORY_SIZE * 8)) 
    {
       memError = true;
+      return 0;
    }
-   uint64_t waddr = byteAddress / 8;
-   uint64_t value = fetch(waddr);
-   byte b = Tools::getByteNumber(byteAddress % 8, value);
-   return b;
+   else
+   {
+      memError = false;
+      uint64_t waddr = byteAddress / 8;
+      uint64_t value = fetch(waddr);
+      uint64_t byteVal = byteAddress %8;
+      byte b = Tools::getByteNumber(byteVal, value);
+      return b;
+   }
 }
 /*--------------------------------------------------------------------
    Function:     putByte
@@ -76,13 +87,14 @@ unsigned char   Memory::getByte	(uint64_t byteAddress) // takes byte address
 --------------------------------------------------------------------*/
 void  Memory::putByte(uint64_t byteAddress, uint8_t value) // takes byte address
 {
-   if (byteAddress  <=  0 || byteAddress >= (MEMORY_SIZE * 8) - 1)  
+   if (byteAddress >= (MEMORY_SIZE * 8))  
    {
       memError = true;
    }
 
    else
    {
+      memError = false;
 	   uint64_t waddr = byteAddress / 8;
       uint64_t word = fetch(waddr);
       uint64_t edit = Tools::putByteNumber(byteAddress % 8, value, word);
@@ -97,12 +109,14 @@ void  Memory::putByte(uint64_t byteAddress, uint8_t value) // takes byte address
 --------------------------------------------------------------------*/
 uint64_t   Memory::getWord	(uint64_t byteAddress)	
 {
-   if (byteAddress <= 0 || byteAddress >= (MEMORY_SIZE * 8) - 8)  
+   if (byteAddress >= (MEMORY_SIZE * 8))  
    {
       memError = true;
    }
+      memError = false;
    byte values[8];
-   for (int i = 0; i < 8; i++) {
+   for (int i = 0; i < 8; i++) 
+   {
       values[i] = getByte(byteAddress + i);
    }
    uint64_t result = Tools::buildWord(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7]);
@@ -117,12 +131,13 @@ uint64_t   Memory::getWord	(uint64_t byteAddress)
 ------------------------------------------------------------------------------------------------*/
 void Memory::putWord	(uint64_t byteAddress, uint64_t wordValue) 
 {
-   if (byteAddress <= 0 || byteAddress >= (MEMORY_SIZE * 8) - 8) 
+   if (byteAddress >= (MEMORY_SIZE * 8)) 
    {
       memError = true;
    }
    else
    {
+      memError = false;
       byte values[8];
       for (int i = 0; i < 8; i++) {
          values[i] = Tools::getByteNumber(i, wordValue);
@@ -139,7 +154,7 @@ void Memory::putWord	(uint64_t byteAddress, uint64_t wordValue)
 --------------------------------------------------------------------*/
 void  Memory::reset	(void) // clears memory to all zero
 {
-   for (uint64_t i = 0; i < MEMORY_SIZE - 1; i++) {
+   for (int i = 0; i < MEMORY_SIZE - 1; i++) {
       store(i, 0);
    }
    memError = false;
