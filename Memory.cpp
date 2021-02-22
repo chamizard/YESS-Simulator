@@ -91,7 +91,6 @@ void  Memory::putByte(uint64_t byteAddress, uint8_t value) // takes byte address
    {
       memError = true;
    }
-
    else
    {
       memError = false;
@@ -113,7 +112,7 @@ uint64_t   Memory::getWord	(uint64_t byteAddress)
    {
       memError = true;
    }
-      memError = false;
+   memError = false;
    byte values[8];
    for (int i = 0; i < 8; i++) 
    {
