@@ -2,10 +2,10 @@ CXX=g++
 CXXFLAGS = -Wall -g -std=c++11
 
 # Put object files in next line
-OBJS = Sim.o Memory.o ProgRegisters.o Tools.o Y86.o
+OBJS = Sim.o Memory.o ProgRegisters.o Tools.o Y86.o Y86Loader.o Y86trace.o
 
 # The OBJTEST macro is same as 'OBJS' above except replace Sim.o with testSim.o 
-OBJTEST =  testSim.o Memory.o ProgRegisters.o Tools.o Y86.o
+OBJTEST =  testSim.o Memory.o ProgRegisters.o Tools.o Y86.o Y86Loader.o Y86trace.o
 
 #complete the following targets with appropriate dependencies and commands
 yess:	$(OBJS)
@@ -26,6 +26,10 @@ ProgRegisters.o: ProgRegisters.cpp ProgRegisters.h
 Tools.o: Tools.cpp Tools.h
 
 Y86.o: Y86.cpp Y86.h
+
+Y86Loader.o: Y86Loader.cpp
+
+Y86trace.o: Sim.h Y86.h Y86trace.cpp
 
 # clean target
 # Remeber, you don't want to delete your testSim.o file
