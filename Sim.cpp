@@ -6,11 +6,6 @@
             stage register contents, memory contents, and/or register contents. Trace outputs
             are printed at the end of a cycle.
             
-            Best way to capture internal state during simulation?
-            Previous simulator used a special dump instruction. This requires
-            adding this instruction to the instruction set. Dump routines were
-            provided that allowed the dumping of program state during WRITEBACK stage.
-            
 */
 #include <iostream>
 #include <iomanip>
@@ -20,23 +15,36 @@
 #include "Memory.h"
 #include "ProgRegisters.h"
 
+#define 	MEM_SIZE_BYTES		8192
 
-
+using namespace std;
 
 Y86 y86;  // Declare global Y86 object. 
 
+//------------------------------------------------------------------
+// functions
+//------------------------------------------------------------------
+void usage(void);
+
 int main(int argc, char *argv[])
 {
-
-
-   y86.reset();
-   Memory m = y86.getMemory();
-   ProgRegisters reg = y86.getProgRegisters();
-
-    // Test your Memory (m) and ProgRegisters (reg) functions...
-
-    std::cout << "\nAOK.\n";
+	if (argc < 2){
+		usage();
+		return 0;
+	}
     
+    y86.reset();
+	y86.load(argv[1]);
+	y86.dumpProcessorRegisters();
+	y86.dumpProgramRegisters();
+	y86.dumpMemory();
+        
 }
 
+void usage(void)
+{
+    printf("Usage: yess <objectfile>\n"
+          "<objectfile> must be created with the Y86 assembler 'yas' (has .yo extension.)\n");
+    exit(0);
+}
 

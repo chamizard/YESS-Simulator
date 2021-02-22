@@ -78,19 +78,9 @@ unsigned ProgRegisters:: getCC(unsigned bitNumber)
 --------------------------------------------------------------------------------------------------*/
 void ProgRegisters:: reset(void)
 {
-<<<<<<< HEAD
-	// your code here
-=======
->>>>>>> 5c1c013a85491d734add4776b8cfd32b6e7fa059
     for (int i = 0; i < NUM_REGISTERS; i++) {
         reg[i].reset();
     }
     CC.reset();
-<<<<<<< HEAD
-    //setCC(OF, 0);
-    //setCC(ZF, 1);
-    //setCC(SF, 0);
-=======
     setCC(2, 1);
->>>>>>> 5c1c013a85491d734add4776b8cfd32b6e7fa059
 } 
