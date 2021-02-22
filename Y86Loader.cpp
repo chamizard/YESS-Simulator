@@ -19,7 +19,27 @@ bool isValidFileName(string input) {
 /*
 
 */
-void readfile(std::ifstream infile) {
+void readFile(std::ifstream infile) {
+    while (infile) {
+        // read file
+        
+    }
+}
+
+/*
+
+*/
+bool checkLine(std::string line) {
+    if (hasValidAddress(line) || isCommentLine(line) || isBlankLine(line)) {
+        return true;
+    }
+    return false;
+}
+
+/*
+    returns true if line has a valid address field
+*/
+bool hasValidAddress(std::string line) {
 
 
 }
@@ -27,7 +47,7 @@ void readfile(std::ifstream infile) {
 /*
 
 */
-bool checkLine() {
+bool isCommentLine(std::string line) {
 
 
 }
@@ -35,7 +55,7 @@ bool checkLine() {
 /*
 
 */
-bool hasValidAddress() {
+bool isBlankLine(std::string line) {
 
 
 }
@@ -43,7 +63,7 @@ bool hasValidAddress() {
 /*
 
 */
-bool isCommentLine() {
+bool hasData(std::string line) {
 
 
 }
@@ -51,7 +71,7 @@ bool isCommentLine() {
 /*
 
 */
-bool isBlankLine() {
+uint64_t hasValidData(std::string line) {
 
 
 }
@@ -59,7 +79,29 @@ bool isBlankLine() {
 /*
 
 */
-bool hasData() {
+uint64_t getAddress(std::string input) {
+
+
+}
+
+/*
+    takes as input a record and starting and ending indices into 
+    that record and returns true if there are spaces 
+    beginning at the starting position through to the ending position
+*/
+bool hasSpaces(std::string input, int start, int end) {
+    for (int i = start; i < end; i++) {
+        if (input[i] != ' ') {
+            return true;
+        }
+    }
+    return false;
+}
+
+/*
+
+*/
+bool checkHex(std::string input, int start, int end) {
 
 
 }
@@ -67,37 +109,7 @@ bool hasData() {
 /*
 
 */
-uint64_t hasValidData() {
-
-
-}
-
-}
-
-/*
-
-*/
-uint64_t getAddress(string input) {
-
-
-}
-
-}
-
-/*
-
-*/
-uint64_t hasSpaces(string input, int start, int end) {
-
-
-}
-
-}
-
-/*
-
-*/
-bool checkHex(string input, int start, int end) {
+bool storeData(std::string input, int numBytes) {
 
 
 }
@@ -105,15 +117,7 @@ bool checkHex(string input, int start, int end) {
 /*
 
 */
-bool storeData(string input, int numBytes) {
-
-
-}
-
-/*
-
-*/
-bool storeByte(string input, uint64_t byteAddress) {
+bool storeByte(std::string input, uint64_t byteAddress) {
 
 
 }

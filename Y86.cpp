@@ -42,3 +42,23 @@ void  Y86::clockP1()
 {
 	return;  // nothing for now (Lab 4)
 }
+
+bool Y86::load(char *fname) {
+  if (Y86Loader::isValidFileName(fname)) {
+    ifstream file{fname};
+    readFile(file);
+  }
+
+}
+
+bool Y86::readFile (std::ifstream& infile) {
+  Y86Loader::readFile(infile);
+}
+
+int writeMemory (std::string inst, uint64_t address) {
+
+}
+
+void getLine (uint64_t *, uint64_t) {
+
+}
