@@ -7,7 +7,7 @@
 #include <iostream>
 #include <iomanip>
 #include <cstdint>
-
+#include <stdint.h>
 
 #include "Memory.h"
 #include "Tools.h"
