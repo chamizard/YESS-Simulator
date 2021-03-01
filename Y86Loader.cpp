@@ -15,7 +15,7 @@ namespace Y86Loader
 {
 
 /*
-
+    returns if file is of valid type
 */
 bool isValidFileName(std::string filename)  
 {
@@ -37,26 +37,41 @@ void readFile(std::ifstream infile) {
     returns true if line has a valid address field
 */
 bool hasValidAddress(std::string line) {
-    return false;
+
+    if (line [0] == '0' && line[1] == 'x' )
+    {
+        return true;
+    }
+   
 }
 
 /*
-
+    returns if line is a comment
 */
-bool isCommentLine(std::string line) {
-    return false;
+bool isCommentLine(std::string line) 
+{
+    if(line [0] = '/');
+    {
+        return true;
+    }
+
+
+
+}
+/*
+    returns if line is blank
+*/
+bool isBlankLine(std:: string line) 
+{
+   
+    if(line == "");
+    {
+        return true;
+    }
+    
 }
 
-/*
 
-*/
-bool isBlankLine(std::string line) {
-    return false;
-}
-
-/*
-
-*/
 bool checkLine(std::string line) {
     if (hasValidAddress(line) || isCommentLine(line) || isBlankLine(line)) {
         return true;
@@ -67,6 +82,7 @@ bool checkLine(std::string line) {
 /*
 
 */
+
 bool hasData(std::string line) {
     return false;
 }
@@ -83,10 +99,14 @@ uint64_t hasValidData(std::string line) {
     record and returns true if there are hex characters beginning at 
     the starting position through to the ending position
 */
-bool checkHex(std::string input, int start, int end) {
-    for (int i = start; i < end; i++) {
-        if (input[i] < 48 || input[i] > 57) {
-            if (input[i] < 97 || input[i] > 102) {
+bool checkHex(std::string input, int start, int end) 
+{
+    for (int i = start; i < end; i++) 
+    {
+        if (input[i] < 48 || input[i] > 57) 
+        {
+            if (input[i] < 97 || input[i] > 102) 
+            {
                 return false;
             }
         }
@@ -97,7 +117,8 @@ bool checkHex(std::string input, int start, int end) {
 /*
     takes as input a data record and returns the address in that line
 */
-uint64_t getAddress(std::string input) {
+uint64_t getAddress(std::string input) 
+{
     int addrEnd;
     uint64_t result = 0;
     for (int i = 0; i < 7; i++) {
@@ -118,7 +139,8 @@ uint64_t getAddress(std::string input) {
             }
         }
     }
-    else {
+    else 
+    {
         result = -1;
     }
     return result;
