@@ -32,8 +32,32 @@ int main(int argc, char *argv[])
     // Tests for hasData
     cout << "Testing hasData:" << '\n';
 
+    bool testHasData1 = hasData("0x000:                      | 		.pos 0x0");
+    cout << "Test 1: " << testHasData1 << '\n';
+
+    bool testHasData2 = hasData("0x000: 30f40020000000000000 | 		irmovq stack, %rsp");
+    cout << "Test 2: " << testHasData2 << '\n';
+
+    bool testHasData3 = hasData("0x013: 00                   | 		halt");
+    cout << "Test 3: " << testHasData3 << '\n';
+
+    bool testHasData4 = hasData("0x048:                      | 		.align 8");
+    cout << "Test 4: " << testHasData4 << '\n';
+
     // Tests for hasValidData
     cout << "Testing hasValidData:" << '\n';
+
+    uint64_t testHasValidData1 = hasValidData("0x000:                      | 		.pos 0x0");
+    cout << "Test 1: " << testHasValidData1 << '\n';
+
+    uint64_t testHasValidData2 = hasValidData("0x000: 30f40020000000000000 | 		irmovq stack, %rsp");
+    cout << "Test 2: " << testHasValidData2 << '\n';
+
+    uint64_t testHasValidData3 = hasValidData("0x013: 00                   | 		halt");
+    cout << "Test 3: " << testHasValidData3 << '\n';
+
+    uint64_t testHasValidData4 = hasValidData("0x038: 30f7180000000000000  | main:	irmovq array,%rdi  ***Error: odd number of data chars");
+    cout << "Test 4: " << testHasValidData4 << '\n';
 
     // Tests for getAddress
     cout << "Testing getAddress:" << '\n';
@@ -79,6 +103,9 @@ int main(int argc, char *argv[])
 
     bool testCheckHex4 = checkHex("0800000000000000      ", 0, 10);
     cout << "Test 4: " << testCheckHex4 << '\n';
+    
+    bool testCheckHex5 = checkHex("0x038: 30f7180000000000000  |", 7, 27);
+    cout << "Test 5: " << testCheckHex5 << '\n';
 
     // Tests for storeData
     cout << "Testing storeData:" << '\n';
