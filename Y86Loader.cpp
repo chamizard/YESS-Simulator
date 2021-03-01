@@ -99,21 +99,23 @@ bool checkHex(std::string input, int start, int end) {
 */
 uint64_t getAddress(std::string input) {
     int addrEnd;
-    uint64_t result;
-    for (int i = 0; i < 28; i++) {
+    uint64_t result = 0;
+    for (int i = 0; i < 7; i++) {
         if (input[i] == ':') {
             addrEnd = i;
             break;
         }
     }
     if (checkHex(input, 2, addrEnd)) {
-        for (int i = addrEnd; i > 2; i--) {
-            if (input[i] >= 48 || input[i] <= 57) {
-                result += (input[i] - 48);    
+        for (int i = 2; i < addrEnd; ++i) {
+            if (input[i] >= 48 && input[i] <= 57) {
+                result += (input[i] - 48);
             } else {
-                result += input[i] - 87;
+                result += (input[i] - 87);
             }
-            result <<= 4;
+            if (i != addrEnd - 1) {
+                result <<= 4;
+            }
         }
     }
     else {
@@ -130,7 +132,7 @@ uint64_t getAddress(std::string input) {
 */
 bool hasSpaces(std::string input, int start, int end) {
     for (int i = start; i < end; i++) {
-        if (input[i] != ' ') {
+        if (input[i] == ' ') {
             return true;
         }
     }
