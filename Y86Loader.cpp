@@ -15,7 +15,7 @@ namespace Y86Loader
 {
 
 /*
-
+    returns if file is of valid type
 */
 bool isValidFileName(std::string filename)  
 {
@@ -37,18 +37,16 @@ void readFile(std::ifstream infile) {
     returns true if line has a valid address field
 */
 bool hasValidAddress(std::string line) {
-    return false;
+
+    if (line [0] == '0' && line[1] == 'x' )
+    {
+        return true;
+    }
+   
 }
 
 /*
-
-*/
-
-
-
-
-/*
-
+    returns if line is a comment
 */
 bool isCommentLine(std::string line) 
 {
@@ -61,7 +59,7 @@ bool isCommentLine(std::string line)
 
 }
 /*
-
+    returns if line is blank
 */
 bool isBlankLine(std:: string line) 
 {
@@ -72,6 +70,8 @@ bool isBlankLine(std:: string line)
     }
     
 }
+
+
 bool checkLine(std::string line) {
     if (hasValidAddress(line) || isCommentLine(line) || isBlankLine(line)) {
         return true;
