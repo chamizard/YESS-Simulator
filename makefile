@@ -14,6 +14,8 @@ yess:	$(OBJS)
 ytest:  $(OBJTEST)
 	$(CXX) $(CXXFLAGS) $(OBJTEST) -o ytest
 
+loadertest: Y86Loader.o Y86LoaderTester.o
+	$(CXX) $(CXXFLAGS) Y86Loader.o Y86LoaderTester.o -o loadertest
 
 #your object file targets below here...
 
@@ -30,6 +32,8 @@ Y86.o: Y86.cpp Y86.h
 Y86Loader.o: Y86Loader.cpp
 
 Y86trace.o: Sim.h Y86.h Y86trace.cpp
+
+Y86LoaderTester: Y86LoaderTester.cpp
 
 # clean target
 # Remeber, you don't want to delete your testSim.o file
