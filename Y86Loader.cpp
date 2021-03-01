@@ -42,7 +42,8 @@ bool checkLine() {
 /*
 
 */
-bool hasValidAddress() {
+bool hasValidAddress() 
+{
 
 
 }
@@ -50,7 +51,12 @@ bool hasValidAddress() {
 /*
 
 */
-bool isCommentLine() {
+bool isCommentLine(std::string line) 
+{
+    if(line [0] = '/');
+    {
+        return true;
+    }
 
 
 }
@@ -58,15 +64,22 @@ bool isCommentLine() {
 /*
 
 */
-bool isBlankLine() {
-
+bool isBlankLine(std:: string line) 
+{
+   
+    if(line == "");
+    {
+        return true;
+    }
+    
 
 }
 
 /*
 
 */
-bool hasData() {
+bool hasData() 
+{
 
 
 }
