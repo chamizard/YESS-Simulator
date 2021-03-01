@@ -15,6 +15,31 @@
 
 namespace Y86Loader {
 	
+    bool isValidFileName(std::string input);
+
+    void readFile(std::ifstream infile);
+
+    bool checkLine(std::string line);
+
+    bool hasValidAddress(std::string line);
+
+    bool isCommentLine(std::string line);
+
+    bool isBlankLine(std::string line);
+
+    bool hasData(std::string line);
+
+    uint64_t hasValidData(std::string line);
+
+    uint64_t getAddress(std::string input);
+
+    uint64_t hasSpaces(std::string input, int start, int end);
+
+    bool checkHex(std::string input, int start, int end);
+
+    bool storeData(std::string input, int numBytes);
+
+    bool storeByte(std::string input, uint64_t byteAddress);
     
 
 };
