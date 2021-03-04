@@ -35,7 +35,7 @@ for fname in files:
 	efboutput = testdir+fname+".dump"
 	studentoutput = outputdir+fname+'.dump'
 	studentproblems = outputdir+fname+'.problems'
-	
+
 	#make sure input file exists
 	if not os.path.exists(input):
 		print('missing input file: '+input)

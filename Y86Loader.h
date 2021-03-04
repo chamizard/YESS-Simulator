@@ -8,7 +8,7 @@
 
 #ifndef Y86Loader_H
 #define Y86Loader_H
-
+#include <stdint.h>
 #include <iostream>
 #include <cstdint>
 #include <string>

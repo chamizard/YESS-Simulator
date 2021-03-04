@@ -38,10 +38,6 @@ void readFile(std::ifstream infile) {
 */
 bool hasValidAddress(std::string line) {
 
-    if (line [0] == '0' && line[1] == 'x' )
-    {
-        return true;
-    }
    
 }
 
@@ -50,7 +46,7 @@ bool hasValidAddress(std::string line) {
 */
 bool isCommentLine(std::string line) 
 {
-    if(line [0] = '/');
+    if(line [0] == '/');
     {
         return true;
     }
@@ -83,7 +79,8 @@ bool checkLine(std::string line) {
 
 */
 
-bool hasData(std::string line) {
+bool hasData(std::string line) 
+{
     return false;
 }
 
