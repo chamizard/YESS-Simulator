@@ -1,5 +1,5 @@
 /*
-    File:   Y86Loader.h
+    File:   Y86Loader.cpp
     Desc:   Declarations for utility functions used in
             Y86 loader. 
     
@@ -17,7 +17,7 @@ namespace Y86Loader
 /*
     returns if file is of valid type
 */
-static bool isValidFileName(std::string filename)  
+bool isValidFileName(std::string filename)  
 {
     return filename.find(".yo") > 0;
 }
@@ -220,7 +220,7 @@ uint64_t* storeData(std::string input, int numBytes) {
     //uint64_t *ptr = new uint64_t[numBytes];
     int dataIndex = 0;
     for (int i = 25; i > 7; i -= 2) {
-        data[dataIndex] = storeByte(input.substr(i, 2));
+        data[dataIndex] = getByte(input.substr(i, 2));
         dataIndex++;
     }
     return data;

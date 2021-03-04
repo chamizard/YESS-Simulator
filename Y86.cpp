@@ -49,20 +49,14 @@ void  Y86::clockP1()
 bool Y86::load(char *fname) {
   if (Y86Loader::isValidFileName(fname)) {
     std::ifstream file (fname, std::ifstream::in);
-    readFile(file);
+    //readFile(file);
   }
   return true;
 }
 
-int Y86::writeMemory (std::string inst, uint64_t address) {
-    int dataIndex = 0;
-    uint64_t data = 0;
-    for (int i = 25; i > 7; i -= 2) {
-        data = Y86Loader::getByte(inst.substr(i, 2));
-        memory.putByte(address, data);
-        dataIndex++;
-    }
-    return 1;
+int writeMemory (std::string inst, uint64_t address) {
+  data = Y86Loader::getByte(inst.substr(i, 2));
+  return 1;
 }
 
 bool readFile (std::ifstream infile) {
@@ -70,20 +64,19 @@ bool readFile (std::ifstream infile) {
     uint64_t address = -1;
     int byteNum = 0;
     while (infile) {
-        infile.getline(line, 28, '|');
-        if (Y86Loader::checkLine(line) && Y86Loader::hasValidAddress(line) && Y86Loader::hasData(line)) {
-            address = Y86Loader::getAddress(line);
-            byteNum = Y86Loader::hasValidData(line);
-            if (byteNum > 0) {
-                int err = writeMemory(line, address);
-                if (err == 1) {
-                  return true;
-                }
-                else {
-                  return false;
-                }
-            }
+      infile.getline(line, 28, '|');
+      if (Y86Loader::checkLine(line) && Y86Loader::hasValidAddress(line) && Y86Loader::hasData(line)) {  
+        address = Y86Loader::getAddress(line);
+        byteNum = Y86Loader::hasValidData(line);
+        if (byteNum > 0) {
+          int err = writeMemory(line, address);
+          if (!err) {
+            return true;
+          } else {
+            return false;
+          }
         }
+      }
         
     }
     return false;

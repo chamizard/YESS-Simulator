@@ -25,7 +25,7 @@ class Y86 {
     /* Private member functions */
 	bool 		readFile		(std::ifstream& infile);
 	int 		writeMemory		(std::string inst, uint64_t address);
-    void 		getLine			(uint64_t *, uint64_t);
+    void 		getLine			(uint64_t * line, uint64_t address);
 	
 	std::string getFlagsString	(void); // in Y86trace.cpp
 	
