@@ -107,6 +107,9 @@ int main(int argc, char *argv[])
     bool testCheckHex5 = checkHex("0x038: 30f7180000000000000  |", 7, 27);
     cout << "Test 5: " << testCheckHex5 << '\n';
 
+    bool testCheckHex6 = checkHex("0x038: 30f7180000000000000  |", 7, 8);
+    cout << "Test 6: " << testCheckHex6 << '\n';
+
     // Tests for storeData
     cout << "Testing storeData:" << '\n';
 

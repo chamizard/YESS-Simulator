@@ -37,9 +37,9 @@ namespace Y86Loader {
 
     bool checkHex(std::string input, int start, int end);
 
-    bool storeData(std::string input, int numBytes);
+    bool storeData(std::string input, int numBytes, Memory mem);
 
-    bool storeByte(std::string input, uint64_t byteAddress);
+    bool storeByte(std::string input, uint64_t byteAddress, Memory mem);
     
 
 };

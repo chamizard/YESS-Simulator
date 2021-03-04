@@ -17,10 +17,9 @@ namespace Y86Loader
 /*
     returns if file is of valid type
 */
-bool isValidFileName(std::string filename)  
+static bool isValidFileName(std::string filename)  
 {
-
-return filename.find(".yo") > 0;
+    return filename.find(".yo") > 0;
 }
 
 /*
@@ -58,6 +57,7 @@ bool isCommentLine(std::string line)
 
 
 }
+
 /*
     returns if line is blank
 */
@@ -98,10 +98,6 @@ bool checkHex(std::string input, int start, int end)
     }
     return true;
 }
-
-
-
-
 
 /*
     takes as input a data record and returns the address in that line
@@ -177,35 +173,61 @@ bool hasData(std::string line) {
 }
 
 /*
-    TODO: Fix for odd amount of data
     returns zero if data is invalid, returns the number of data bytes if valid
 */
 uint64_t hasValidData(std::string line) {
+    uint64_t numBytes = 0;
+
     if (hasData(line)) {
-        if (checkHex(line, 7, 27)) {
-            return 10;
-        } else if (checkHex(line, 7, 25)) {
-            return 9;
-        } else if (checkHex(line, 7, 12)) {
-            return 2;
-        } else  if (checkHex(line, 7, 9)) {
-            return 1;
+        for (int i = 7; i < 27; i++) {
+            if (line[i] != ' ') {
+                numBytes++;
+            }
         }
     }
-    return 0;
+    if (numBytes % 2 == 1) {
+        numBytes = 0;
+        //std::cout << "Error on line " << '\n';
+        //std::cout << line << '\n';
+    }
+    return numBytes / 2;
 }
-/*
 
+/*
+    takes as input a record and number of data bytes, extracts data and stores in YESS memory.
 */
-bool storeData(std::string input, int numBytes) {
-    return false;
+void storeData(std::string input, int numBytes) {
+    //uint64_t data = 0;
+    //for (int i = 27)
 }
 
 /*
-
+    takes a string representation of two hex characters and a byte address, 
+    converts the string to a byte and stores the byte at the specified address.
 */
-bool storeByte(std::string input, uint64_t byteAddress) {
-    return false;
+void storeByte(std::string input, uint64_t byteAddress) {
+    uint64_t byteVal = 0;
+
+     if (input[0] >= 48 && input[0] <= 57) {
+        byteVal += (input[0] - 48);
+        byteVal <<= 4;
+        if (input[1] >= 48 && input[1] <= 57) {
+            byteVal += (input[1] - 48);
+        } else {
+            byteVal += (input[1] - 87);
+        }
+    } else {
+        byteVal += (input[0] - 87);
+        byteVal <<= 4;
+        if (input[1] >= 48 && input[1] <= 57) {
+            byteVal += (input[1] - 48);
+        } else {
+            byteVal += (input[1] - 87);
+        }
+    }
+    
+
+
 }
 
 } // end namespace Y86Loader
