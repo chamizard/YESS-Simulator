@@ -6,6 +6,8 @@
 */
 #include <cstdint>
 #include "Y86.h"
+#include "Y86Loader.cpp"
+#include <fstream>
 
 
 /*-------------------------------------------------------------------------
@@ -45,7 +47,7 @@ void  Y86::clockP1()
 
 bool Y86::load(char *fname) {
   if (Y86Loader::isValidFileName(fname)) {
-    ifstream file{fname};
+    std::ifstream file{fname};
     readFile(file);
   }
 
