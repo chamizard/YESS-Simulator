@@ -112,9 +112,29 @@ int main(int argc, char *argv[])
 
     // Tests for storeData
     cout << "Testing storeData:" << '\n';
-
+    /*
+    uint64_t* testStoreData1 = storeData("0x038: 30f7180000000000000  |", 10);
+    cout << "Test 1: " << '\n';
+    for (int i = 0; i < 10; i++) {
+        cout << &testStoreData1[i] << '\n';
+    }
+    cout << "Test 1: " << testStoreData1 << '\n';
+    */
+    
     // Tests for storeByte
     cout << "Testing storeByte:" << '\n';
+
+    uint64_t testStoreByte1 = storeByte("01");
+    cout << "Test 1: " << testStoreByte1 << '\n';
+
+    uint64_t testStoreByte2 = storeByte("ab");
+    cout << "Test 2: " << testStoreByte2 << '\n';
+
+    uint64_t testStoreByte3 = storeByte("2f");
+    cout << "Test 3: " << testStoreByte3 << '\n';
+
+    uint64_t testStoreByte4 = storeByte("08");
+    cout << "Test 4: " << testStoreByte4 << '\n';
 
 }
 

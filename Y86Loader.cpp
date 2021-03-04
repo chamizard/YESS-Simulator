@@ -22,15 +22,6 @@ static bool isValidFileName(std::string filename)
     return filename.find(".yo") > 0;
 }
 
-/*
-
-*/
-void readFile(std::ifstream infile) {
-    while (infile) {
-        // read file
-        
-    }
-}
 
 /*
     returns true if line has a valid address field
@@ -194,18 +185,10 @@ uint64_t hasValidData(std::string line) {
 }
 
 /*
-    takes as input a record and number of data bytes, extracts data and stores in YESS memory.
-*/
-void storeData(std::string input, int numBytes) {
-    //uint64_t data = 0;
-    //for (int i = 27)
-}
-
-/*
     takes a string representation of two hex characters and a byte address, 
     converts the string to a byte and stores the byte at the specified address.
 */
-void storeByte(std::string input, uint64_t byteAddress) {
+uint64_t getByte(std::string input) {
     uint64_t byteVal = 0;
 
      if (input[0] >= 48 && input[0] <= 57) {
@@ -225,9 +208,22 @@ void storeByte(std::string input, uint64_t byteAddress) {
             byteVal += (input[1] - 87);
         }
     }
+    return byteVal;
+}
+
+/*
+    takes as input a record and number of data bytes, extracts data and stores in YESS memory.
+*/
+uint64_t* storeData(std::string input, int numBytes) {
     
-
-
+    uint64_t *data = new uint64_t[numBytes];
+    //uint64_t *ptr = new uint64_t[numBytes];
+    int dataIndex = 0;
+    for (int i = 25; i > 7; i -= 2) {
+        data[dataIndex] = storeByte(input.substr(i, 2));
+        dataIndex++;
+    }
+    return data;
 }
 
 } // end namespace Y86Loader
