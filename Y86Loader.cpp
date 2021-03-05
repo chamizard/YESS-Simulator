@@ -23,7 +23,7 @@ bool checkLine(std::string line);
 
 bool hasValidAddress(std::string line);
 
-bool hasComment(std::string line);
+bool isCommentLine(std::string line);
 
 bool isBlankLine(std::string line);
 
@@ -74,10 +74,12 @@ bool hasValidAddress(std::string line) {
 /*
     returns if line is a comment
 */
-bool hasComment(std::string line) 
+bool isCommentLine(std::string line) 
 {
-    if (line[28] == '|' || line[29] == '|') {
-       return true;
+    if (!hasData(line) && !isBlankLine(line)) {
+        if (line[28] == '|' || line[29] == '|') {
+            return true;
+        }
     }
     return false;
 }
@@ -87,32 +89,28 @@ bool hasComment(std::string line)
 */
 bool isBlankLine(std:: string line) 
 {
-    if (hasValidData(line) == 0) {
-        if (!hasValidAddress(line)) {
-            if (!hasComment(line)) {
-                return true;
-            }
-        }
-    }
-    /*
-    int addrEnd;
-    for (int i = 0; i < 7; i++) {
-        if (line[i] == ':') {
-            addrEnd = i;
-            break;
-        }
-    }
-    if(!hasData(line) && !hasComment(line) && hasSpaces(line, 0, addrEnd));
-    {
+    if (line == "") {
         return true;
-    }*/
+    }
     return false;
 }
 
 
 bool checkLine(std::string line) {
-    if (hasValidAddress(line) && !hasComment(line) && !isBlankLine(line)) {
-        return true;
+    if (hasValidAddress(line) && hasValidData(line) != 0) {
+        int numHexChar = 0;
+        for (int i = 2; i < 7; i++) {
+            if (line[i] != ':') {
+                numHexChar++;
+            }
+            if (line[i] == ':') {
+                break;
+            }
+        }
+        //std::cout << "HEXCHARS: " << numHexChar << '\n';
+        if ((line[28] == '|' && numHexChar == 3) || (line[29] == '|' && numHexChar == 4)) {
+            return true;
+        }
     }
     return false;
 }
@@ -211,17 +209,21 @@ bool hasData(std::string line) {
 }
 
 /*
+    TODO: Check for valid hex in data
     returns zero if data is invalid, returns the number of data bytes if valid
 */
 uint64_t hasValidData(std::string line) {
     uint64_t numBytes = 0;
-
+    
     if (hasData(line)) {
         for (int i = 7; i < 27; i++) {
             if (line[i] != ' ') {
                 numBytes++;
             }
         }
+    }
+    if (!checkHex(line, 7, 7+numBytes)) {
+        numBytes = 0;
     }
     if (numBytes % 2 == 1) {
         numBytes = 0;
@@ -262,15 +264,18 @@ bool Y86::load(char *fname) {
     while (file) {
         std::getline(file, line);
         
-        std::cout << line << '\n';
+        //std::cout << line << '\n';
          
-        std::cout << "Line has Data: " << hasData(line) << '\n';
-        std::cout << "Line has Valid Data: " << hasValidData(line) << '\n';
-        std::cout << "Line has Valid Address: " << hasValidAddress(line) << '\n';
-        std::cout << "Checkline: " << checkLine(line) << '\n';
-        std::cout << "Comment Line: " << hasComment(line) << '\n';
-        std::cout << "Blank Line: " << isBlankLine(line) << '\n';
-        if (hasData(line) && hasValidAddress(line)) {  
+        //std::cout << "Line has Data: " << hasData(line) << '\n';
+        //std::cout << "Line has Valid Data: " << hasValidData(line) << '\n';
+        //std::cout << "Line has Valid Address: " << hasValidAddress(line) << '\n';
+        //std::cout << "Checkline: " << checkLine(line) << '\n';
+        //std::cout << "Comment Line: " << isCommentLine(line) << '\n';
+        //std::cout << "Blank Line: " << isBlankLine(line) << '\n';
+        
+        // hasData(line) && hasValidAddress(line)
+
+        if (checkLine(line)) {  
             address = getAddress(line);
             //std::cout << "Line has Address: " << getAddress(line) << '\n';
             byteNum = hasValidData(line);
@@ -282,13 +287,16 @@ bool Y86::load(char *fname) {
                 }
             } else {
                 std::cout << "Error on line " << lineCount << '\n';
-                break;
+                return false;
             }
         } else {
-            if (!hasComment(line)) {
+            
+            if (!isCommentLine(line) && !isBlankLine(line)) {
                 std::cout << "Error on line " << lineCount << '\n';
-                break;
+                return false;
             }
+            //std::cout << "Error on line " << lineCount << '\n';
+            //return false;
         }
         //std::cout << line << '\n';
         //std::cout << "LINE #: " << lineCount << '\n';
