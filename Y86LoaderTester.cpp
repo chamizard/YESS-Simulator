@@ -3,11 +3,10 @@
 #include <iomanip>  // additional formatting for cout
 #include <cstdint>  // standard int types like uint64_t 
 #include <stdio.h> // in case you want to use printf
-#include "Y86Loader.h" // Y86Loader function declarations
 
 
-using namespace std;
-using namespace Y86Loader;  
+
+using namespace std;  
 
 int main(int argc, char *argv[])
 {
@@ -121,20 +120,20 @@ int main(int argc, char *argv[])
     cout << "Test 1: " << testStoreData1 << '\n';
     */
     
-    // Tests for storeByte
-    cout << "Testing storeByte:" << '\n';
+    // Tests for getByte
+    cout << "Testing getByte:" << '\n';
 
-    uint64_t testStoreByte1 = storeByte("01");
-    cout << "Test 1: " << testStoreByte1 << '\n';
+    uint64_t testGetByte1 = getByte("01");
+    cout << "Test 1: " << testGetByte1 << '\n';
 
-    uint64_t testStoreByte2 = storeByte("ab");
-    cout << "Test 2: " << testStoreByte2 << '\n';
+    uint64_t testGetByte2 = getByte("ab");
+    cout << "Test 2: " << testGetByte2 << '\n';
 
-    uint64_t testStoreByte3 = storeByte("2f");
-    cout << "Test 3: " << testStoreByte3 << '\n';
+    uint64_t testGetByte3 = getByte("2f");
+    cout << "Test 3: " << testGetByte3 << '\n';
 
-    uint64_t testStoreByte4 = storeByte("08");
-    cout << "Test 4: " << testStoreByte4 << '\n';
+    uint64_t testGetByte4 = getByte("08");
+    cout << "Test 4: " << testGetByte4 << '\n';
 
 }
 

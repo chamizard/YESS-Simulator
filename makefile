@@ -29,11 +29,11 @@ Tools.o: Tools.cpp Tools.h
 
 Y86.o: Y86.cpp Y86.h
 
-Y86Loader.o: Y86Loader.cpp
+Y86Loader.o: Y86Loader.cpp Y86.h Sim.h
 
 Y86trace.o: Sim.h Y86.h Y86trace.cpp
 
-Y86LoaderTester: Y86LoaderTester.cpp
+Y86LoaderTester: Y86LoaderTester.cpp Y86.h
 
 # clean target
 # Remeber, you don't want to delete your testSim.o file

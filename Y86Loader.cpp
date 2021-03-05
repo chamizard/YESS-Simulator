@@ -10,9 +10,34 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include "Y86.h"
+#include "Sim.h"
 
-namespace Y86Loader 
-{
+// Prototypes
+
+bool isValidFileName(std::string input);
+
+void readFile(std::ifstream& infile);
+
+bool checkLine(std::string line);
+
+bool hasValidAddress(std::string line);
+
+bool isCommentLine(std::string line);
+
+bool isBlankLine(std::string line);
+
+bool hasData(std::string line);
+
+uint64_t hasValidData(std::string line);
+
+uint64_t getAddress(std::string input);
+
+bool hasSpaces(std::string input, int start, int end);
+
+bool checkHex(std::string input, int start, int end);
+
+// Functions
 
 /*
     returns if file is of valid type
@@ -32,7 +57,7 @@ bool hasValidAddress(std::string line) {
     {
         return true;
     }
-   
+    return false;
 }
 
 /*
@@ -44,9 +69,7 @@ bool isCommentLine(std::string line)
     {
         return true;
     }
-
-
-
+    return false;
 }
 
 /*
@@ -54,17 +77,16 @@ bool isCommentLine(std::string line)
 */
 bool isBlankLine(std:: string line) 
 {
-   
     if(line == "");
     {
         return true;
     }
-    
+    return false;
 }
 
 
 bool checkLine(std::string line) {
-    if (hasValidAddress(line) || isCommentLine(line) || isBlankLine(line)) {
+    if (hasValidAddress(line) && !isCommentLine(line) && !isBlankLine(line)) {
         return true;
     }
     return false;
@@ -184,46 +206,48 @@ uint64_t hasValidData(std::string line) {
     return numBytes / 2;
 }
 
-/*
-    takes a string representation of two hex characters and a byte address, 
-    converts the string to a byte and stores the byte at the specified address.
-*/
-uint64_t getByte(std::string input) {
-    uint64_t byteVal = 0;
-
-     if (input[0] >= 48 && input[0] <= 57) {
-        byteVal += (input[0] - 48);
-        byteVal <<= 4;
-        if (input[1] >= 48 && input[1] <= 57) {
-            byteVal += (input[1] - 48);
-        } else {
-            byteVal += (input[1] - 87);
-        }
-    } else {
-        byteVal += (input[0] - 87);
-        byteVal <<= 4;
-        if (input[1] >= 48 && input[1] <= 57) {
-            byteVal += (input[1] - 48);
-        } else {
-            byteVal += (input[1] - 87);
-        }
-    }
-    return byteVal;
-}
-
-/*
-    takes as input a record and number of data bytes, extracts data and stores in YESS memory.
-*/
-uint64_t* storeData(std::string input, int numBytes) {
+void readFile (std::ifstream& infile) {
     
-    uint64_t *data = new uint64_t[numBytes];
-    //uint64_t *ptr = new uint64_t[numBytes];
-    int dataIndex = 0;
-    for (int i = 25; i > 7; i -= 2) {
-        data[dataIndex] = getByte(input.substr(i, 2));
-        dataIndex++;
+    
+    std::string line;
+    uint64_t address = -1;
+    int byteNum = 0;
+    while (infile) {
+      std::getline(infile, line);
+      if (checkLine(line) && hasValidAddress(line) && hasData(line)) {  
+        address = getAddress(line);
+        byteNum = hasValidData(line);
+        if (byteNum > 0) {
+          //int err = Y86::writeMemory(line, byteNum, address);
+        }
+      }
+        
     }
-    return data;
 }
 
-} // end namespace Y86Loader
+bool Y86::load(char *fname) {
+  if (isValidFileName(fname)) {
+    std::ifstream file;
+    file.open(fname, std::ifstream::in);
+    //readFile(file);
+    std::string line;
+    uint64_t address = -1;
+    int byteNum = 0;
+    while (file) {
+        std::getline(file, line);
+        //std::cout << line << '\n';
+        // checkLine(line) && hasValidAddress(line) && 
+        if (hasData(line)) {  
+            address = getAddress(line);
+            byteNum = hasValidData(line);
+        }
+        if (byteNum > 0) {
+            int err = Y86::writeMemory(line, byteNum, address);
+            if (err == 1) {
+                return true;
+            }
+        }
+    }
+  }
+  return false;
+}
