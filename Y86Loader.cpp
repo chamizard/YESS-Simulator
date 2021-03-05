@@ -65,7 +65,7 @@ bool hasValidAddress(std::string line) {
 */
 bool isCommentLine(std::string line) 
 {
-    if(line [0] == '/');
+    if(hasSpaces(line, 7, 27) && !hasValidAddress(line));
     {
         return true;
     }
@@ -77,7 +77,14 @@ bool isCommentLine(std::string line)
 */
 bool isBlankLine(std:: string line) 
 {
-    if(line == "");
+    int addrEnd;
+    for (int i = 0; i < 7; i++) {
+        if (line[i] == ':') {
+            addrEnd = i;
+            break;
+        }
+    }
+    if(!hasData(line) && !isCommentLine(line) && hasSpaces(line, 0, addrEnd));
     {
         return true;
     }
@@ -236,18 +243,24 @@ bool Y86::load(char *fname) {
     while (file) {
         std::getline(file, line);
         //std::cout << line << '\n';
-        // checkLine(line) && hasValidAddress(line) && 
-        if (hasData(line)) {  
+         
+        //std::cout << "Line has Data: " << hasData(line) << '\n';
+        //std::cout << "Line has Valid Address: " << hasValidAddress(line) << '\n';
+        //std::cout << "Checkline: " << checkLine(line) << '\n';
+        if (hasData(line) && hasValidAddress(line)) {  
             address = getAddress(line);
+            //std::cout << "Line has Address: " << getAddress(line) << '\n';
             byteNum = hasValidData(line);
-        }
-        if (byteNum > 0) {
-            int err = Y86::writeMemory(line, byteNum, address);
-            if (err == 1) {
-                return true;
+            //std::cout << "Line has # bytes: " << hasValidData(line) << '\n';
+            if (byteNum > 0) {
+                int err = Y86::writeMemory(line.substr(7, 26), byteNum, address);
+                if (err == 0) {
+                    return false;
+                }
             }
         }
+        
     }
   }
-  return false;
+  return true;
 }
