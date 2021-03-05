@@ -8,9 +8,7 @@
 #include <fstream>
 #include <cstdint>
 #include "Y86.h"
-#include "Y86Loader.cpp"
-#include <fstream>
-#include "Y86Loader.h"
+#include <stdint.h>
 
 
 /*-------------------------------------------------------------------------
@@ -48,59 +46,58 @@ void  Y86::clockP1()
 	return;  // nothing for now (Lab 4)
 }
 
-bool Y86::load(char *fname) {
-  if (Y86Loader::isValidFileName(fname)) {
-    std::ifstream file (fname, std::ifstream::in);
-    readFile(file);
-  }
-  return true;
-}
-
-int Y86::writeMemory (std::string inst, uint64_t address) 
-{
-    int dataIndex = 0;
-    uint64_t data = 0;
-    for (int i = 25; i > 7; i -= 2) 
-    {
-        data = Y86Loader::getByte(inst.substr(i, 2));
-        memory.putByte(address, data);
-        dataIndex++;
+/*
+  inst = substring of instruction, address = address of instuction
+*/
+int Y86::writeMemory (std::string inst, int numBytes, uint64_t address) {
+  uint64_t newAddr = address;
+  for (int i = 0; i < numBytes; i += 2) {
+      memory.putByte(Y86::getByte(inst.substr(i, 2)), newAddr);
+      newAddr += 2;
     }
-    return 1;
-}
-
-bool readFile (std::ifstream infile) 
-{
-    char* line;
-    uint64_t address = -1;
-    int byteNum = 0;
-    while (infile) 
-    {
-        infile.getline(line, 28, '|');
-        if (Y86Loader::checkLine(line) && Y86Loader::hasValidAddress(line) && Y86Loader::hasData(line)) 
-        {
-            address = Y86Loader::getAddress(line);
-            byteNum = Y86Loader::hasValidData(line);
-            if (byteNum > 0) 
-            {
-                int err = Y86::writeMemory(line, address);
-                if (err == 1) 
-                {
-                  return true;
-                }
-                else 
-                {
-                  return false;
-                }
-            }
-        }
-        
+    if (memory.isError()) {
+      return 0;
     }
-    return false;
+  return 1;
 }
-
-
 
 void getLine (uint64_t *, uint64_t) {
 
 }
+
+/*
+    TODO: Fix
+    takes a string representation of two hex characters and a byte address, 
+    converts the string to a byte and stores the byte at the specified address.
+*/
+uint64_t Y86::getByte(std::string input) {
+    uint64_t byteVal = 0;
+
+     if (input[0] >= 48 && input[0] <= 57) {
+        byteVal += (input[0] - 48);
+        byteVal <<= 4;
+        if (input[1] >= 48 && input[1] <= 57) {
+            byteVal += (input[1] - 48);
+        } else {
+            byteVal += (input[1] - 87);
+        }
+    } else {
+        byteVal += (input[0] - 87);
+        byteVal <<= 4;
+        if (input[1] >= 48 && input[1] <= 57) {
+            byteVal += (input[1] - 48);
+        } else {
+            byteVal += (input[1] - 87);
+        }
+    }
+    return byteVal;
+}
+
+/*
+    takes as input a record and number of data bytes, extracts data and stores in YESS memory.
+*/
+/*void storeData(std::string input, int numBytes, uint64_t address) {
+    for (int i = 0; i < numBytes; i += 2) {
+      Y86::getByte(input.substr(i, 2));
+    }
+}*/
