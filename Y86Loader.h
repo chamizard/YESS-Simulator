@@ -12,6 +12,7 @@
 #include <iostream>
 #include <cstdint>
 #include <string>
+#include "Memory.h"
 
 namespace Y86Loader {
 	
@@ -37,9 +38,9 @@ namespace Y86Loader {
 
     bool checkHex(std::string input, int start, int end);
 
-    bool storeData(std::string input, int numBytes, Memory mem);
+    uint64_t* storeData(std::string input, int numBytes);
 
-    bool storeByte(std::string input, uint64_t byteAddress, Memory mem);
+    uint64_t getByte(std::string input);
     
 
 };
