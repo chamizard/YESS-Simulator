@@ -23,7 +23,7 @@ bool checkLine(std::string line);
 
 bool hasValidAddress(std::string line);
 
-bool isCommentLine(std::string line);
+bool hasComment(std::string line);
 
 bool isBlankLine(std::string line);
 
@@ -52,10 +52,21 @@ bool isValidFileName(std::string filename)
     returns true if line has a valid address field
 */
 bool hasValidAddress(std::string line) {
-
-    if (line [0] == '0' && line[1] == 'x' )
+    int addrEnd = -1;
+    for (int i = 0; i < 7; i++) {
+        if (line[i] == ':') {
+            addrEnd = i;
+            break;
+        }
+    }
+    if (line[0] == '0' && line[1] == 'x' )
     {
-        return true;
+        if (addrEnd == -1) {
+            return false;
+        }
+        if (checkHex(line, 2, addrEnd)) {
+            return true;
+        }
     }
     return false;
 }
@@ -63,11 +74,10 @@ bool hasValidAddress(std::string line) {
 /*
     returns if line is a comment
 */
-bool isCommentLine(std::string line) 
+bool hasComment(std::string line) 
 {
-    if(hasSpaces(line, 7, 27) && !hasValidAddress(line));
-    {
-        return true;
+    if (line[28] == '|' || line[29] == '|') {
+       return true;
     }
     return false;
 }
@@ -77,6 +87,14 @@ bool isCommentLine(std::string line)
 */
 bool isBlankLine(std:: string line) 
 {
+    if (hasValidData(line) == 0) {
+        if (!hasValidAddress(line)) {
+            if (!hasComment(line)) {
+                return true;
+            }
+        }
+    }
+    /*
     int addrEnd;
     for (int i = 0; i < 7; i++) {
         if (line[i] == ':') {
@@ -84,16 +102,16 @@ bool isBlankLine(std:: string line)
             break;
         }
     }
-    if(!hasData(line) && !isCommentLine(line) && hasSpaces(line, 0, addrEnd));
+    if(!hasData(line) && !hasComment(line) && hasSpaces(line, 0, addrEnd));
     {
         return true;
-    }
+    }*/
     return false;
 }
 
 
 bool checkLine(std::string line) {
-    if (hasValidAddress(line) && !isCommentLine(line) && !isBlankLine(line)) {
+    if (hasValidAddress(line) && !hasComment(line) && !isBlankLine(line)) {
         return true;
     }
     return false;
@@ -239,14 +257,19 @@ bool Y86::load(char *fname) {
     //readFile(file);
     std::string line;
     uint64_t address = -1;
+    int lineCount = 1;
     int byteNum = 0;
     while (file) {
         std::getline(file, line);
-        //std::cout << line << '\n';
+        
+        std::cout << line << '\n';
          
-        //std::cout << "Line has Data: " << hasData(line) << '\n';
-        //std::cout << "Line has Valid Address: " << hasValidAddress(line) << '\n';
-        //std::cout << "Checkline: " << checkLine(line) << '\n';
+        std::cout << "Line has Data: " << hasData(line) << '\n';
+        std::cout << "Line has Valid Data: " << hasValidData(line) << '\n';
+        std::cout << "Line has Valid Address: " << hasValidAddress(line) << '\n';
+        std::cout << "Checkline: " << checkLine(line) << '\n';
+        std::cout << "Comment Line: " << hasComment(line) << '\n';
+        std::cout << "Blank Line: " << isBlankLine(line) << '\n';
         if (hasData(line) && hasValidAddress(line)) {  
             address = getAddress(line);
             //std::cout << "Line has Address: " << getAddress(line) << '\n';
@@ -257,9 +280,19 @@ bool Y86::load(char *fname) {
                 if (err == 0) {
                     return false;
                 }
+            } else {
+                std::cout << "Error on line " << lineCount << '\n';
+                break;
+            }
+        } else {
+            if (!hasComment(line)) {
+                std::cout << "Error on line " << lineCount << '\n';
+                break;
             }
         }
-        
+        //std::cout << line << '\n';
+        //std::cout << "LINE #: " << lineCount << '\n';
+        lineCount++;
     }
   }
   return true;
