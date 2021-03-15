@@ -3,6 +3,7 @@
 #include <iomanip>  // additional formatting for cout
 #include <cstdint>  // standard int types like uint64_t 
 #include <stdio.h> // in case you want to use printf
+#include <stdint.h>
 
 
 

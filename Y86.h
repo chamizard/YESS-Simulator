@@ -13,6 +13,7 @@
 #include <string>
 #include "Memory.h"
 #include "ProgRegisters.h"
+#include <stdint.h>
 
 
 //class PipeStage;  // Forward declare because of PipeStage reference array

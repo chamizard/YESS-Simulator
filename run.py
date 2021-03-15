@@ -3,20 +3,19 @@
 import os
 import sys
 
-files = ['count', 'asumr','error1','error2','error3',
+files = ['error1','error2','error3',
 		 'error4','error5','error6','error7','error8','error9',
-		 'error10','error11','error12']
-testdir = '/u/css/classes/3481/201/lab5/Test/'
-#testdir = '/u/css/manncp/3481/y86-team2/Test/'
+		 'error10','error11','error12','lab6a','lab6b','lab6c']
+testdir = '/u/css/classes/3481/211/lab6/Test/'
 outputdir = 'Test/'
 #---------------------------------------------------------------------
 # The following was used to generate master .dump files
-#
-#efb = '/u/css/classes/3481/171/lab5/efbyess'
+
+#efb = '/u/css/classes/3481/211/lab6/efbyess'
 #os.system('rm -f '+testdir+'*.dump')
 #for fname in files:
-#   input = testdir+fname+".yo"
-#   os.system(efb + ' ' + input + ' > ' +testdir+fname+'.dump')
+#	input = testdir+fname+".yo"
+#	os.system(efb + ' -fdemw ' + input + ' > ' +testdir+fname+'.dump')
 #sys.exit(0)
 #---------------------------------------------------------------------
 
@@ -47,8 +46,8 @@ for fname in files:
 	#remove old dump and problem files
 	os.system('rm -f '+studentoutput+' '+studentproblems)
 	
-	#run student yess on input file
-	os.system('./yess ' + input + ' > ' + studentoutput)
+	#run student yess on input file - trace all stages: -fdemw
+	os.system('./yess -fdemw ' + input + ' > ' + studentoutput)
 	
 	#compare student output with efb output
 	os.system('diff '+ studentoutput + ' ' + efboutput 

@@ -8,6 +8,7 @@
 #include <fstream>
 #include <cstdint>
 #include "Y86.h"
+#include <stdint.h>
 
 
 /*-------------------------------------------------------------------------
