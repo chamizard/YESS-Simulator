@@ -4,176 +4,173 @@
 #include <sstream>
 #include <iomanip>
 #include <map>
+#include <stdio.h>  // for printf
 #include "Sim.h"
 #include "Y86.h"
-
-//////////////////////////////////////////////////
-// The following not used until Lab 6
-//////////////////////////////////////////////////
-// #include "PipeStage.h"  
-// #include "FetchStage.h"
-// #include "DecodeStage.h"
-// #include "ExecuteStage.h"
-// #include "MemoryStage.h"
-// #include "WritebackStage.h"
+#include "PipeStage.h"
+#include "FetchStage.h"
+#include "DecodeStage.h"
+#include "ExecuteStage.h"
+#include "MemoryStage.h"
+#include "WritebackStage.h"
 
 #define	WORDSPERLINE	4
 #define	WORDSIZE		8
 
+#define MAXCYCLES		5000
+
 using namespace std;
 
+
+//-----------------------------------------------------------------
+// regNames array -- to translate reg id to mnemonic
+//-----------------------------------------------------------------
+static const char *regNames[]{
+	"%rax",
+	"%rcx",
+	"%rdx",
+	"%rbx",
+	"%rsp",
+	"%rbp",
+	"%rsi",
+	"%rdi",
+	"%r8",
+	"%r9",
+	"%r10",
+	"%r11",
+	"%r12",
+	"%r13",
+	"%r14",
+	"----"
+};
+#define MAX_ICODE 11
+#define MAX_ALU_OP 3
+#define MAX_COND_OP 6
+static const char *instName[] = {
+	"halt",
+	"nop",
+	"cmovxx",
+	"irmovq",
+	"rmmovq",
+	"mrmovq",
+	"addq",
+	"jxx",
+	"call",
+	"ret",
+	"pushq",
+	"popq",
+	"<bad>"
+};
+static const char *jxx[] = {
+	"jmp",
+	"jle",
+	"jl",
+	"je",
+	"jne",
+	"jge",
+	"jg",
+	"<bad>"
+};
+static const char *aluOp[] = {
+	"addq",
+	"subq",
+	"andq",
+	"xorq",
+	"<bad>"
+};
+static const char *cmovxx[] = {
+	"rrmovq",
+	"cmovle",
+	"cmovl",
+	"cmove",
+	"cmovne",
+	"cmovge",
+	"cmovg",
+	"<bad>"
+};
+static const char *status[] {
+	"BUB",
+	"AOK",
+	"HLT",
+	"ADR",
+	"INS"
+};
+static  uint64_t initregs[NUM_REGISTERS]; // initial reg values
+static  uint64_t initmem[MEMORY_SIZE];   // initial mem state (after load)
+
+/*
 static	uint64_t prevLine[WORDSPERLINE] = {0};
 static	uint64_t currLine[WORDSPERLINE] = {0};
+*/
 
-////////////////////////////////////////////////////////////////////
-/////////////////////// NOT USED UNTIL LAB 6
-////////////////////////////////////////////////////////////////////
-// //-----------------------------------------------------------------
-// // regNames array -- to translate reg id to mnemonic
-// //-----------------------------------------------------------------
-
-// static const char *regNames[]{
-	// "%rax",
-	// "%rcx",
-	// "%rdx",
-	// "%rbx",
-	// "%rsp",
-	// "%rbp",
-	// "%rsi",
-	// "%rdi",
-	// "%r8 ",
-	// "%r9 ",
-	// "%r10",
-	// "%r11",
-	// "%r12",
-	// "%r13",
-	// "%r14",
-	// "----"
-// };
-
-// #define MAX_ICODE 11
-// #define MAX_ALU_OP 3
-// #define MAX_COND_OP 6
-
-// static const char *instName[] = {
-	// "halt  ",
-	// "nop   ",
-	// "cmovxx",
-	// "irmovq",
-	// "rmmovq",
-	// "mrmovq",
-	// "OPq  ",
-	// "jxx   ",
-	// "call  ",
-	// "ret   ",
-	// "pushq ",
-	// "popq  ",
-	// "<bad> "
-// };
-// static const char *jxx[] = {
-	// "jmp   ",
-	// "jle   ",
-	// "jl    ",
-	// "je    ",
-	// "jne   ",
-	// "jge   ",
-	// "jg    ",
-	// "<bad> "
-// };
-// static const char *aluOp[] = {
-	// "addq  ",
-	// "subq  ",
-	// "andq  ",
-	// "xorq  ",
-	// "<bad> "
-// };
-// static const char *cmovxx[] = {
-	// "rrmovq",
-	// "cmovle",
-	// "cmovl ",
-	// "cmove ",
-	// "cmovne",
-	// "cmovge",
-	// "cmovg ",
-	// "<bad> "
-// };
-// static const char *status[] {
-	// "BUB",
-	// "AOK",
-	// "HLT",
-	// "ADR",
-	// "INS"
-// };
-
-
+static	bool	doTrace = false;
 
 //---------------------------------------------------------------
 // Local (static) functions
 //---------------------------------------------------------------
+/*
 static void dumpLine(uint64_t *line, uint64_t address);
 static bool isEqual(uint64_t *line1, uint64_t *line2);
 static void copyLine(uint64_t *dst, uint64_t *src);
-
-
-
-/////////////////////////////////////////////////////////
-////// STAGE TRACE FUNCTIONS NOT USED UNTIL LAB 6
-/////////////////////////////////////////////////////////
-
-
-//static const char *getInst(uint64_t code, uint64_t fun); ///// NOT USED UNTIL LAB 6
-//static const char *getInst(uint64_t);
-
-
-// /*--------------------------------------------------------------------------------------------------
-    // WritebackStage trace function - calls stage trace functions
-// ----------------------------------------------------------------------------------------------------
-// /*
-// void WritebackStage::trace()
-// {
-	// if(!traceEnabled)
-		// return;
-	// const char *wstat = status[stat.getState()];
-	// uint64_t code = icode.getState();
-	// const char *inst = getInst(code);
+*/
+static const char *getInst(uint64_t code, uint64_t fun);
+static const char *getInst(uint64_t);
+/*--------------------------------------------------------------------------------------------------
+    WritebackStage trace function - calls stage trace functions
+----------------------------------------------------------------------------------------------------
+*/
+void WritebackStage::trace()
+{
+	if(!traceEnabled)
+		return;
+	const char *wstat = status[stat.getState()];
+	const char *inst = getInst(icode.getState(),ifun.getState());
 	
 	// cout << " W: stat: " << wstat << ", inst: " << inst    
 						// << ", valE: 0x" << hex << (long)valE.getState()
 						// << ", valM: 0x" << hex << (long)valM.getState()
 						// << ", dstE: " << regNames[dstE.getState()] << ", dstM: " << regNames[dstM.getState()]	
 						// << endl << endl;	
-// }
+	printf("W: instr = %s, valE = 0x%lx, valM = 0x%lx, dstE = %s, dstM = %s, Stat = %s\n",
+		inst,valE.getState(),valM.getState(),
+		regNames[dstE.getState()],regNames[dstM.getState()],wstat);
 
-// /*--------------------------------------------------------------------------------------------------
-    // MemoryStage trace function - calls stage trace functions
-// ----------------------------------------------------------------------------------------------------
-// */
-// void MemoryStage::trace()
-// {
-	// if(!traceEnabled)
-		// return;
-	// const char *mstat = status[stat.getState()];
-	// uint64_t code = icode.getState();
-	// const char *inst = getInst(code);
+	  
+						
+}
+/*--------------------------------------------------------------------------------------------------
+    MemoryStage trace function - calls stage trace functions
+----------------------------------------------------------------------------------------------------
+*/
+void MemoryStage::trace()
+{
+	if(!traceEnabled)
+		return;
+	const char *mstat = status[stat.getState()];
+	const char *inst = getInst(icode.getState(), ifun.getState());
 	
 	// cout << " M: stat: " << mstat << ", inst: " << inst << ", Cnd: " << cnd.getState() << endl
 						// << " M: valE: 0x" << hex << (long)valE.getState()
 						// << ", valA: 0x" << hex << (long)valA.getState()
 						// << ", dstE: " << regNames[dstE.getState()] << ", dstM: " << regNames[dstM.getState()]
-						// << endl;	
-// }
-// /*--------------------------------------------------------------------------------------------------
-    // ExecuteStage trace function - calls stage trace functions
-// ----------------------------------------------------------------------------------------------------
-// */
-// void ExecuteStage::trace()
-// {
-	// if(!traceEnabled)
-		// return;
-	// const char *estat = status[stat.getState()];
-	// uint64_t code = icode.getState();
-	// uint64_t fun = ifun.getState();
-	// const char *inst = getInst(code,fun);
+						// << endl;
+	printf("M: instr = %s, Cnd = %d, valE = 0x%lx, valA = 0x%lx\n   dstE = %s, dstM = %s, Stat = %s\n",
+		inst, cnd.getState(),valE.getState(),valA.getState(),
+		regNames[dstE.getState()],regNames[dstM.getState()], mstat);
+						
+}
+/*--------------------------------------------------------------------------------------------------
+    ExecuteStage trace function - calls stage trace functions
+----------------------------------------------------------------------------------------------------
+*/
+void ExecuteStage::trace()
+{
+	if(!traceEnabled)
+		return;
+	const char *estat = status[stat.getState()];
+	uint64_t code = icode.getState();
+	uint64_t fun = ifun.getState();
+	const char *inst = getInst(code,fun);
 	
 	// cout << " E: stat: " << estat << ", inst: " << inst   
 						// << ", valC: 0x" << hex << (long)valC.getState()
@@ -182,106 +179,111 @@ static void copyLine(uint64_t *dst, uint64_t *src);
 						// << " E: srcA: " << regNames[srcA.getState()] << ", srcB: " << regNames[srcB.getState()]
 						// << ", dstE: " << regNames[dstE.getState()] << ", dstM: " << regNames[dstM.getState()]	
 						// << endl;
-// }
-// /*--------------------------------------------------------------------------------------------------
-    // DecodeStage trace function - calls stage trace functions
-// ----------------------------------------------------------------------------------------------------
-// */
-// void DecodeStage::trace()
-// {
-	// if(!traceEnabled)
-		// return;
-	// // icode:ifun, rA, rB, valC, valP
-	// const char *dstat = status[stat.getState()];
-	// uint64_t code = icode.getState();
-	// uint64_t fun = ifun.getState();
-	// uint64_t regA = rA.getState();
-	// uint64_t regB = rB.getState();
-	// const char *inst = getInst(code,fun);
+
+	printf("E: instr = %s, valC = 0x%lx, valA = 0x%lx, valB = 0x%lx\n   srcA = %s, srcB = %s, dstE = %s, dstM = %s, Stat = %s\n",
+		inst, valC.getState(), valA.getState(), valB.getState(),
+		regNames[srcA.getState()], regNames[srcB.getState()],
+		regNames[dstE.getState()], regNames[dstM.getState()], estat);
+		
+						
+					
+}
+/*--------------------------------------------------------------------------------------------------
+    DecodeStage trace function - calls stage trace functions
+----------------------------------------------------------------------------------------------------
+*/
+void DecodeStage::trace()
+{
+	if(!traceEnabled)
+		return;
+	// icode:ifun, rA, rB, valC, valP
+	const char *dstat = status[stat.getState()];
+	uint64_t code = icode.getState();
+	uint64_t fun = ifun.getState();
+	uint64_t regA = rA.getState();
+	uint64_t regB = rB.getState();
+	const char *inst = getInst(code,fun);
 	
 	// cout << " D: stat: " << dstat << ", inst: " << inst << ", rA: " << regNames[regA] << ", rB: " << regNames[regB] 
 						// << ", valC: 0x" << hex << (long)valC.getState()
 						// << ", valP: 0x" << hex << (long)valP.getState()
 						// << endl;
-// }
-// /*--------------------------------------------------------------------------------------------------
-    // FetchStage trace function - calls stage trace functions
-// ----------------------------------------------------------------------------------------------------
-// */
-// void FetchStage::trace()
-// {
-	// if(!traceEnabled)
-		// return;
-	// cout << " F: predPC = 0x" << setw(4) << setfill('0') << hex << (long)predPC.getState() << endl;
-// }
-// /*--------------------------------------------------------------------------------------------------
-    // setTrace - enables trace options for each stage.
-	           // Trace (display) output is enabled for any stage
-			   // whose corresponding trace parameter is set to 'true'
-// ----------------------------------------------------------------------------------------------------
-// */
-// void Y86::setTrace(bool f, bool d, bool e, bool m, bool w)
-// {
-	// fetchStage.setTrace(f);
-	// decodeStage.setTrace(d);	
-	// executeStage.setTrace(e);	
-	// memoryStage.setTrace(m);	
-	// writebackStage.setTrace(w);
-// }
-// /*--------------------------------------------------------------------------------------------------
-    // Main trace function - calls stage trace functions
-// ----------------------------------------------------------------------------------------------------
-// */
-// void Y86::trace()
-// {
+						
+	printf("D: instr = %s, rA = %s, rB = %s, valC = 0x%lx, valP = 0x%lx, Stat = %s\n",
+		inst, regNames[regA], regNames[regB], valC.getState(), valP.getState(), dstat);
+	
+						
+}
+/*--------------------------------------------------------------------------------------------------
+    FetchStage trace function - calls stage trace functions
+----------------------------------------------------------------------------------------------------
+*/
+void FetchStage::trace()
+{
+	if(!traceEnabled)
+		return;
+//	cout << " F: predPC = 0x" << setw(4) << setfill('0') << hex << (long)predPC.getState() << endl;
+	printf("F: predPC = 0x%lx\n", predPC.getState());
+	
+}
+/*--------------------------------------------------------------------------------------------------
+    setTrace - enables trace options for each stage.
+	           Trace (display) output is enabled for any stage
+			   whose corresponding trace parameter is set to 'true'
+----------------------------------------------------------------------------------------------------
+*/
+void Y86::setTrace(bool f, bool d, bool e, bool m, bool w)
+{
+	
+    // Save initial states of registers and memory
+	for(int i = 0; i < NUM_REGISTERS; i++)
+		initregs[i] = regs.getReg(i);
+	for(int i = 0; i < MEMORY_SIZE; i++)
+		initmem[i] = memory.getWord((uint64_t)(i*8));
+	
+	// Determine if any trace flags set
+	doTrace = f || d || e || m || w;
+	
+	fetchStage.setTrace(f);
+	decodeStage.setTrace(d);	
+	executeStage.setTrace(e);	
+	memoryStage.setTrace(m);	
+	writebackStage.setTrace(w);
+}
+/*--------------------------------------------------------------------------------------------------
+    Main trace function - calls stage trace functions
+----------------------------------------------------------------------------------------------------
+*/
+void Y86::trace()
+{
 		
-	// cout << "Cycle " << cycles << ". " << getFlagsString() << endl;
-	// fetchStage.trace();
-	// decodeStage.trace();
-	// executeStage.trace();
-	// memoryStage.trace();
-	// writebackStage.trace();
-	// cycles++;
-// }
-
-// const char *getInst(uint64_t icode)
-// {
-	// if(icode > MAX_ICODE)
-		// icode = MAX_ICODE+1;
-	// return instName[icode];
-// }
-// const char *getInst(uint64_t code, uint64_t fun)
-// {
-	// if(code == 2){
-		// if(fun > MAX_COND_OP)
-			// fun = MAX_COND_OP+1;
-		// return cmovxx[fun];
-	// }
-	// else if(code == 6){
-		// if(fun > MAX_ALU_OP)
-			// fun = MAX_ALU_OP+1;
-		// return aluOp[fun];
-	// }
-	// else if(code == 7){
-		// if(fun > MAX_COND_OP)
-			// fun = MAX_COND_OP+1;
-		// return jxx[fun];
-	// }
-	// else {
+	if(doTrace) {
+		printf("\nCycle %ld. CC=%s, Stat=%s\n", (long)cycles, (getFlagsString()).c_str(), status[SAOK]);
+		fetchStage.trace();
+		decodeStage.trace();
+		executeStage.trace();
+		memoryStage.trace();
+		writebackStage.trace();
+	}
+	cycles++;
+	if(cycles > MAXCYCLES){
+		cout << "Maximum cycles exceeded--possible infinite loop. Cycles = " << MAXCYCLES << endl;
+		exit(1);
+	}
 		
-		// return getInst(code);
-	// }
-// }
-
+}
 
 void Y86::dumpProcessorRegisters()
 {
+//    printf("Stopped in %d steps at PC = 0x%llx.  Status '%s', CC %s\n",
+//	   cycles-4, , stat_name(e), cc_name(s->cc));
 	cout << "Processor State:" << endl;
-	cout << getFlagsString() << endl << endl;;
+	cout << "Status '" << status[writebackStage.getStat()] << "', CC " << getFlagsString() << endl << endl;;
 	
 }
 void Y86::dumpProgramRegisters()
 {
+/*
 	cout << "Registers:" << endl;
 	cout << "%rax:" << setw(16) << setfill('0') << hex << regs.getReg(RAX) << setfill(' ') << ' ';
 	cout << "%rcx:" << setw(16) << setfill('0') << hex << regs.getReg(RCX) << setfill(' ') << ' ';
@@ -305,16 +307,62 @@ void Y86::dumpProgramRegisters()
 	cout << "%r13:" << setw(16) << setfill('0') << hex << regs.getReg(R13) << setfill(' ') << " ";
 	cout << "%r14:" << setw(16) << setfill('0') << hex << regs.getReg(R14) << setfill(' ');
 	cout << endl << endl;
+*/
+	printf("Changes to registers:\n");
+	for(int i = 0; i < NUM_REGISTERS; i++){
+		if (initregs[i] != regs.getReg(i)){
+			printf("%s:\t0x%.16lx\t0x%.16lx\n",
+			regNames[i], (long)initregs[i], (long)regs.getReg(i));
+		}
+	}
+	printf("\n");
 	
 }
-
-
+const char *getInst(uint64_t icode)
+{
+	if(icode > MAX_ICODE)
+		icode = MAX_ICODE+1;
+	return instName[icode];
+}
+const char *getInst(uint64_t code, uint64_t fun)
+{
+	if(code == 2){
+		if(fun > MAX_COND_OP)
+			fun = MAX_COND_OP+1;
+		return cmovxx[fun];
+	}
+	else if(code == 6){
+		if(fun > MAX_ALU_OP)
+			fun = MAX_ALU_OP+1;
+		return aluOp[fun];
+	}
+	else if(code == 7){
+		if(fun > MAX_COND_OP)
+			fun = MAX_COND_OP+1;
+		return jxx[fun];
+	}
+	else {
+		
+		return getInst(code);
+	}
+}
 string Y86::getFlagsString()
 {
 	stringstream ss;
-	ss << "CC: ZF=" << regs.getCC(ZF) << " SF=" << regs.getCC(SF) << " OF=" << regs.getCC(OF);
+//	ss << "CC: ZF=" << regs.getCC(ZF) << " SF=" << regs.getCC(SF) << " OF=" << regs.getCC(OF);
+	ss << "Z=" << regs.getCC(ZF) << " S=" << regs.getCC(SF) << " O=" << regs.getCC(OF);
 	return ss.str();
 }
+void Y86::dumpMemory()
+{
+	printf("Changes to memory:\n");
+	for(int i = 0; i < MEMORY_SIZE; i++){
+		uint64_t mval = memory.getWord(i*8);
+		if(initmem[i] != mval)
+			printf("0x%.4lx:\t0x%.16lx\t0x%.16lx\n", (long)(i*8), (long)initmem[i], (long)mval);
+	}
+}
+/*
 void Y86::dumpMemory()
 {
 	int address = 0;
@@ -368,4 +416,4 @@ static void copyLine(uint64_t *dst, uint64_t *src)
 {
 	for(int i = 0; i < WORDSPERLINE; i++) dst[i] = src[i];
 }
-
+*/
