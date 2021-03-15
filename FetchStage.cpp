@@ -4,7 +4,7 @@
     Notes:  This is partially implemented. You are to fill in the incomplete methods and study
             the implementation to learn how other stages will be implemented.
     
-    Authors: 
+    Authors: Cameron Mann and Milton Barba
     
     Last update:  Spring 2021
     

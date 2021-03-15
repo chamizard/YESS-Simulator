@@ -68,9 +68,11 @@ int Y86::writeMemory (std::string inst, int numBytes, uint64_t address) {
   return 1;
 }
 
+/*
 void getLine (uint64_t *, uint64_t) {
 
 }
+*/
 
 /*
     TODO: Fix
@@ -99,12 +101,3 @@ uint64_t Y86::getByte(std::string input) {
     }
     return byteVal;
 }
-
-/*
-    takes as input a record and number of data bytes, extracts data and stores in YESS memory.
-*/
-/*void storeData(std::string input, int numBytes, uint64_t address) {
-    for (int i = 0; i < numBytes; i += 2) {
-      Y86::getByte(input.substr(i, 2));
-    }
-}*/

@@ -24,11 +24,8 @@ class Y86 {
     ProgRegisters       regs;
 	
     /* Private member functions */
-	//bool 		readFile		(std::ifstream& infile);
-	//int 		writeMemory		(std::string inst, uint64_t address);
     void 		getLine			(uint64_t * line, uint64_t address);
     uint64_t    getByte         (std::string input);
-    //void        storeData       (std::string input, int numBytes);
 	
 	std::string getFlagsString	(void); // in Y86trace.cpp
 	
