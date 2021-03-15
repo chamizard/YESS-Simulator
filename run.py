@@ -7,6 +7,7 @@ files = ['count', 'asumr','error1','error2','error3',
 		 'error4','error5','error6','error7','error8','error9',
 		 'error10','error11','error12']
 testdir = '/u/css/classes/3481/201/lab5/Test/'
+#testdir = '/u/css/manncp/3481/y86-team2/Test/'
 outputdir = 'Test/'
 #---------------------------------------------------------------------
 # The following was used to generate master .dump files

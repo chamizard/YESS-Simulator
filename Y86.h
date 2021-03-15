@@ -23,7 +23,7 @@ class Y86 {
     ProgRegisters       regs;
 	
     /* Private member functions */
-    //void 		getLine			(uint64_t * line, uint64_t address);
+    void 		getLine			(uint64_t * line, uint64_t address);
     uint64_t    getByte         (std::string input);
 	
 	std::string getFlagsString	(void); // in Y86trace.cpp

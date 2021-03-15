@@ -67,9 +67,11 @@ int Y86::writeMemory (std::string inst, int numBytes, uint64_t address) {
   return 1;
 }
 
+/*
 void getLine (uint64_t *, uint64_t) {
 
 }
+*/
 
 /*
     TODO: Fix
