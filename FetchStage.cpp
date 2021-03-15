@@ -128,7 +128,13 @@ bool FetchStage::getByte0(){
 bool FetchStage::checkInstrValid(){
 
   //TODO:  Your code here
-
+  if (f_icode == INOP || f_icode == IHALT || f_icode == IRRMOVQ || f_icode == IIRMOVQ
+    || f_icode == IRMMOVQ || f_icode == IMRMOVQ || f_icode == IOPX || f_icode == IJXX ||
+    f_icode == ICALL || f_icode == IRET || f_icode == IPUSHQ || f_icode == IPOPQ) {
+      return true;
+    } else {
+      return false;
+    }
 }
 
 /*-----------------------------------------------------------------------------------------------------
@@ -156,9 +162,20 @@ bool FetchStage::checkNeedsValC(){
 bool FetchStage::align(){
 
   // TODO:  your code here
-
-
-  return true;
+  if (needsRegs) {
+    uint64_t byteAddress = f_PC + 1;
+    byte regByte = memory.getByte(regByte);
+    f_rA = (((~regByte) ^ 0xF0) & 0xF0);
+    f_rB = (((~regByte) ^ 0xF) & 0xF);
+  }
+  if (needsValC) {
+    uint64_t valC = memory.getWord(f_PC);
+    f_valC = (((~valC) ^ 0x00FFFFFFFF) & 0x00FFFFFFFF)
+  }
+  if (memory.isError()) {
+    return true;
+  }
+  return false;
 }
 /*-----------------------------------------------------------------------------------------------------
     getPCIncrement - returns the size of the instruction in Fetch stage
