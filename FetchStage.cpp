@@ -127,7 +127,6 @@ bool FetchStage::getByte0(){
 ------------------------------------------------------------------------------*/
 bool FetchStage::checkInstrValid(){
 
-  //TODO:  Your code here
   if (f_icode == INOP || f_icode == IHALT || f_icode == IRRMOVQ || f_icode == IIRMOVQ
     || f_icode == IRMMOVQ || f_icode == IMRMOVQ || f_icode == IOPX || f_icode == IJXX ||
     f_icode == ICALL || f_icode == IRET || f_icode == IPUSHQ || f_icode == IPOPQ) {
@@ -161,7 +160,6 @@ bool FetchStage::checkNeedsValC(){
 -----------------------------------------------------------------------------------------------------*/
 bool FetchStage::align(){
 
-  // TODO:  your code here
   if (needsRegs) {
     uint64_t byteAddress = f_PC + 1;
     byte regByte = memory.getByte(regByte);
@@ -182,7 +180,6 @@ bool FetchStage::align(){
 -----------------------------------------------------------------------------------------------------*/
 int FetchStage::getPCIncrement(){
 
-  // TODO:  your code here
   if (needsRegs && !needsValC) {
     return 2;
   } else if (needsValC) {

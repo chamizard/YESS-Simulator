@@ -18,7 +18,7 @@ class ExecuteStage : public PipeStage
 
     /* Register state */
     Register <uint64_t> E_valC;
-    Register <uint64_t> E_valA;      // 
+    Register <uint64_t> E_valA;
     Register <uint64_t> E_valB;
     Register <uint64_t> E_dstE;
     Register <uint64_t> E_dstM;
@@ -39,7 +39,7 @@ class ExecuteStage : public PipeStage
 	
 	public:
 		void reset(MemoryStage *);
-        void updateERegister();
+        void updateERegister(); // fix params
 
 		/* (Virtual) Functions of superclass */
 		void clockP0();

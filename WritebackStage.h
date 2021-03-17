@@ -30,7 +30,7 @@ class WritebackStage : public PipeStage
 	
 	public:
 		void reset(ProgRegisters *);
-        void updateWRegister();
+        void updateWRegister(); // fix params
 
 		/* (Virtual) Functions of superclass */
 		void clockP0();

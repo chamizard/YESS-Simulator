@@ -14,9 +14,10 @@
     reset- used to connect to other Y86 components
      
 -----------------------------------------------------------------------------*/
-void MemoryStage::reset(WritebackStage *pwriteback)
+void MemoryStage::reset(WritebackStage *pwriteback, Memory *pmemory)
 {
 	writebackStage = pwriteback;
+    memory = pmemory;
 }
 
 /*---------------------------------------------------------------------------

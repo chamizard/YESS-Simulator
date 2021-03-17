@@ -40,7 +40,7 @@ class DecodeStage : public PipeStage
 	
 	public:
 		void reset(ExecuteStage *, ProgRegisters *);
-        void updateDRegister();
+        void updateDRegister(); // fix params
 
 		/* (Virtual) Functions of superclass */
 		void clockP0();

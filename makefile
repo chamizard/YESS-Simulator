@@ -2,7 +2,7 @@ CXX=g++
 CXXFLAGS = -Wall -g -std=c++11
 
 # Put object files in next line
-OBJS = Sim.o Memory.o ProgRegisters.o Tools.o Y86.o Y86Loader.o Y86trace.o
+OBJS = Sim.o Memory.o ProgRegisters.o Tools.o Y86.o Y86Loader.o Y86trace.o FetchStage.o DecodeStage.o ExecuteStage.o MemoryStage.o WritebackStage.o
 
 # The OBJTEST macro is same as 'OBJS' above except replace Sim.o with testSim.o 
 OBJTEST =  testSim.o Memory.o ProgRegisters.o Tools.o Y86.o Y86Loader.o Y86trace.o
@@ -32,6 +32,16 @@ Y86.o: Y86.cpp Y86.h
 Y86Loader.o: Y86Loader.cpp Y86.h Sim.h
 
 Y86trace.o: Sim.h Y86.h Y86trace.cpp
+
+FetchStage.o: FetchStage.cpp FetchStage.h
+
+DecodeStage.o: DecodeStage.cpp DecodeStage.h
+
+ExecuteStage.o: ExecuteStage.cpp ExecuteStage.h
+
+MemoryStage.o: MemoryStage.cpp MemoryStage.h
+
+WritebackStage.o: WritebackStage.cpp WritebackStage.h
 
 Y86LoaderTester: Y86LoaderTester.cpp Y86.h
 
