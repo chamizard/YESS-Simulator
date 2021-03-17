@@ -27,23 +27,31 @@ void Y86::reset()
 {
 	memory.reset();
   regs.reset();
+  stage[0] = &fetchStage;
+  stage[1] = &decodeStage;
+  stage[2] = &executeStage;
+  stage[3] = &memoryStage;
+  stage[4] = &writebackStage;
+  fetchStage.reset(&decodeStage, &memory);
+  decodeStage.reset(&executeStage, &regs);
+  executeStage.reset(&memoryStage);
+  memoryStage.reset(&writebackStage, &memory);
+  writebackStage.reset(&regs);
+  cycles = 0;
 }
 
-/*-------------------------------------------------------------------------
-  clockP0 - calls clock function of ProgRegisters class
-  
----------------------------------------------------------------------------*/
-void  Y86::clockP0()
-{
-  regs.clock();
-}
 /*-------------------------------------------------------------------------
   clockP1 - implements functions that run on second half of clock cycle
   
 ---------------------------------------------------------------------------*/
-void  Y86::clockP1()
+void  Y86::clock()
 {
-	return;  // nothing for now (Lab 4)
+	for (auto& pstage : stage) {
+    pstage->clockP0();
+  }
+  for (auto& pstage : stage) {
+    pstage->clockP1();
+  }
 }
 
 /*
