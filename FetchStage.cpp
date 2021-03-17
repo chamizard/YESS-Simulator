@@ -183,7 +183,13 @@ bool FetchStage::align(){
 int FetchStage::getPCIncrement(){
 
   // TODO:  your code here
-
+  if (needsRegs && !needsValC) {
+    return 2;
+  } else if (needsValC) {
+    return 10;
+  } else if (icode == JXX || icode == ICALL) {
+    return 9;
+  }
   return 1; // This is not correct--depends on needsRegs and needsValC (either 1, 2, 9, or 10)
 }
 /*----------------------------------------------------------------------------
