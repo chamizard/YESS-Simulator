@@ -109,3 +109,15 @@ uint64_t Y86::getByte(std::string input) {
     }
     return byteVal;
 }
+/*
+    Calls the 'getStat' method of the WritebackStage object to retrieve its status. 
+    If the status is either SAOK or SBUB the method returns 0, otherwise 
+    it returns the value received from WritebackStage::getStat.
+*/
+uint64_t Y86::getStat() {
+  uint64_t stat = stage[4]->getStat();
+  if (stat == SAOK || stat == SBUB) {
+    return 0;
+  }
+  return stat;
+}

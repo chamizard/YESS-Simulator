@@ -33,7 +33,7 @@ class MemoryStage : public PipeStage
     uint64_t m_stat;
     uint64_t dmem_error;
 
-	/* Private methods - These are internal to the Decode Stage */
+	/* Private methods - These are internal to the Memory Stage */
        
 	
 	public:

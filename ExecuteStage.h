@@ -34,7 +34,7 @@ class ExecuteStage : public PipeStage
     uint64_t e_dstE;
     uint64_t e_Cnd;
 
-	/* Private methods - These are internal to the Decode Stage */
+	/* Private methods - These are internal to the Execute Stage */
        
 	
 	public:
