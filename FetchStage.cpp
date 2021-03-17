@@ -11,6 +11,7 @@
 */
 #include "Y86.h"
 #include "FetchStage.h"
+#include "Tools.h"
 
 /*---------------------------------------------------------------------------
     reset- used to connect to other Y86 components
@@ -116,7 +117,10 @@ void FetchStage::clockP1()
 */
 bool FetchStage::getByte0(){
    
-   // TODO:  Your code here...
+  f_PC = selectPC();
+
+  f_icode = Tools::getBits(59, 63, f_PC);
+  f_ifun = Tools::getBits(54, 58, f_PC);
 
 
 
@@ -141,7 +145,10 @@ bool FetchStage::checkInstrValid(){
 -----------------------------------------------------------------------------------------------------*/
 bool FetchStage::checkNeedsRegs(){
 
-  // TODO:  Your code here
+  if (f_icode == IRMMOVQ || IOPX || IPUSHQ || IPOPQ || IIRMOVQ || IRMMOVQ || IMRMOVQ);
+  {
+    return true;
+  }
 
 }
 /*-----------------------------------------------------------------------------------------------------
@@ -149,7 +156,10 @@ bool FetchStage::checkNeedsRegs(){
 -----------------------------------------------------------------------------------------------------*/
 bool FetchStage::checkNeedsValC(){
 
-  // TODO:  Your code here
+if (f_icode == IIRMOVQ || IRMMOVQ || IMRMOVQ || IJXX || ICALL)
+{
+  return true;
+}
 
 }
 /*-----------------------------------------------------------------------------------------------------
