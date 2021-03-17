@@ -16,8 +16,12 @@ class WritebackStage : public PipeStage
 {
 
     /* Register state */
+    Register <uint64_t> W_valE;      // 
+    Register <uint64_t> W_valM;
+    Register <uint64_t> W_dstE;
+    Register <uint64_t> W_dstM;
     
-
+    
     /* Pointer to ProgRegisters object */
     ProgRegisters *regs;
 	
@@ -25,7 +29,7 @@ class WritebackStage : public PipeStage
     /* signals produced within the stage - Use names similar to Figure 4.57 p. 448 of text */
     
 
-	/* Private methods - These are internal to the Decode Stage */
+	/* Private methods - These are internal to the Writeback Stage */
        
 	
 	public:
