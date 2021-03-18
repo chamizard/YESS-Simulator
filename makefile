@@ -27,23 +27,23 @@ ProgRegisters.o: ProgRegisters.cpp ProgRegisters.h
 
 Tools.o: Tools.cpp Tools.h
 
-Y86.o: Y86.cpp Y86.h
+Y86.o: Y86.cpp Y86.h FetchStage.h DecodeStage.h ExecuteStage.h MemoryStage.h WritebackStage.h
 
 Y86Loader.o: Y86Loader.cpp Y86.h Sim.h
 
 Y86trace.o: Sim.h Y86.h Y86trace.cpp
 
-FetchStage.o: FetchStage.cpp FetchStage.h
+FetchStage.o: FetchStage.cpp FetchStage.h  DecodeStage.h
 
-DecodeStage.o: DecodeStage.cpp DecodeStage.h
+DecodeStage.o: DecodeStage.cpp DecodeStage.h ExecuteStage.h
 
-ExecuteStage.o: ExecuteStage.cpp ExecuteStage.h
+ExecuteStage.o: ExecuteStage.cpp ExecuteStage.h MemoryStage.h
 
-MemoryStage.o: MemoryStage.cpp MemoryStage.h
+MemoryStage.o: MemoryStage.cpp MemoryStage.h WritebackStage.h
 
 WritebackStage.o: WritebackStage.cpp WritebackStage.h
 
-Y86LoaderTester: Y86LoaderTester.cpp Y86.h
+Y86LoaderTester: Y86LoaderTester.cpp Y86.h 
 
 # clean target
 # Remeber, you don't want to delete your testSim.o file

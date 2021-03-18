@@ -172,15 +172,15 @@ bool FetchStage::align(){
 
   if (needsRegs) {
     uint64_t byteAddress = f_PC + 1;
-    byte regByte = memory.getByte(regByte);
+    byte regByte = memory->getByte(byteAddress);
     f_rA = (((~regByte) ^ 0xF0) & 0xF0);
     f_rB = (((~regByte) ^ 0xF) & 0xF);
   }
   if (needsValC) {
-    uint64_t valC = memory.getWord(f_PC);
-    f_valC = (((~valC) ^ 0x00FFFFFFFF) & 0x00FFFFFFFF)
+    uint64_t valC = memory->getWord(f_PC);
+    f_valC = (((~valC) ^ 0x00FFFFFFFF) & 0x00FFFFFFFF);
   }
-  if (memory.isError()) {
+  if (memory->isError()) {
     return true;
   }
   return false;
@@ -194,7 +194,7 @@ int FetchStage::getPCIncrement(){
     return 2;
   } else if (needsValC) {
     return 10;
-  } else if (icode == JXX || icode == ICALL) {
+  } else if (icode.getState() == IJXX || icode.getState() == ICALL) {
     return 9;
   }
   return 1; // This is not correct--depends on needsRegs and needsValC (either 1, 2, 9, or 10)

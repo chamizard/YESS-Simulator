@@ -17,29 +17,31 @@ class ExecuteStage : public PipeStage
 {
 
     /* Register state */
-    Register <uint64_t> E_valC;
-    Register <uint64_t> E_valA;
-    Register <uint64_t> E_valB;
-    Register <uint64_t> E_dstE;
-    Register <uint64_t> E_dstM;
-    Register <uint64_t> E_srcA;
-    Register <uint64_t> E_srcB;
+    Register <uint64_t> valC;
+    Register <uint64_t> valA;
+    Register <uint64_t> valB;
+    Register <uint64_t> dstE;
+    Register <uint64_t> dstM;
+    Register <uint64_t> srcA;
+    Register <uint64_t> srcB;
+    Register <uint64_t> cnd;
 
     /* Pointer to Memory Stage */
     MemoryStage *memoryStage;
 	
 	
     /* signals produced within the stage - Use names similar to Figure 4.57 p. 448 of text */
-    uint64_t e_valE;
+    uint64_t valE;
     uint64_t e_dstE;
-    uint64_t e_Cnd;
 
 	/* Private methods - These are internal to the Execute Stage */
        
 	
 	public:
 		void reset(MemoryStage *);
-        void updateERegister(); // fix params
+        void updateERegister(uint64_t D_stat, uint64_t D_icode, uint64_t D_ifun, uint64_t D_valC, 
+                                uint64_t d_valA, uint64_t d_valB, uint64_t d_dstE, uint64_t d_dstM, 
+                                uint64_t d_srcA, uint64_t d_srcB);
 
 		/* (Virtual) Functions of superclass */
 		void clockP0();

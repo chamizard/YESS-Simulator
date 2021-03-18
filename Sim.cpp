@@ -44,8 +44,18 @@ int main(int argc, char *argv[])
 
 
     // TODO: Implement your simulator driver code here (see Lab writeup for pseudo-code)	
-
-
+	
+	y86.reset();
+	if (y86.load(new_argv)) {
+		y86.setTrace(f, d, e, m, w);
+		bool stop = false;
+		while (!stop) {
+			y86.clock();
+			y86.trace();
+			stop = y86.getStat();
+		}
+	}
+	
 
 
 
@@ -64,8 +74,28 @@ char * getOptions(int argc, char **argv, bool *f, bool *d, bool *e, bool *m, boo
 {
 	
 	// TODO:  Your code here--uses C library function getopt to get command line switch values
+	int c;
+	while ((c = getopt(argc, argv, "fdemw")) != -1) {
+		switch (c) {
+			case 'f':
+				*f = true;
+				break;
+			case 'd':
+				*d = true;
+				break;
+			case 'e':
+				*e = true;
+				break;
+			case 'm':
+				*m = true;
+				break;
+			case 'w':
+				*w = true;
+				break;
+		}
+	}
 
-	return NULL;  // until you implement it...
+	return argv[optind];  // until you implement it...
 }
 
 void usage(void)

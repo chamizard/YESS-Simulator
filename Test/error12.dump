@@ -1,7 +1,7 @@
 Error on line 17
 0x100g:0800000000000000      | n: 		.quad 8 ***Error: bad hex in address
 Processor State:
-Status 'BUB', CC Z=1 S=0 O=0
+Status 'BUB', CC Z=0 S=0 O=0
 
 Changes to registers:
 

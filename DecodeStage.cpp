@@ -21,10 +21,10 @@ void DecodeStage::reset(ExecuteStage *pexecute, ProgRegisters *pprogreg)
 		stat.reset();               // sets stat to SBUB (0)
         icode.reset(INOP);          // sets icode to INOP (1)
         ifun.reset();               // sets ifun to FNONE (0)
-        D_rA.reset(RNONE);          // Reset the D_rA register to RNONE (15)
-        D_rB.reset(RNONE);          // Reset the D_rB register to RNONE (15)
-        D_valC.reset();             // Reset the D_valC register to 0
-        D_valP.reset();             // Reset the D_valP register to 0
+        rA.reset(RNONE);          // Reset the D_rA register to RNONE (15)
+        rB.reset(RNONE);          // Reset the D_rB register to RNONE (15)
+        valC.reset();             // Reset the D_valC register to 0
+        valP.reset();             // Reset the D_valP register to 0
 }
 
 /*---------------------------------------------------------------------------
@@ -38,10 +38,10 @@ void DecodeStage::clockP0()
     stat.clock();
     icode.clock();
     ifun.clock();
-    D_rA.clock();
-    D_rB.clock();
-    D_valC.clock();
-    D_valP.clock();
+    rA.clock();
+    rB.clock();
+    valC.clock();
+    valP.clock();
 }
 /*---------------------------------------------------------------------------
     clockP1 - (pure virtual from PipeStage)
@@ -49,7 +49,7 @@ void DecodeStage::clockP0()
 -----------------------------------------------------------------------------*/
 void DecodeStage::clockP1()
 {
-    executeStage->updateERegister(stat, icode, ifun, D_valC, d_valA, d_valB, d_dstE, d_dstM, d_srcA, d_srcB);
+    executeStage->updateERegister(stat.getState(), icode.getState(), ifun.getState(), valC.getState(), valA, valB, dstE, dstM, srcA, srcB);
 }
 
 void DecodeStage::updateDRegister(uint64_t f_stat, uint64_t f_icode, uint64_t f_ifun, uint64_t f_rA,
@@ -58,9 +58,9 @@ void DecodeStage::updateDRegister(uint64_t f_stat, uint64_t f_icode, uint64_t f_
     stat.setInput(f_stat);
     icode.setInput(f_icode);
     ifun.setInput(f_ifun);
-    D_rA.setInput(f_rA);
-    D_rB.setInput(f_rB);
-    D_valC.setInput(f_valC);
-    D_valP.setInput(f_valP);
+    rA.setInput(f_rA);
+    rB.setInput(f_rB);
+    valC.setInput(f_valC);
+    valP.setInput(f_valP);
     
 }
