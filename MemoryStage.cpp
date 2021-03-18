@@ -21,7 +21,7 @@ void MemoryStage::reset(WritebackStage *pwriteback, Memory *pmemory)
     stat.reset();
     icode.reset(INOP);
     ifun.reset();
-    Cnd.reset();
+    cnd.reset();
     valE.reset();
     valA.reset();      
     dstE.reset(RNONE);
@@ -38,7 +38,7 @@ void MemoryStage::clockP0()
     stat.clock();
     icode.clock();
     ifun.clock();
-    Cnd.clock();
+    cnd.clock();
     valE.clock();
     valA.clock();      
     dstE.clock();
@@ -50,16 +50,16 @@ void MemoryStage::clockP0()
 -----------------------------------------------------------------------------*/
 void MemoryStage::clockP1()
 {
-    writebackStage->updateWRegister(stat, icode, ifun, M_Cnd, M_valE, M_valA, M_dstE, M_dstM);
+    writebackStage->updateWRegister(stat.getState(), icode.getState(), ifun.getState(), valE.getState(), valA.getState(), dstE.getState(), dstM.getState());
 }
 
 void MemoryStage::updateMRegister(uint64_t E_stat, uint64_t E_icode, uint64_t E_ifun, uint64_t E_Cnd, 
     uint64_t E_valA, uint64_t E_valB, uint64_t E_dstE, uint64_t E_dstM) 
-{ // fix params
+{ 
     stat.setInput(E_stat);
     icode.setInput(E_icode);
     ifun.setInput(E_ifun);
-    Cnd.setInput(E_Cnd);
+    cnd.setInput(E_Cnd);
     valE.setInput(E_valA);
     valA.setInput(E_valB);
     dstE.setInput(E_dstE);

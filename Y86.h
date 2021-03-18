@@ -14,6 +14,11 @@
 #include "Memory.h"
 #include "ProgRegisters.h"
 #include <stdint.h>
+#include "FetchStage.h"
+#include "DecodeStage.h" 
+#include "ExecuteStage.h" 
+#include "MemoryStage.h" 
+#include "WritebackStage.h"
 
 
 //class PipeStage;  // Forward declare because of PipeStage reference array

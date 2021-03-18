@@ -54,7 +54,7 @@ void WritebackStage::clockP1()
 }
 
 void WritebackStage::updateWRegister(uint64_t M_stat, uint64_t M_icode, uint64_t M_ifun, uint64_t M_valE, uint64_t M_valM, uint64_t M_dstE, uint64_t M_dstM) 
-{ // fix params
+{
 
     stat.setInput(M_stat);
     icode.setInput(M_icode);
