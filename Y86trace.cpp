@@ -98,10 +98,11 @@ static const char *status[] {
 static  uint64_t initregs[NUM_REGISTERS]; // initial reg values
 static  uint64_t initmem[MEMORY_SIZE];   // initial mem state (after load)
 
-/*
-static	uint64_t prevLine[WORDSPERLINE] = {0};
-static	uint64_t currLine[WORDSPERLINE] = {0};
-*/
+// Comment out
+
+//static	uint64_t prevLine[WORDSPERLINE] = {0};
+//static	uint64_t currLine[WORDSPERLINE] = {0};
+
 
 static	bool	doTrace = false;
 
@@ -353,6 +354,7 @@ string Y86::getFlagsString()
 	ss << "Z=" << regs.getCC(ZF) << " S=" << regs.getCC(SF) << " O=" << regs.getCC(OF);
 	return ss.str();
 }
+
 void Y86::dumpMemory()
 {
 	printf("Changes to memory:\n");
@@ -362,7 +364,36 @@ void Y86::dumpMemory()
 			printf("0x%.4lx:\t0x%.16lx\t0x%.16lx\n", (long)(i*8), (long)initmem[i], (long)mval);
 	}
 }
+
+
 /*
+void Y86::getLine(uint64_t *line, uint64_t address)
+{
+	for(int i = 0; i < WORDSPERLINE; i++){
+		line[i] = memory.getWord(address);
+		address += WORDSIZE;
+	}
+}
+static void dumpLine(uint64_t *line, uint64_t address)
+{
+	cout << "0x" << setfill('0') << setw(4) << hex << (int)address << ":";
+	for(int i = 0; i < WORDSPERLINE; i++)
+		cout << " " << setw(16) << hex << setfill('0') << (unsigned long)line[i];
+}
+static bool isEqual(uint64_t *line1, uint64_t *line2)
+{
+	for(int i = 0; i < WORDSPERLINE; i++){
+		if(line1[i] != line2[i])
+			return false;
+	}
+	return true;
+}
+
+static void copyLine(uint64_t *dst, uint64_t *src)
+{
+	for(int i = 0; i < WORDSPERLINE; i++) dst[i] = src[i];
+}
+
 void Y86::dumpMemory()
 {
 	int address = 0;
@@ -389,31 +420,5 @@ void Y86::dumpMemory()
 		copyLine(prevLine,currLine);
 	}
 	cout << endl << endl;
-}
-void Y86::getLine(uint64_t *line, uint64_t address)
-{
-	for(int i = 0; i < WORDSPERLINE; i++){
-		line[i] = memory.getWord(address);
-		address += WORDSIZE;
-	}
-}
-static void dumpLine(uint64_t *line, uint64_t address)
-{
-	cout << "0x" << setfill('0') << setw(4) << hex << (int)address << ":";
-	for(int i = 0; i < WORDSPERLINE; i++)
-		cout << " " << setw(16) << hex << setfill('0') << (unsigned long)line[i];
-}
-static bool isEqual(uint64_t *line1, uint64_t *line2)
-{
-	for(int i = 0; i < WORDSPERLINE; i++){
-		if(line1[i] != line2[i])
-			return false;
-	}
-	return true;
-}
-
-static void copyLine(uint64_t *dst, uint64_t *src)
-{
-	for(int i = 0; i < WORDSPERLINE; i++) dst[i] = src[i];
 }
 */
