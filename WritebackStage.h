@@ -16,10 +16,10 @@ class WritebackStage : public PipeStage
 {
 
     /* Register state */
-    Register <uint64_t> W_valE;      // 
-    Register <uint64_t> W_valM;
-    Register <uint64_t> W_dstE;
-    Register <uint64_t> W_dstM;
+    Register <uint64_t> valE;      // 
+    Register <uint64_t> valM;
+    Register <uint64_t> dstE;
+    Register <uint64_t> dstM;
     
     
     /* Pointer to ProgRegisters object */

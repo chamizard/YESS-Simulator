@@ -17,11 +17,11 @@ class MemoryStage : public PipeStage
 {
 
     /* Register state */
-    Register <uint64_t> M_Cnd;
-    Register <uint64_t> M_valE;
-    Register <uint64_t> M_valA;
-    Register <uint64_t> M_dstE;
-    Register <uint64_t> M_dstM;
+    Register <uint64_t> Cnd;
+    Register <uint64_t> valE;
+    Register <uint64_t> valA;
+    Register <uint64_t> dstE;
+    Register <uint64_t> dstM;
 
     /* Pointer to Writeback Stage and Memory object */
     WritebackStage *writebackStage;

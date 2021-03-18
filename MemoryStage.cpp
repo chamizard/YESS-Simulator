@@ -21,11 +21,11 @@ void MemoryStage::reset(WritebackStage *pwriteback, Memory *pmemory)
     stat.reset();
     icode.reset(INOP);
     ifun.reset();
-    M_Cnd.reset();
-    M_valE.reset();
-    M_valA.reset();      
-    M_dstE.reset(RNONE);
-    M_dstM.reset(RNONE);    
+    Cnd.reset();
+    valE.reset();
+    valA.reset();      
+    dstE.reset(RNONE);
+    dstM.reset(RNONE);    
 }
 
 /*---------------------------------------------------------------------------
@@ -38,11 +38,11 @@ void MemoryStage::clockP0()
     stat.clock();
     icode.clock();
     ifun.clock();
-    M_Cnd.clock();
-    M_valE.clock();
-    M_valA.clock();      
-    M_dstE.clock();
-    M_dstM.clock();    
+    Cnd.clock();
+    valE.clock();
+    valA.clock();      
+    dstE.clock();
+    dstM.clock();    
 }
 /*---------------------------------------------------------------------------
     clockP1 - (pure virtual from PipeStage)
@@ -59,11 +59,11 @@ void MemoryStage::updateMRegister(uint64_t E_stat, uint64_t E_icode, uint64_t E_
     stat.setInput(E_stat);
     icode.setInput(E_icode);
     ifun.setInput(E_ifun);
-    M_Cnd.setInput(E_Cnd);
-    M_valE.setInput(E_valA);
-    M_valA.setInput(E_valB);
-    M_dstE.setInput(E_dstE);
-    M_dstM.setInput(E_dstM);
+    Cnd.setInput(E_Cnd);
+    valE.setInput(E_valA);
+    valA.setInput(E_valB);
+    dstE.setInput(E_dstE);
+    dstM.setInput(E_dstM);
 
     
 }
