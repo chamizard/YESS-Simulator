@@ -50,7 +50,7 @@ void MemoryStage::clockP0()
 -----------------------------------------------------------------------------*/
 void MemoryStage::clockP1()
 {
-    writebackStage->updateWRegister(stat, icode, ifun, M_Cnd, M_valE, M_valA, M_dstE, M_dstM);
+    writebackStage->updateWRegister(stat, icode, ifun, Cnd, valE, valA, dstE, dstM);
 }
 
 void MemoryStage::updateMRegister(uint64_t E_stat, uint64_t E_icode, uint64_t E_ifun, uint64_t E_Cnd, 
