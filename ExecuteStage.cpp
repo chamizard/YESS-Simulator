@@ -46,6 +46,7 @@ void ExecuteStage::clockP0()
     dstM.clock();
     srcA.clock();
     srcB.clock();
+    cnd.clock();
     
 }
 /*---------------------------------------------------------------------------
@@ -54,7 +55,7 @@ void ExecuteStage::clockP0()
 -----------------------------------------------------------------------------*/
 void ExecuteStage::clockP1()
 {
-    memoryStage->updateMRegister(stat.getState(), icode.getState(), ifun.getState(), cnd.getState(), valA.getState(), valB.getState(), dstE.getState(), dstM.getState());
+    memoryStage->updateMRegister(stat.getState(), icode.getState(), ifun.getState(), true, valA.getState(), valB.getState(), dstE.getState(), dstM.getState());
 }
 
 void ExecuteStage::updateERegister(uint64_t D_stat, uint64_t D_icode, uint64_t D_ifun, uint64_t D_valC, 
