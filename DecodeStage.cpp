@@ -42,6 +42,13 @@ void DecodeStage::clockP0()
     rB.clock();
     valC.clock();
     valP.clock();
+
+    valA = 0;
+    valB = 0;
+    srcA = RNONE;
+    srcB = RNONE;
+    dstE = RNONE;
+    dstM = RNONE;
 }
 /*---------------------------------------------------------------------------
     clockP1 - (pure virtual from PipeStage)
