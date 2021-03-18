@@ -50,14 +50,13 @@ void  Y86::clockP1()
 */
 int Y86::writeMemory (std::string inst, int numBytes, uint64_t address) {
   uint64_t newAddr = address;
+  //std::cout << '\n';
   //std::cout << "NumBytes: " << numBytes << '\n';
-  if (numBytes == 1) {
-    numBytes += 1;
-  }
   for (int i = 0; i < (numBytes * 2); i += 2) {
     //std::cout << "Byte: " << inst.substr(i, 2) << '\n';
     //std::cout << "Byte val: " << Y86::getByte(inst.substr(i,2)) << '\n';
     //std::cout << "Byte Address: " << newAddr << '\n';
+    //std::cout << '\n';
     memory.putByte(newAddr, Y86::getByte(inst.substr(i, 2)));
     newAddr += 1;
   }

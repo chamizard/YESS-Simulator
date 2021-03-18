@@ -263,7 +263,9 @@ bool Y86::load(char *fname) {
         if (checkLine(line)) {  
 
             address = getAddress(line);
+            //std::cout << "Address: " << address << '\n';
             byteNum = hasValidData(line);
+            //std::cout << "byteNum: " << byteNum << '\n';
 
             if (byteNum > 0) {
                 int err = Y86::writeMemory(line.substr(7, 26), byteNum, address);
