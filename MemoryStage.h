@@ -17,7 +17,7 @@ class MemoryStage : public PipeStage
 {
 
     /* Register state */
-    Register <uint64_t> cnd;
+    Register <bool> cnd;
     Register <uint64_t> valE;
     Register <uint64_t> valA;
     Register <uint64_t> dstE;
@@ -38,8 +38,7 @@ class MemoryStage : public PipeStage
 	
 	public:
 		void reset(WritebackStage *, Memory *);
-        void updateMRegister(uint64_t E_stat, uint64_t E_icode, uint64_t E_ifun, uint64_t E_Cnd, 
-                                uint64_t E_valA, uint64_t E_valB, uint64_t E_dstE, uint64_t E_dstM);
+        void updateMRegister(uint64_t E_stat, uint64_t E_icode, uint64_t E_ifun, bool E_Cnd, uint64_t E_valA, uint64_t E_valB, uint64_t E_dstE, uint64_t E_dstM);
 
 		/* (Virtual) Functions of superclass */
 		void clockP0();

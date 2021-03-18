@@ -53,7 +53,7 @@ void MemoryStage::clockP1()
     writebackStage->updateWRegister(stat.getState(), icode.getState(), ifun.getState(), valE.getState(), valA.getState(), dstE.getState(), dstM.getState());
 }
 
-void MemoryStage::updateMRegister(uint64_t E_stat, uint64_t E_icode, uint64_t E_ifun, uint64_t E_Cnd, 
+void MemoryStage::updateMRegister(uint64_t E_stat, uint64_t E_icode, uint64_t E_ifun, bool E_Cnd, 
     uint64_t E_valA, uint64_t E_valB, uint64_t E_dstE, uint64_t E_dstM) 
 { 
     stat.setInput(E_stat);

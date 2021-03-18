@@ -24,7 +24,7 @@ class ExecuteStage : public PipeStage
     Register <uint64_t> dstM;
     Register <uint64_t> srcA;
     Register <uint64_t> srcB;
-    Register <uint64_t> cnd;
+    Register <bool> cnd;
 
     /* Pointer to Memory Stage */
     MemoryStage *memoryStage;
