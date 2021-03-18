@@ -145,7 +145,7 @@ bool FetchStage::checkInstrValid(){
 -----------------------------------------------------------------------------------------------------*/
 bool FetchStage::checkNeedsRegs(){
 
-  if (f_icode == IRMMOVQ || IOPX || IPUSHQ || IPOPQ || IIRMOVQ || IRMMOVQ || IMRMOVQ);
+  if (f_icode == IRMMOVQ || IOPX || IPUSHQ || IPOPQ || IIRMOVQ || IRMMOVQ || IMRMOVQ)
   {
     return true;
   }
