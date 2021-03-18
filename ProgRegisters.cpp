@@ -67,10 +67,10 @@ void ProgRegisters:: setCC(unsigned bitNumber, unsigned val)
 unsigned ProgRegisters:: getCC(unsigned bitNumber)
 {
 	assert(bitNumber == 0 || bitNumber == 1 || bitNumber == 2);
-    unsigned val = 1;
-    val <<= bitNumber;
-    val &= CC.getState();
-    return val;
+    if (bitNumber > 0) {
+        bitNumber -= 1;
+    }
+    return Tools::getBits(bitNumber, bitNumber, CC.getState());
 }
           
 /*-------------------------------------------------------------------------------------------------
@@ -81,6 +81,5 @@ void ProgRegisters:: reset(void)
     for (int i = 0; i < NUM_REGISTERS; i++) {
         reg[i].reset();
     }
-    CC.reset();
-    setCC(2, 1);
+    CC.reset(ZF);
 } 
