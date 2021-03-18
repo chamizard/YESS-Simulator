@@ -116,14 +116,16 @@ void FetchStage::clockP1()
 ------------------------------------------------------------------------------
 */
 bool FetchStage::getByte0(){
-   
-  f_PC = selectPC();
 
-  f_icode = Tools::getBits(59, 63, f_PC);
-  f_ifun = Tools::getBits(54, 58, f_PC);
-
-
-
+  uint64_t byteAddress = f_PC;
+  byte byte0 = memory->getByte(byteAddress);
+  f_icode = byte0 >> 4;
+  f_ifun = byte0 & 0x0F;
+  //std::cout << "ICODE: " << f_icode << '\n';
+  //std::cout << "IFUN: " << f_ifun << '\n';
+  if (memory->isError()) {
+    return false;
+  }
    return true;   // Might return false if memory error detected
 }
 /*----------------------------------------------------------------------------
@@ -145,22 +147,24 @@ bool FetchStage::checkInstrValid(){
 -----------------------------------------------------------------------------------------------------*/
 bool FetchStage::checkNeedsRegs(){
 
-  if (f_icode == IRMMOVQ || IOPX || IPUSHQ || IPOPQ || IIRMOVQ || IRMMOVQ || IMRMOVQ);
+  if (f_icode == IRRMOVQ || f_icode == IOPX || f_icode == IPUSHQ || f_icode == IPOPQ || f_icode == IIRMOVQ || f_icode == IRMMOVQ || f_icode == IMRMOVQ)
   {
+    //std::cout << "NEEDED REGS" << '\n';
     return true;
   }
-
+  return false;
 }
 /*-----------------------------------------------------------------------------------------------------
     checkNeedsValC - returns true if instruction requires valC, false otherwise
 -----------------------------------------------------------------------------------------------------*/
 bool FetchStage::checkNeedsValC(){
 
-if (f_icode == IIRMOVQ || IRMMOVQ || IMRMOVQ || IJXX || ICALL)
-{
-  return true;
-}
-
+  if (f_icode == IIRMOVQ || f_icode == IRMMOVQ || f_icode == IMRMOVQ || f_icode == IJXX || f_icode == ICALL)
+  {
+    //std::cout << "NEEDED VALC" << '\n';
+    return true;
+  }
+  return false;
 }
 /*-----------------------------------------------------------------------------------------------------
     align - Models the align function in the PIPE diagram. 
@@ -173,17 +177,17 @@ bool FetchStage::align(){
   if (needsRegs) {
     uint64_t byteAddress = f_PC + 1;
     byte regByte = memory->getByte(byteAddress);
-    f_rA = (((~regByte) ^ 0xF0) & 0xF0);
-    f_rB = (((~regByte) ^ 0xF) & 0xF);
+    f_rA = regByte >> 4;
+    f_rB = regByte & 0x0F;
   }
   if (needsValC) {
-    uint64_t valC = memory->getWord(f_PC);
-    f_valC = (((~valC) ^ 0x00FFFFFFFF) & 0x00FFFFFFFF);
+    uint64_t valC = memory->getWord(f_PC + 2);
+    f_valC = valC;
   }
   if (memory->isError()) {
-    return true;
+    return false;
   }
-  return false;
+  return true;
 }
 /*-----------------------------------------------------------------------------------------------------
     getPCIncrement - returns the size of the instruction in Fetch stage
@@ -194,7 +198,7 @@ int FetchStage::getPCIncrement(){
     return 2;
   } else if (needsValC) {
     return 10;
-  } else if (icode.getState() == IJXX || icode.getState() == ICALL) {
+  } else if (f_icode == IJXX || f_icode == ICALL) {
     return 9;
   }
   return 1; // This is not correct--depends on needsRegs and needsValC (either 1, 2, 9, or 10)
