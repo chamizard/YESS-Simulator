@@ -205,8 +205,6 @@ bool hasData(std::string line) {
 */
 uint64_t hasValidData(std::string line) {
     uint64_t numBytes = 0;
-    uint64_t validNumBytes[] = {1, 2, 8, 9, 10};
-    bool isValid = false;
     if (hasData(line)) {
         for (int i = 7; i < 27; i++) {
             if (line[i] != ' ') {
@@ -220,16 +218,6 @@ uint64_t hasValidData(std::string line) {
         numBytes = 0;
     }
 
-    // Checks that each byte is of the correct amount
-    for (int i = 0; i < 5; i++) {
-        if (validNumBytes[i] == (numBytes / 2)) {
-            isValid = true;
-        }
-    }
-    if (!isValid) {
-        numBytes = 0;
-    }
-    
     // Checks that each byte is the correct size
     if (numBytes % 2 == 1) {
         numBytes = 0;
@@ -242,9 +230,11 @@ bool Y86::load(char *fname) {
     std::ifstream file;
     file.open(fname, std::ifstream::in);
     std::string line;
-    uint64_t address = -1;
+    uint64_t address = 0;
+    uint64_t prevAddress = 0;
     int lineCount = 1;
     int byteNum = 0;
+    int prevByteNum = 0;
     // Main loop that reads and processes the file
     while (file) {
         std::getline(file, line);
@@ -260,12 +250,35 @@ bool Y86::load(char *fname) {
         //std::cout << "Blank Line: " << isBlankLine(line) << '\n';
         // -----------------------------------------------
 
+        if (lineCount == 1) {
+            prevAddress = getAddress(line);
+            //std::cout << "Previous address: " << prevAddress << '\n';
+            prevByteNum = hasValidData(line);
+            //std::cout << "Previous number of bytes: " << prevByteNum << '\n';
+            //std::cout << '\n';
+        } else {
+            prevAddress = address;
+            //std::cout << "Previous address: " << prevAddress << '\n';
+            prevByteNum = byteNum;
+            //std::cout << "Previous number of bytes: " << prevByteNum << '\n';
+            //std::cout << '\n';
+        }
+
         if (checkLine(line)) {  
 
             address = getAddress(line);
+            //std::cout << "Address: " << address << '\n';
             byteNum = hasValidData(line);
+            //std::cout << "Number of bytes: " << byteNum << '\n';
 
             if (byteNum > 0) {
+                // Check if instructions are being written to the correct addresses based
+                // on the previous address and previous number of bytes
+                if (prevAddress + prevByteNum > address) {
+                    std::cout << "Error on line " << lineCount << '\n';
+                    std::cout << line << '\n';
+                    return false;
+                }
                 int err = Y86::writeMemory(line.substr(7, 26), byteNum, address);
                 if (err == 0) {
                     return false;
