@@ -11,6 +11,7 @@
 #include "PipeStage.h"
 #include "Register.h"
 #include "MemoryStage.h"
+#include "ProgRegisters.h"
 
 
 class ExecuteStage : public PipeStage
@@ -29,21 +30,32 @@ class ExecuteStage : public PipeStage
     /* Pointer to Memory Stage */
     MemoryStage     *memoryStage;
     Forward         *forward;
+    ProgRegisters   *regs;
 	
 	
     /* signals produced within the stage - Use names similar to Figure 4.57 p. 448 of text */
     uint64_t valE;
     uint64_t e_dstE;
+    uint64_t e_icode;
+    uint64_t aluA;
+    uint64_t aluB;
+    uint64_t aluFun;
+    bool set_cc;
 
 	/* Private methods - These are internal to the Execute Stage */
        
 	
 	public:
-		void reset(MemoryStage *, Forward *);
+		void reset(MemoryStage *, ProgRegisters *, Forward *);
         void updateERegister(uint64_t D_stat, uint64_t D_icode, uint64_t D_ifun, uint64_t D_valC, 
                                 uint64_t d_valA, uint64_t d_valB, uint64_t d_dstE, uint64_t d_dstM, 
                                 uint64_t d_srcA, uint64_t d_srcB);
-
+        void isSetCC();
+        void getALUA();
+        void getALUB();
+        void getALUFunction();
+        void selectDstE();
+        void setFlags(uint64_t);
 		/* (Virtual) Functions of superclass */
 		void clockP0();
 		void clockP1();

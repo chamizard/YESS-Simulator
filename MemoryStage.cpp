@@ -56,14 +56,14 @@ void MemoryStage::clockP1()
 }
 
 void MemoryStage::updateMRegister(uint64_t E_stat, uint64_t E_icode, uint64_t E_ifun, bool E_Cnd, 
-    uint64_t E_valA, uint64_t E_valB, uint64_t E_dstE, uint64_t E_dstM) 
+    uint64_t E_valE, uint64_t E_valA, uint64_t E_dstE, uint64_t E_dstM) 
 { 
     stat.setInput(E_stat);
     icode.setInput(E_icode);
     ifun.setInput(E_ifun);
     cnd.setInput(E_Cnd);
-    valE.setInput(E_valA);
-    valA.setInput(E_valB);
+    valE.setInput(E_valE);
+    valA.setInput(E_valA);
     dstE.setInput(E_dstE);
     dstM.setInput(E_dstM);
 

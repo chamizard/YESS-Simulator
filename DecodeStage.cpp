@@ -61,6 +61,8 @@ void DecodeStage::clockP1()
 {
     valA = selectFwdA();
     valB = forwardB();
+    getDstE();
+    getDstM();
     executeStage->updateERegister(stat.getState(), icode.getState(), ifun.getState(), valC.getState(), valA, valB, dstE, dstM, srcA, srcB);
 }
 
@@ -123,9 +125,12 @@ uint64_t DecodeStage::selectFwdA() {
     if (d_icode == ICALL || d_icode == IJXX) {
         return valP.getState();
     } else if (srcA == W_dstE) {
-        return W_valE;
+        return regs->getReg(W_valE);
     } else {
-        return regs->getReg(srcA);
+        if (srcA != RNONE) {
+            return regs->getReg(srcA);
+        }
+        return 0;
     }
 }
 
@@ -133,8 +138,11 @@ uint64_t DecodeStage::forwardB() {
     uint64_t W_dstE = forward->getW_dstE();
     uint64_t W_valE = forward->getW_valE();
     if (srcB == W_dstE) {
-        return W_valE;
+        return regs->getReg(W_valE);
     } else {
-        return regs->getReg(srcB);
+        if (srcB != RNONE) {
+            return regs->getReg(srcB);
+        }
+        return 0;
     }
 }
