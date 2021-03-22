@@ -1,0 +1,11 @@
+# VS Code specific
+.vscode/*
+
+# Object files
+*.o
+!EFBMemory.o
+!EFBLoader.o
+
+# Executables
+yess
+ytest
