@@ -11,6 +11,7 @@
 #include "PipeStage.h"
 #include "Register.h"
 #include "ExecuteStage.h"
+#include "Forward.h"
 
 
 class DecodeStage : public PipeStage
@@ -22,10 +23,10 @@ class DecodeStage : public PipeStage
     Register <uint64_t> valC;
     Register <uint64_t> valP;
 
-    /* Pointers to Execute Stage and Memory object */
+    /* Pointers to Execute Stage, Memory object, and Forward object */
     ExecuteStage *executeStage;
     ProgRegisters 		*regs;
-	
+	Forward             *forward;
 	
     /* signals produced within the stage - Use names similar to Figure 4.57 p. 448 of text */
     uint64_t valA;
@@ -39,7 +40,7 @@ class DecodeStage : public PipeStage
        
 	
 	public:
-		void reset(ExecuteStage *, ProgRegisters *);
+		void reset(ExecuteStage *, ProgRegisters *, Forward *);
         void updateDRegister(uint64_t f_stat, uint64_t f_icode, uint64_t f_ifun, uint64_t f_rA,
                                 uint64_t f_rB, uint64_t f_valC, uint64_t f_valP); // fix params
 

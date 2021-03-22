@@ -12,15 +12,17 @@
 #include "Y86.h"
 #include "FetchStage.h"
 #include "Tools.h"
+#include "Forward.h"
 
 /*---------------------------------------------------------------------------
     reset- used to connect to other Y86 components
      
 -----------------------------------------------------------------------------*/
-void FetchStage::reset(DecodeStage *pdecode, Memory *pmem)
+void FetchStage::reset(DecodeStage *pdecode, Memory *pmem, Forward *pforward)
 {
 		decodeStage = pdecode;  // "Connect" fetch stage to decode stage with pointer to DecodeStage
 		memory = pmem;          // Provide pointer to Memory
+    forward = pforward;
 		predPC.reset();         // Reset the predPC register
 }
 

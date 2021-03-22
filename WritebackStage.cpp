@@ -9,14 +9,16 @@
 */
 #include "Y86.h"
 #include "WritebackStage.h"
+#include "Forward.h"
 
 /*---------------------------------------------------------------------------
     reset- used to connect to other Y86 components
      
 -----------------------------------------------------------------------------*/
-void WritebackStage::reset(ProgRegisters *pregs)
+void WritebackStage::reset(ProgRegisters *pregs, Forward *pforward)
 {
 	regs = pregs;
+    forward = pforward;
     stat.reset();
     icode.reset(INOP);
     ifun.reset();  

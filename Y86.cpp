@@ -32,11 +32,11 @@ void Y86::reset()
   stage[2] = &executeStage;
   stage[3] = &memoryStage;
   stage[4] = &writebackStage;
-  fetchStage.reset(&decodeStage, &memory);
-  decodeStage.reset(&executeStage, &regs);
-  executeStage.reset(&memoryStage);
-  memoryStage.reset(&writebackStage, &memory);
-  writebackStage.reset(&regs);
+  fetchStage.reset(&decodeStage, &memory, &forward);
+  decodeStage.reset(&executeStage, &regs, &forward);
+  executeStage.reset(&memoryStage, &forward);
+  memoryStage.reset(&writebackStage, &memory, &forward);
+  writebackStage.reset(&regs, &forward);
   cycles = 0;
 }
 

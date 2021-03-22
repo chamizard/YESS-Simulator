@@ -27,7 +27,8 @@ class ExecuteStage : public PipeStage
     Register <bool> cnd;
 
     /* Pointer to Memory Stage */
-    MemoryStage *memoryStage;
+    MemoryStage     *memoryStage;
+    Forward         *forward;
 	
 	
     /* signals produced within the stage - Use names similar to Figure 4.57 p. 448 of text */
@@ -38,7 +39,7 @@ class ExecuteStage : public PipeStage
        
 	
 	public:
-		void reset(MemoryStage *);
+		void reset(MemoryStage *, Forward *);
         void updateERegister(uint64_t D_stat, uint64_t D_icode, uint64_t D_ifun, uint64_t D_valC, 
                                 uint64_t d_valA, uint64_t d_valB, uint64_t d_dstE, uint64_t d_dstM, 
                                 uint64_t d_srcA, uint64_t d_srcB);

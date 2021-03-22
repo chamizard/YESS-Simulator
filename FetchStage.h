@@ -11,6 +11,7 @@
 #include "PipeStage.h"
 #include "Register.h"
 #include "DecodeStage.h"
+#include "Forward.h"
 
 
 class FetchStage : public PipeStage
@@ -19,10 +20,10 @@ class FetchStage : public PipeStage
     /* Register state */
     Register <uint64_t> predPC;    // Predicted PC value stored in F Register
 	
-    /* Pointers to Decode Stage and Memory object */
+    /* Pointers to Decode Stage, Memory object, and Forward object*/
     DecodeStage *decodeStage;
     Memory 		*memory;
-	
+	Forward     *forward;
 	
     /* signals produced within the stage - Use names similar to Figure 4.57 p. 448 of text */
     uint64_t f_PC;
@@ -48,7 +49,7 @@ class FetchStage : public PipeStage
     uint64_t selectPC();    
 	
 	public:
-		void reset(DecodeStage *, Memory *);
+		void reset(DecodeStage *, Memory *, Forward *);
 
 		/* (Virtual) Functions of superclass */
 		void clockP0();

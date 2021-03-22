@@ -9,14 +9,16 @@
 */
 #include "Y86.h"
 #include "ExecuteStage.h"
+#include "Forward.h"
 
 /*---------------------------------------------------------------------------
     reset- used to connect to other Y86 components
      
 -----------------------------------------------------------------------------*/
-void ExecuteStage::reset(MemoryStage *pmemoryStage)
+void ExecuteStage::reset(MemoryStage *pmemoryStage, Forward *pforward)
 {
 	memoryStage = pmemoryStage;
+    forward = pforward;
     stat.reset();               // sets stat to SBUB (0)
     icode.reset(INOP);          // sets icode to INOP (1)
     ifun.reset();               // sets ifun to FNONE (0)

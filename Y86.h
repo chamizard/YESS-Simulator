@@ -19,6 +19,7 @@
 #include "ExecuteStage.h" 
 #include "MemoryStage.h" 
 #include "WritebackStage.h"
+#include "Forward.h"
 
 
 //class PipeStage;  // Forward declare because of PipeStage reference array
@@ -28,6 +29,8 @@ class Y86 {
     Memory              memory;          
     ProgRegisters       regs;
 	
+    Forward             forward;
+
     FetchStage fetchStage;
     DecodeStage decodeStage;
     ExecuteStage executeStage;

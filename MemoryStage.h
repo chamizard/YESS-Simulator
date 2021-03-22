@@ -11,6 +11,7 @@
 #include "PipeStage.h"
 #include "Register.h"
 #include "WritebackStage.h"
+#include "Forward.h"
 
 
 class MemoryStage : public PipeStage
@@ -23,9 +24,10 @@ class MemoryStage : public PipeStage
     Register <uint64_t> dstE;
     Register <uint64_t> dstM;
 
-    /* Pointer to Writeback Stage and Memory object */
-    WritebackStage *writebackStage;
-    Memory *memory;
+    /* Pointer to Writeback Stage, Memory object, and Forward object */
+    WritebackStage      *writebackStage;
+    Memory              *memory;
+    Forward             *forward;
 	
 	
     /* signals produced within the stage - Use names similar to Figure 4.57 p. 448 of text */
@@ -37,7 +39,7 @@ class MemoryStage : public PipeStage
        
 	
 	public:
-		void reset(WritebackStage *, Memory *);
+		void reset(WritebackStage *, Memory *, Forward *);
         void updateMRegister(uint64_t E_stat, uint64_t E_icode, uint64_t E_ifun, bool E_Cnd, uint64_t E_valA, uint64_t E_valB, uint64_t E_dstE, uint64_t E_dstM);
 
 		/* (Virtual) Functions of superclass */

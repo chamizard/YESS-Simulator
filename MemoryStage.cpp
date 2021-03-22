@@ -9,15 +9,17 @@
 */
 #include "Y86.h"
 #include "MemoryStage.h"
+#include "Forward.h"
 
 /*---------------------------------------------------------------------------
     reset- used to connect to other Y86 components
      
 -----------------------------------------------------------------------------*/
-void MemoryStage::reset(WritebackStage *pwriteback, Memory *pmemory)
+void MemoryStage::reset(WritebackStage *pwriteback, Memory *pmemory, Forward *pforward)
 {
 	writebackStage = pwriteback;
     memory = pmemory;
+    forward = pforward;
     stat.reset();
     icode.reset(INOP);
     ifun.reset();

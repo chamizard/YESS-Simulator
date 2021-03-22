@@ -9,15 +9,17 @@
 */
 #include "Y86.h"
 #include "DecodeStage.h"
+#include "Forward.h"
 
 /*---------------------------------------------------------------------------
     reset- used to connect to other Y86 components
      
 -----------------------------------------------------------------------------*/
-void DecodeStage::reset(ExecuteStage *pexecute, ProgRegisters *pprogreg)
+void DecodeStage::reset(ExecuteStage *pexecute, ProgRegisters *pprogreg, Forward *pforward)
 {
 		executeStage = pexecute;    // "Connect" decode stage to execute stage with pointer to ExecuteStage
 		regs = pprogreg;            // Provide pointer to ProgRegisters
+        forward = pforward;         // Pointer to Forward object
 		stat.reset();               // sets stat to SBUB (0)
         icode.reset(INOP);          // sets icode to INOP (1)
         ifun.reset();               // sets ifun to FNONE (0)

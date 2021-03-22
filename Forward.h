@@ -3,18 +3,13 @@
     Desc:   Declares Forward class and associated constants
     
 */
-#ifndef Forward_H
-#define Forward_H
+#ifndef FORWARD_H
+#define FORWARD_H
 
-
-#include "Sim.h"
-#include "PipeStage.h"
-#include "Register.h"
-#include "DecodeStage.h"
 #include <cstdint>
 
 
-class Forward : public PipeStage
+class Forward
 {
 
     /* Register state */
@@ -44,18 +39,11 @@ class Forward : public PipeStage
         W_dstE = val;
     }
 
-        void setW_valE(uint64_t val)
+    void setW_valE(uint64_t val)
     {
         W_valE = val;
     }
-	
-	
-		/* (Virtual) Functions of superclass */
-		void clockP0();
-		void clockP1();
-		void trace();
-    
-    
+
 };
 
 #endif
