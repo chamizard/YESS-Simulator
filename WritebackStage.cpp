@@ -53,6 +53,9 @@ void WritebackStage::clockP0()
 void WritebackStage::clockP1()
 {
     
+    setReg(dstE.getState(), valE.getState());
+    setReg(dstM.getState(), valM.getState());
+    
 }
 
 void WritebackStage::updateWRegister(uint64_t M_stat, uint64_t M_icode, uint64_t M_ifun, uint64_t M_valE, uint64_t M_valM, uint64_t M_dstE, uint64_t M_dstM) 
