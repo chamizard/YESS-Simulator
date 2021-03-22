@@ -5,19 +5,19 @@ import sys
 
 files = ['error1','error2','error3',
 		 'error4','error5','error6','error7','error8','error9',
-		 'error10','error11','error12','lab6a','lab6b','lab6c']
-testdir = '/u/css/classes/3481/211/lab6/Test/'
-#testdir = 'Test/'
+		 'error10','error11','error12','lab6a','lab6b','lab6c',
+		 'lab7a','lab7b','lab7c','lab7d','lab7e','lab7f']
+testdir = '/u/css/classes/3481/211/lab7/Test/'
 outputdir = 'Test/'
 #---------------------------------------------------------------------
 # The following was used to generate master .dump files
 
-#efb = '/u/css/classes/3481/211/lab6/efbyess'
-#os.system('rm -f '+testdir+'*.dump')
-#for fname in files:
-#	input = testdir+fname+".yo"
-#	os.system(efb + ' -fdemw ' + input + ' > ' +testdir+fname+'.dump')
-#sys.exit(0)
+# efb = '/u/css/classes/3481/201/lab7/efbyess'
+# os.system('rm -f '+testdir+'*.dump')
+# for fname in files:
+#	 input = testdir+fname+".yo"
+#	 os.system(efb + ' -fdemw ' + input + ' > ' +testdir+fname+'.dump')
+# sys.exit(0)
 #---------------------------------------------------------------------
 
 
