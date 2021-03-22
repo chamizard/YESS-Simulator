@@ -29,6 +29,7 @@ class DecodeStage : public PipeStage
 	Forward             *forward;
 	
     /* signals produced within the stage - Use names similar to Figure 4.57 p. 448 of text */
+    uint64_t d_icode;
     uint64_t valA;
     uint64_t valB;
     uint64_t srcA;
@@ -37,7 +38,12 @@ class DecodeStage : public PipeStage
     uint64_t dstM;
 
 	/* Private methods - These are internal to the Decode Stage */
-       
+    void getSrcA();
+    void getSrcB();
+    void getDstE();
+    void getDstM();
+    uint64_t selectFwdA();
+    uint64_t forwardB();
 	
 	public:
 		void reset(ExecuteStage *, ProgRegisters *, Forward *);

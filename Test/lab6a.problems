@@ -1,0 +1,72 @@
+14c14
+< E: instr = nop, valC = 0x0, valA = 0x2, valB = 0x2
+---
+> E: instr = nop, valC = 0x0, valA = 0x0, valB = 0x0
+23c23
+< E: instr = nop, valC = 0x0, valA = 0x2, valB = 0x2
+---
+> E: instr = nop, valC = 0x0, valA = 0x0, valB = 0x0
+25c25
+< M: instr = nop, Cnd = 1, valE = 0x2, valA = 0x2
+---
+> M: instr = nop, Cnd = 1, valE = 0x0, valA = 0x0
+32c32
+< E: instr = nop, valC = 0x0, valA = 0x2, valB = 0x2
+---
+> E: instr = nop, valC = 0x0, valA = 0x0, valB = 0x0
+34c34
+< M: instr = nop, Cnd = 1, valE = 0x2, valA = 0x2
+---
+> M: instr = nop, Cnd = 1, valE = 0x0, valA = 0x0
+36c36
+< W: instr = nop, valE = 0x2, valM = 0x2, dstE = ----, dstM = ----, Stat = BUB
+---
+> W: instr = nop, valE = 0x0, valM = 0x0, dstE = ----, dstM = ----, Stat = BUB
+41c41
+< E: instr = nop, valC = 0x0, valA = 0x2, valB = 0x2
+---
+> E: instr = nop, valC = 0x0, valA = 0x0, valB = 0x0
+43c43
+< M: instr = nop, Cnd = 1, valE = 0x2, valA = 0x2
+---
+> M: instr = nop, Cnd = 1, valE = 0x0, valA = 0x0
+45c45
+< W: instr = nop, valE = 0x2, valM = 0x2, dstE = ----, dstM = ----, Stat = AOK
+---
+> W: instr = nop, valE = 0x0, valM = 0x0, dstE = ----, dstM = ----, Stat = AOK
+50c50
+< E: instr = halt, valC = 0x0, valA = 0x2, valB = 0x2
+---
+> E: instr = halt, valC = 0x0, valA = 0x0, valB = 0x0
+52c52
+< M: instr = nop, Cnd = 1, valE = 0x2, valA = 0x2
+---
+> M: instr = nop, Cnd = 1, valE = 0x0, valA = 0x0
+54c54
+< W: instr = nop, valE = 0x2, valM = 0x2, dstE = ----, dstM = ----, Stat = AOK
+---
+> W: instr = nop, valE = 0x0, valM = 0x0, dstE = ----, dstM = ----, Stat = AOK
+59c59
+< E: instr = nop, valC = 0x0, valA = 0x2, valB = 0x2
+---
+> E: instr = nop, valC = 0x0, valA = 0x0, valB = 0x0
+61c61
+< M: instr = halt, Cnd = 1, valE = 0x2, valA = 0x2
+---
+> M: instr = halt, Cnd = 1, valE = 0x0, valA = 0x0
+63c63
+< W: instr = nop, valE = 0x2, valM = 0x2, dstE = ----, dstM = ----, Stat = AOK
+---
+> W: instr = nop, valE = 0x0, valM = 0x0, dstE = ----, dstM = ----, Stat = AOK
+68c68
+< E: instr = nop, valC = 0x0, valA = 0x2, valB = 0x2
+---
+> E: instr = nop, valC = 0x0, valA = 0x0, valB = 0x0
+70c70
+< M: instr = nop, Cnd = 1, valE = 0x2, valA = 0x2
+---
+> M: instr = nop, Cnd = 1, valE = 0x0, valA = 0x0
+72c72
+< W: instr = halt, valE = 0x2, valM = 0x2, dstE = ----, dstM = ----, Stat = HLT
+---
+> W: instr = halt, valE = 0x0, valM = 0x0, dstE = ----, dstM = ----, Stat = HLT

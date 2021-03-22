@@ -39,6 +39,7 @@ void DecodeStage::clockP0()
 
     stat.clock();
     icode.clock();
+    d_icode = icode.getState();
     ifun.clock();
     rA.clock();
     rB.clock();
@@ -58,6 +59,8 @@ void DecodeStage::clockP0()
 -----------------------------------------------------------------------------*/
 void DecodeStage::clockP1()
 {
+    valA = selectFwdA();
+    valB = forwardB();
     executeStage->updateERegister(stat.getState(), icode.getState(), ifun.getState(), valC.getState(), valA, valB, dstE, dstM, srcA, srcB);
 }
 
@@ -72,4 +75,66 @@ void DecodeStage::updateDRegister(uint64_t f_stat, uint64_t f_icode, uint64_t f_
     valC.setInput(f_valC);
     valP.setInput(f_valP);
     
+}
+
+void DecodeStage::getSrcA() {
+    if (d_icode == IRRMOVQ || d_icode == IRMMOVQ || d_icode == IOPX || d_icode == IPUSHQ) {
+        srcA = rA.getState();
+    }
+    else if (d_icode == IPOPQ || d_icode == IRET) {
+        srcA = RSP;
+    } else {
+        srcA = RNONE;
+    }
+}
+
+void DecodeStage::getSrcB() {
+    if (d_icode == IOPX || d_icode == IRMMOVQ || d_icode == IMRMOVQ) {
+        srcB = rB.getState();
+    }
+    else if (d_icode == IPUSHQ || d_icode == IPOPQ || d_icode == ICALL || d_icode == IRET) {
+        srcB = RSP;
+    } else {
+        srcB = RNONE;
+    }
+}
+
+void DecodeStage::getDstE() {
+    if (d_icode == IRRMOVQ || d_icode == IIRMOVQ || d_icode == IOPX) {
+        dstE = rB.getState();
+    } else if (d_icode == IPUSHQ || d_icode == IPOPQ || d_icode == ICALL || d_icode == IRET) {
+        dstE = RSP;
+    } else {
+        dstE = RNONE;
+    }
+}
+
+void DecodeStage::getDstM() {
+    if (d_icode == IMRMOVQ || d_icode == IPOPQ) {
+        dstM = rA.getState();
+    } else {
+        dstM = RNONE;
+    }
+}
+
+uint64_t DecodeStage::selectFwdA() {
+    uint64_t W_dstE = forward->getW_dstE();
+    uint64_t W_valE = forward->getW_valE();
+    if (d_icode == ICALL || d_icode == IJXX) {
+        return valP.getState();
+    } else if (srcA == W_dstE) {
+        return W_valE;
+    } else {
+        return regs->getReg(srcA);
+    }
+}
+
+uint64_t DecodeStage::forwardB() {
+    uint64_t W_dstE = forward->getW_dstE();
+    uint64_t W_valE = forward->getW_valE();
+    if (srcB == W_dstE) {
+        return W_valE;
+    } else {
+        return regs->getReg(srcB);
+    }
 }

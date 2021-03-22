@@ -24,25 +24,26 @@ class Forward
     uint64_t W_valE;
 
 	/* Private methods - These are internal to the Fetch Stage */
-    uint64_t getW_dstE()
-    {
-        return W_dstE;
-    }
+    public:
+        uint64_t getW_dstE()
+        {
+            return W_dstE;
+        }
 
-    uint64_t getW_valE()
-    {
-        return W_valE;
-    }
+        uint64_t getW_valE()
+        {
+            return W_valE;
+        }
 
-    void setW_dstE(uint64_t val)
-    {
-        W_dstE = val;
-    }
+        void setW_dstE(uint64_t val)
+        {
+            W_dstE = val;
+        }
 
-    void setW_valE(uint64_t val)
-    {
-        W_valE = val;
-    }
+        void setW_valE(uint64_t val)
+        {
+            W_valE = val;
+        }
 
 };
 

@@ -49,7 +49,7 @@ Y86LoaderTester: Y86LoaderTester.cpp Y86.h
 # Remeber, you don't want to delete your testSim.o file
 # The following target preserves testSim.o
 clean:
-	cp testSim.o testSim-tmp
+	# cp testSim.o testSim-tmp
 	rm *.o yess
-	cp testSim-tmp testSim.o
+	# cp testSim-tmp testSim.o
 

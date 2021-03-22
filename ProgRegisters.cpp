@@ -49,7 +49,7 @@ void ProgRegisters:: setReg(unsigned regNum, uint64_t rval)
 --------------------------------------------------------------------------------------------------*/
 uint64_t ProgRegisters:: getReg(unsigned regNum)
 {
-    assert(regNum < NUM_REGISTERS && regNum >= 0);
+    assert(regNum <= NUM_REGISTERS && regNum >= 0);
 	return reg[regNum].getState();
 }       
 /*-------------------------------------------------------------------------------------------------
