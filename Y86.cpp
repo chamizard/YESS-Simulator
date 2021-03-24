@@ -46,6 +46,7 @@ void Y86::reset()
 ---------------------------------------------------------------------------*/
 void  Y86::clock()
 {
+  regs.clock();
 	for (auto& pstage : stage) {
     pstage->clockP0();
   }

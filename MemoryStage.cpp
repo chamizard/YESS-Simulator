@@ -44,7 +44,11 @@ void MemoryStage::clockP0()
     valE.clock();
     valA.clock();      
     dstE.clock();
-    dstM.clock();    
+    dstM.clock();
+
+    m_valM = 0;
+    m_stat = 0;
+    dmem_error = 0;
 }
 /*---------------------------------------------------------------------------
     clockP1 - (pure virtual from PipeStage)
@@ -52,7 +56,7 @@ void MemoryStage::clockP0()
 -----------------------------------------------------------------------------*/
 void MemoryStage::clockP1()
 {
-    writebackStage->updateWRegister(stat.getState(), icode.getState(), ifun.getState(), valE.getState(), valA.getState(), dstE.getState(), dstM.getState());
+    writebackStage->updateWRegister(stat.getState(), icode.getState(), ifun.getState(), valE.getState(), m_valM, dstE.getState(), dstM.getState());
 }
 
 void MemoryStage::updateMRegister(uint64_t E_stat, uint64_t E_icode, uint64_t E_ifun, bool E_Cnd, 

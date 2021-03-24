@@ -23,18 +23,6 @@
 ---
 > Cycle 6. CC=Z=1 S=0 O=0, Stat=AOK
 65c65
-< Cycle 7. CC=Z=0 S=0 O=0, Stat=AOK
+< Status 'INS', CC Z=0 S=0 O=0
 ---
-> Cycle 7. CC=Z=1 S=0 O=0, Stat=AOK
-74c74
-< Cycle 8. CC=Z=0 S=0 O=0, Stat=AOK
----
-> Cycle 8. CC=Z=1 S=0 O=0, Stat=AOK
-83c83
-< Cycle 9. CC=Z=0 S=0 O=0, Stat=AOK
----
-> Cycle 9. CC=Z=1 S=0 O=0, Stat=AOK
-92c92
-< Cycle 10. CC=Z=0 S=0 O=0, Stat=AOK
----
-> Cycle 10. CC=Z=1 S=0 O=0, Stat=AOK
+> Status 'INS', CC Z=1 S=0 O=0

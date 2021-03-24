@@ -59,6 +59,8 @@ void DecodeStage::clockP0()
 -----------------------------------------------------------------------------*/
 void DecodeStage::clockP1()
 {
+    getSrcA();
+    getSrcB();
     valA = selectFwdA();
     valB = forwardB();
     getDstE();
@@ -125,7 +127,7 @@ uint64_t DecodeStage::selectFwdA() {
     if (d_icode == ICALL || d_icode == IJXX) {
         return valP.getState();
     } else if (srcA == W_dstE) {
-        return regs->getReg(W_valE);
+        return W_valE;
     } else {
         if (srcA != RNONE) {
             return regs->getReg(srcA);
@@ -138,7 +140,7 @@ uint64_t DecodeStage::forwardB() {
     uint64_t W_dstE = forward->getW_dstE();
     uint64_t W_valE = forward->getW_valE();
     if (srcB == W_dstE) {
-        return regs->getReg(W_valE);
+        return W_valE;
     } else {
         if (srcB != RNONE) {
             return regs->getReg(srcB);

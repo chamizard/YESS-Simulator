@@ -31,6 +31,7 @@ void ExecuteStage::reset(MemoryStage *pmemoryStage, ProgRegisters *preg, Forward
     srcB.reset(RNONE);          // Reset the E_srcB register to RNONE (15)
     dstE.reset(RNONE);          // Reset the E_dstE register to RNONE (15)
     dstM.reset(RNONE);          // Reset the E_dstM register to RNONE (15)
+    cnd.reset();
 
     // Initialize internal signals to default values
     valE = 0;
@@ -69,15 +70,14 @@ void ExecuteStage::clockP0()
     selectDstE();
     if (aluFun == FADDQ) {
         valE = aluA + aluB;
-        setFlags(valE);
     } else if (aluFun == FSUBQ) {
-        valE = aluA - aluB;
-        setFlags(valE);
+        valE = aluB - aluA;
     } else if (aluFun == FANDQ) {
         valE = aluA & aluB;
-        setFlags(valE);
     } else if (aluFun == FXORQ) {
         valE = aluA ^ aluB;
+    }
+    if (set_cc) {
         setFlags(valE);
     }
 }
@@ -123,6 +123,8 @@ void ExecuteStage::getALUA() {
         aluA = -8;
     } else if (e_icode == IRET || e_icode == IPOPQ) {
         aluA = 8;
+    } else {
+        aluA = 0;
     }
 }
 
@@ -130,6 +132,8 @@ void ExecuteStage::getALUB() {
     if (e_icode == IRMMOVQ || e_icode == IMRMOVQ || e_icode == IOPX || e_icode == ICALL || e_icode == IPUSHQ || e_icode == IRET || e_icode == IPOPQ) {
         aluB = valB.getState();
     } else if (e_icode == IRRMOVQ || e_icode == IIRMOVQ) {
+        aluB = 0;
+    } else {
         aluB = 0;
     }
 }
@@ -151,11 +155,11 @@ void ExecuteStage::selectDstE() {
 }
 
 void ExecuteStage::setFlags(uint64_t val) {
-    if (val < 0) {
-            regs->setCC(SF, 1);
-        } else if (val > 0) {
-            regs->setCC(OF, 1);
-        } else {
-            regs->setCC(ZF, 1);
-        }
+    if (val <= 0xffffffffffffffff) {
+        regs->setCC(SF, 1);
+    } else if (val == 0) {
+        regs->setCC(ZF, 1);
+    } else {
+        regs->setCC(OF, 1);
+    }
 }

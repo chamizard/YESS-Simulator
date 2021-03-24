@@ -43,7 +43,8 @@ void WritebackStage::clockP0()
     valM.clock();      
     dstE.clock();
     dstM.clock();    
-  
+    forward->setW_dstE(dstE.getState());
+    forward->setW_valE(valE.getState());
     
 }
 /*---------------------------------------------------------------------------
@@ -52,10 +53,8 @@ void WritebackStage::clockP0()
 -----------------------------------------------------------------------------*/
 void WritebackStage::clockP1()
 {
-    
-    setReg(dstE.getState(), valE.getState());
-    setReg(dstM.getState(), valM.getState());
-    
+    regs->setReg(dstE.getState(), valE.getState());
+    regs->setReg(RNONE, valM.getState()); // RNONE will change to dstM
 }
 
 void WritebackStage::updateWRegister(uint64_t M_stat, uint64_t M_icode, uint64_t M_ifun, uint64_t M_valE, uint64_t M_valM, uint64_t M_dstE, uint64_t M_dstM) 

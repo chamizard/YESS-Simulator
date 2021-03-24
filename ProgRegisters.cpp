@@ -41,7 +41,7 @@ void ProgRegisters:: clock()
 --------------------------------------------------------------------------------------------------*/
 void ProgRegisters:: setReg(unsigned regNum, uint64_t rval)
 {
-    assert(regNum < NUM_REGISTERS && regNum >= 0);
+    assert(regNum <= NUM_REGISTERS && regNum >= 0);
     reg[regNum].setInput(rval);
 }
 /*-------------------------------------------------------------------------------------------------
@@ -70,7 +70,7 @@ unsigned ProgRegisters:: getCC(unsigned bitNumber)
     if (bitNumber > 0) {
         bitNumber -= 1;
     }
-    return Tools::getBits(bitNumber, bitNumber, CC.getState());
+    return Tools::getBits(bitNumber, bitNumber, CC.getState()); 
 }
           
 /*-------------------------------------------------------------------------------------------------

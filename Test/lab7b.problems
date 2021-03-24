@@ -1,215 +1,104 @@
-52c52
-< M: instr = nop, Cnd = 1, valE = 0x3, valA = 0x0
+11c11
+< Cycle 1. CC=Z=0 S=0 O=0, Stat=AOK
 ---
-> M: instr = nop, Cnd = 1, valE = 0x0, valA = 0x0
-59,61c59,61
-< E: instr = addq, valC = 0x0, valA = 0x0, valB = 0x0
-<    srcA = ----, srcB = ----, dstE = %rcx, dstM = ----, Stat = AOK
-< M: instr = nop, Cnd = 1, valE = 0x3, valA = 0x0
+> Cycle 1. CC=Z=1 S=0 O=0, Stat=AOK
+20c20
+< Cycle 2. CC=Z=0 S=0 O=0, Stat=AOK
 ---
-> E: instr = addq, valC = 0x0, valA = 0xffffffffffffffff, valB = 0x3
->    srcA = %rax, srcB = %rcx, dstE = %rcx, dstM = ----, Stat = AOK
-> M: instr = nop, Cnd = 1, valE = 0x0, valA = 0x0
-63c63
-< W: instr = nop, valE = 0x3, valM = 0x0, dstE = ----, dstM = ----, Stat = AOK
+> Cycle 2. CC=Z=1 S=0 O=0, Stat=AOK
+29c29
+< Cycle 3. CC=Z=0 S=0 O=0, Stat=AOK
 ---
-> W: instr = nop, valE = 0x0, valM = 0x0, dstE = ----, dstM = ----, Stat = AOK
-65c65
-< Cycle 7. CC=Z=1 S=0 O=0, Stat=AOK
+> Cycle 3. CC=Z=1 S=0 O=0, Stat=AOK
+38c38
+< Cycle 4. CC=Z=0 S=0 O=0, Stat=AOK
 ---
-> Cycle 7. CC=Z=0 S=0 O=0, Stat=AOK
-70c70
-< M: instr = addq, Cnd = 1, valE = 0x0, valA = 0x0
+> Cycle 4. CC=Z=1 S=0 O=0, Stat=AOK
+47c47
+< Cycle 5. CC=Z=0 S=0 O=0, Stat=AOK
 ---
-> M: instr = addq, Cnd = 1, valE = 0x2, valA = 0xffffffffffffffff
-72c72
-< W: instr = nop, valE = 0x3, valM = 0x0, dstE = ----, dstM = ----, Stat = AOK
+> Cycle 5. CC=Z=1 S=0 O=0, Stat=AOK
+56c56
+< Cycle 6. CC=Z=0 S=0 O=0, Stat=AOK
 ---
-> W: instr = nop, valE = 0x0, valM = 0x0, dstE = ----, dstM = ----, Stat = AOK
-74c74
-< Cycle 8. CC=Z=1 S=0 O=0, Stat=AOK
----
-> Cycle 8. CC=Z=0 S=0 O=0, Stat=AOK
-81c81
-< W: instr = addq, valE = 0x0, valM = 0x0, dstE = %rcx, dstM = ----, Stat = AOK
----
-> W: instr = addq, valE = 0x2, valM = 0x0, dstE = %rcx, dstM = ----, Stat = AOK
-83c83
-< Cycle 9. CC=Z=1 S=0 O=0, Stat=AOK
----
-> Cycle 9. CC=Z=0 S=0 O=0, Stat=AOK
-92c92
-< Cycle 10. CC=Z=1 S=0 O=0, Stat=AOK
----
-> Cycle 10. CC=Z=0 S=0 O=0, Stat=AOK
-97c97
-< M: instr = nop, Cnd = 1, valE = 0xfffffffffffffffd, valA = 0x0
----
-> M: instr = nop, Cnd = 1, valE = 0x0, valA = 0x0
-101c101
-< Cycle 11. CC=Z=1 S=0 O=0, Stat=AOK
----
-> Cycle 11. CC=Z=0 S=0 O=0, Stat=AOK
-104,106c104,106
-< E: instr = addq, valC = 0x0, valA = 0x0, valB = 0x0
-<    srcA = ----, srcB = ----, dstE = %rcx, dstM = ----, Stat = AOK
-< M: instr = nop, Cnd = 1, valE = 0xfffffffffffffffd, valA = 0x0
----
-> E: instr = addq, valC = 0x0, valA = 0xffffffffffffffff, valB = 0xfffffffffffffffd
->    srcA = %rax, srcB = %rcx, dstE = %rcx, dstM = ----, Stat = AOK
-> M: instr = nop, Cnd = 1, valE = 0x0, valA = 0x0
-108c108
-< W: instr = nop, valE = 0xfffffffffffffffd, valM = 0x0, dstE = ----, dstM = ----, Stat = AOK
----
-> W: instr = nop, valE = 0x0, valM = 0x0, dstE = ----, dstM = ----, Stat = AOK
+> Cycle 6. CC=Z=1 S=0 O=0, Stat=AOK
 110c110
-< Cycle 12. CC=Z=1 S=0 O=0, Stat=AOK
+< Cycle 12. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 12. CC=Z=0 S=1 O=0, Stat=AOK
-115c115
-< M: instr = addq, Cnd = 1, valE = 0x0, valA = 0x0
----
-> M: instr = addq, Cnd = 1, valE = 0xfffffffffffffffc, valA = 0xffffffffffffffff
-117c117
-< W: instr = nop, valE = 0xfffffffffffffffd, valM = 0x0, dstE = ----, dstM = ----, Stat = AOK
----
-> W: instr = nop, valE = 0x0, valM = 0x0, dstE = ----, dstM = ----, Stat = AOK
 119c119
-< Cycle 13. CC=Z=1 S=0 O=0, Stat=AOK
+< Cycle 13. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 13. CC=Z=0 S=1 O=0, Stat=AOK
-126c126
-< W: instr = addq, valE = 0x0, valM = 0x0, dstE = %rcx, dstM = ----, Stat = AOK
----
-> W: instr = addq, valE = 0xfffffffffffffffc, valM = 0x0, dstE = %rcx, dstM = ----, Stat = AOK
 128c128
-< Cycle 14. CC=Z=1 S=0 O=0, Stat=AOK
+< Cycle 14. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 14. CC=Z=0 S=1 O=0, Stat=AOK
 137c137
-< Cycle 15. CC=Z=1 S=0 O=0, Stat=AOK
+< Cycle 15. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 15. CC=Z=0 S=1 O=0, Stat=AOK
-142c142
-< M: instr = nop, Cnd = 1, valE = 0x1, valA = 0x0
----
-> M: instr = nop, Cnd = 1, valE = 0x0, valA = 0x0
 146c146
-< Cycle 16. CC=Z=1 S=0 O=0, Stat=AOK
+< Cycle 16. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 16. CC=Z=0 S=1 O=0, Stat=AOK
-149,151c149,151
-< E: instr = addq, valC = 0x0, valA = 0x0, valB = 0x0
-<    srcA = ----, srcB = ----, dstE = %rcx, dstM = ----, Stat = AOK
-< M: instr = nop, Cnd = 1, valE = 0x1, valA = 0x0
+155c155
+< Cycle 17. CC=Z=0 S=0 O=0, Stat=AOK
 ---
-> E: instr = addq, valC = 0x0, valA = 0xffffffffffffffff, valB = 0x1
->    srcA = %rax, srcB = %rcx, dstE = %rcx, dstM = ----, Stat = AOK
-> M: instr = nop, Cnd = 1, valE = 0x0, valA = 0x0
-153c153
-< W: instr = nop, valE = 0x1, valM = 0x0, dstE = ----, dstM = ----, Stat = AOK
+> Cycle 17. CC=Z=1 S=0 O=0, Stat=AOK
+164c164
+< Cycle 18. CC=Z=0 S=0 O=0, Stat=AOK
 ---
-> W: instr = nop, valE = 0x0, valM = 0x0, dstE = ----, dstM = ----, Stat = AOK
-160c160
-< M: instr = addq, Cnd = 1, valE = 0x0, valA = 0x0
+> Cycle 18. CC=Z=1 S=0 O=0, Stat=AOK
+173c173
+< Cycle 19. CC=Z=0 S=0 O=0, Stat=AOK
 ---
-> M: instr = addq, Cnd = 1, valE = 0x0, valA = 0xffffffffffffffff
-162c162
-< W: instr = nop, valE = 0x1, valM = 0x0, dstE = ----, dstM = ----, Stat = AOK
+> Cycle 19. CC=Z=1 S=0 O=0, Stat=AOK
+182c182
+< Cycle 20. CC=Z=0 S=0 O=0, Stat=AOK
 ---
-> W: instr = nop, valE = 0x0, valM = 0x0, dstE = ----, dstM = ----, Stat = AOK
-187c187
-< M: instr = nop, Cnd = 1, valE = 0x8000000000000000, valA = 0x0
+> Cycle 20. CC=Z=1 S=0 O=0, Stat=AOK
+191c191
+< Cycle 21. CC=Z=0 S=0 O=0, Stat=AOK
 ---
-> M: instr = nop, Cnd = 1, valE = 0x0, valA = 0x0
-194,196c194,196
-< E: instr = addq, valC = 0x0, valA = 0x0, valB = 0x0
-<    srcA = ----, srcB = ----, dstE = %rcx, dstM = ----, Stat = AOK
-< M: instr = nop, Cnd = 1, valE = 0x8000000000000000, valA = 0x0
----
-> E: instr = addq, valC = 0x0, valA = 0x8000000000000000, valB = 0x8000000000000000
->    srcA = %rax, srcB = %rcx, dstE = %rcx, dstM = ----, Stat = AOK
-> M: instr = nop, Cnd = 1, valE = 0x0, valA = 0x0
-198c198
-< W: instr = nop, valE = 0x8000000000000000, valM = 0x0, dstE = ----, dstM = ----, Stat = AOK
----
-> W: instr = nop, valE = 0x0, valM = 0x0, dstE = ----, dstM = ----, Stat = AOK
+> Cycle 21. CC=Z=1 S=0 O=0, Stat=AOK
 200c200
-< Cycle 22. CC=Z=1 S=0 O=0, Stat=AOK
+< Cycle 22. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 22. CC=Z=1 S=0 O=1, Stat=AOK
-205c205
-< M: instr = addq, Cnd = 1, valE = 0x0, valA = 0x0
----
-> M: instr = addq, Cnd = 1, valE = 0x0, valA = 0x8000000000000000
-207c207
-< W: instr = nop, valE = 0x8000000000000000, valM = 0x0, dstE = ----, dstM = ----, Stat = AOK
----
-> W: instr = nop, valE = 0x0, valM = 0x0, dstE = ----, dstM = ----, Stat = AOK
 209c209
-< Cycle 23. CC=Z=1 S=0 O=0, Stat=AOK
+< Cycle 23. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 23. CC=Z=1 S=0 O=1, Stat=AOK
 218c218
-< Cycle 24. CC=Z=1 S=0 O=0, Stat=AOK
+< Cycle 24. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 24. CC=Z=1 S=0 O=1, Stat=AOK
 227c227
-< Cycle 25. CC=Z=1 S=0 O=0, Stat=AOK
+< Cycle 25. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 25. CC=Z=1 S=0 O=1, Stat=AOK
 236c236
-< Cycle 26. CC=Z=1 S=0 O=0, Stat=AOK
+< Cycle 26. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 26. CC=Z=1 S=0 O=1, Stat=AOK
-241c241
-< M: instr = nop, Cnd = 1, valE = 0x7fffffffffffffff, valA = 0x0
----
-> M: instr = nop, Cnd = 1, valE = 0x0, valA = 0x0
 245c245
-< Cycle 27. CC=Z=1 S=0 O=0, Stat=AOK
+< Cycle 27. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 27. CC=Z=1 S=0 O=1, Stat=AOK
-248,250c248,250
-< E: instr = addq, valC = 0x0, valA = 0x0, valB = 0x0
-<    srcA = ----, srcB = ----, dstE = %rcx, dstM = ----, Stat = AOK
-< M: instr = nop, Cnd = 1, valE = 0x7fffffffffffffff, valA = 0x0
----
-> E: instr = addq, valC = 0x0, valA = 0x7fffffffffffffff, valB = 0x7fffffffffffffff
->    srcA = %rax, srcB = %rcx, dstE = %rcx, dstM = ----, Stat = AOK
-> M: instr = nop, Cnd = 1, valE = 0x0, valA = 0x0
-252c252
-< W: instr = nop, valE = 0x7fffffffffffffff, valM = 0x0, dstE = ----, dstM = ----, Stat = AOK
----
-> W: instr = nop, valE = 0x0, valM = 0x0, dstE = ----, dstM = ----, Stat = AOK
 254c254
-< Cycle 28. CC=Z=1 S=0 O=0, Stat=AOK
+< Cycle 28. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 28. CC=Z=0 S=1 O=1, Stat=AOK
-259c259
-< M: instr = addq, Cnd = 1, valE = 0x0, valA = 0x0
----
-> M: instr = addq, Cnd = 1, valE = 0xfffffffffffffffe, valA = 0x7fffffffffffffff
-261c261
-< W: instr = nop, valE = 0x7fffffffffffffff, valM = 0x0, dstE = ----, dstM = ----, Stat = AOK
----
-> W: instr = nop, valE = 0x0, valM = 0x0, dstE = ----, dstM = ----, Stat = AOK
 263c263
-< Cycle 29. CC=Z=1 S=0 O=0, Stat=AOK
+< Cycle 29. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 29. CC=Z=0 S=1 O=1, Stat=AOK
-270c270
-< W: instr = addq, valE = 0x0, valM = 0x0, dstE = %rcx, dstM = ----, Stat = AOK
----
-> W: instr = addq, valE = 0xfffffffffffffffe, valM = 0x0, dstE = %rcx, dstM = ----, Stat = AOK
 272c272
-< Cycle 30. CC=Z=1 S=0 O=0, Stat=AOK
+< Cycle 30. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 30. CC=Z=0 S=1 O=1, Stat=AOK
 281c281
-< Status 'HLT', CC Z=1 S=0 O=0
+< Status 'HLT', CC Z=0 S=0 O=0
 ---
 > Status 'HLT', CC Z=0 S=1 O=1
-283a284,285
-> %rax:	0x0000000000000000	0x7fffffffffffffff
-> %rcx:	0x0000000000000000	0xfffffffffffffffe
