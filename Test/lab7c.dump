@@ -79,6 +79,8 @@ E: instr = nop, valC = 0x0, valA = 0x0, valB = 0x0
 M: instr = nop, Cnd = 1, valE = 0x0, valA = 0x0
    dstE = ----, dstM = ----, Stat = AOK
 W: instr = nop, valE = 0x0, valM = 0x0, dstE = ----, dstM = ----, Stat = AOK
+FLAGS WERE SET
+OF was set
 
 Cycle 9. CC=Z=0 S=0 O=0, Stat=AOK
 F: predPC = 0x1c
@@ -133,6 +135,8 @@ E: instr = nop, valC = 0x0, valA = 0x0, valB = 0x0
 M: instr = nop, Cnd = 1, valE = 0x0, valA = 0x0
    dstE = ----, dstM = ----, Stat = AOK
 W: instr = irmovq, valE = 0xfffffffffffffffd, valM = 0x0, dstE = %rcx, dstM = ----, Stat = AOK
+FLAGS WERE SET
+SF was set
 
 Cycle 15. CC=Z=0 S=0 O=0, Stat=AOK
 F: predPC = 0x35
@@ -187,6 +191,8 @@ E: instr = nop, valC = 0x0, valA = 0x0, valB = 0x0
 M: instr = nop, Cnd = 1, valE = 0x0, valA = 0x0
    dstE = ----, dstM = ----, Stat = AOK
 W: instr = irmovq, valE = 0xffffffffffffffff, valM = 0x0, dstE = %rcx, dstM = ----, Stat = AOK
+FLAGS WERE SET
+ZF was set
 
 Cycle 21. CC=Z=0 S=0 O=0, Stat=AOK
 F: predPC = 0x4e
@@ -241,6 +247,8 @@ E: instr = nop, valC = 0x0, valA = 0x0, valB = 0x0
 M: instr = nop, Cnd = 1, valE = 0x0, valA = 0x0
    dstE = ----, dstM = ----, Stat = AOK
 W: instr = irmovq, valE = 0x8000000000000000, valM = 0x0, dstE = %rcx, dstM = ----, Stat = AOK
+FLAGS WERE SET
+OF was set
 
 Cycle 27. CC=Z=0 S=0 O=0, Stat=AOK
 F: predPC = 0x67
@@ -295,6 +303,8 @@ E: instr = nop, valC = 0x0, valA = 0x0, valB = 0x0
 M: instr = nop, Cnd = 1, valE = 0x0, valA = 0x0
    dstE = ----, dstM = ----, Stat = AOK
 W: instr = irmovq, valE = 0x7fffffffffffffff, valM = 0x0, dstE = %rcx, dstM = ----, Stat = AOK
+FLAGS WERE SET
+SF was set
 
 Cycle 33. CC=Z=0 S=0 O=0, Stat=AOK
 F: predPC = 0x80

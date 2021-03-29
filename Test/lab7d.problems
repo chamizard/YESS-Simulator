@@ -30,91 +30,106 @@
 < Cycle 8. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 8. CC=Z=1 S=0 O=0, Stat=AOK
-83c83
+82,83d81
+< FLAGS WERE SET
+< SF was set
+85c83
 < Cycle 9. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 9. CC=Z=1 S=0 O=0, Stat=AOK
-92c92
+94c92
 < Cycle 10. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 10. CC=Z=0 S=1 O=0, Stat=AOK
-101c101
+103c101
 < Cycle 11. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 11. CC=Z=0 S=1 O=0, Stat=AOK
-110c110
+112c110
 < Cycle 12. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 12. CC=Z=0 S=1 O=0, Stat=AOK
-119c119
+121c119
 < Cycle 13. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 13. CC=Z=0 S=1 O=0, Stat=AOK
-128c128
+129,130d126
+< FLAGS WERE SET
+< OF was set
+132c128
 < Cycle 14. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 14. CC=Z=0 S=1 O=0, Stat=AOK
-182c182
+176,177d171
+< FLAGS WERE SET
+< ZF was set
+188c182
 < Cycle 20. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 20. CC=Z=1 S=0 O=0, Stat=AOK
-191c191
+197c191
 < Cycle 21. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 21. CC=Z=1 S=0 O=0, Stat=AOK
-200c200
+206c200
 < Cycle 22. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 22. CC=Z=1 S=0 O=0, Stat=AOK
-209c209
+215c209
 < Cycle 23. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 23. CC=Z=1 S=0 O=0, Stat=AOK
-218c218
+224c218
 < Cycle 24. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 24. CC=Z=1 S=0 O=0, Stat=AOK
-227c227
+232,233d225
+< FLAGS WERE SET
+< ZF was set
+235c227
 < Cycle 25. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 25. CC=Z=1 S=0 O=0, Stat=AOK
-236c236
+244c236
 < Cycle 26. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 26. CC=Z=1 S=0 O=0, Stat=AOK
-245c245
+253c245
 < Cycle 27. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 27. CC=Z=1 S=0 O=0, Stat=AOK
-254c254
+262c254
 < Cycle 28. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 28. CC=Z=1 S=0 O=0, Stat=AOK
-263c263
+271c263
 < Cycle 29. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 29. CC=Z=1 S=0 O=0, Stat=AOK
-272c272
+280c272
 < Cycle 30. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 30. CC=Z=1 S=0 O=0, Stat=AOK
-281c281
+288,289d279
+< FLAGS WERE SET
+< ZF was set
+291c281
 < Cycle 31. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 31. CC=Z=1 S=0 O=0, Stat=AOK
-290c290
+300c290
 < Cycle 32. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 32. CC=Z=1 S=0 O=0, Stat=AOK
-299c299
+309c299
 < Cycle 33. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 33. CC=Z=1 S=0 O=0, Stat=AOK
-308c308
+318c308
 < Cycle 34. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 34. CC=Z=1 S=0 O=0, Stat=AOK
-317c317
+327c317
 < Status 'HLT', CC Z=0 S=0 O=0
 ---
 > Status 'HLT', CC Z=1 S=0 O=0

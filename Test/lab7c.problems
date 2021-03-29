@@ -30,99 +30,114 @@
 < Cycle 8. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 8. CC=Z=1 S=0 O=0, Stat=AOK
-83c83
+82,83d81
+< FLAGS WERE SET
+< OF was set
+85c83
 < Cycle 9. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 9. CC=Z=1 S=0 O=0, Stat=AOK
-146c146
+138,139d135
+< FLAGS WERE SET
+< SF was set
+150c146
 < Cycle 16. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 16. CC=Z=0 S=1 O=0, Stat=AOK
-155c155
+159c155
 < Cycle 17. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 17. CC=Z=0 S=1 O=0, Stat=AOK
-164c164
+168c164
 < Cycle 18. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 18. CC=Z=0 S=1 O=0, Stat=AOK
-173c173
+177c173
 < Cycle 19. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 19. CC=Z=0 S=1 O=0, Stat=AOK
-182c182
+186c182
 < Cycle 20. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 20. CC=Z=0 S=1 O=0, Stat=AOK
-191c191
+194,195d189
+< FLAGS WERE SET
+< ZF was set
+197c191
 < Cycle 21. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 21. CC=Z=0 S=1 O=0, Stat=AOK
-200c200
+206c200
 < Cycle 22. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 22. CC=Z=1 S=0 O=0, Stat=AOK
-209c209
+215c209
 < Cycle 23. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 23. CC=Z=1 S=0 O=0, Stat=AOK
-218c218
+224c218
 < Cycle 24. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 24. CC=Z=1 S=0 O=0, Stat=AOK
-227c227
+233c227
 < Cycle 25. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 25. CC=Z=1 S=0 O=0, Stat=AOK
-236c236
+242c236
 < Cycle 26. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 26. CC=Z=1 S=0 O=0, Stat=AOK
-245c245
+250,251d243
+< FLAGS WERE SET
+< OF was set
+253c245
 < Cycle 27. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 27. CC=Z=1 S=0 O=0, Stat=AOK
-254c254
+262c254
 < Cycle 28. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 28. CC=Z=0 S=0 O=1, Stat=AOK
-263c263
+271c263
 < Cycle 29. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 29. CC=Z=0 S=0 O=1, Stat=AOK
-272c272
+280c272
 < Cycle 30. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 30. CC=Z=0 S=0 O=1, Stat=AOK
-281c281
+289c281
 < Cycle 31. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 31. CC=Z=0 S=0 O=1, Stat=AOK
-290c290
+298c290
 < Cycle 32. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 32. CC=Z=0 S=0 O=1, Stat=AOK
-299c299
+306,307d297
+< FLAGS WERE SET
+< SF was set
+309c299
 < Cycle 33. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 33. CC=Z=0 S=0 O=1, Stat=AOK
-308c308
+318c308
 < Cycle 34. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 34. CC=Z=0 S=1 O=1, Stat=AOK
-317c317
+327c317
 < Cycle 35. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 35. CC=Z=0 S=1 O=1, Stat=AOK
-326c326
+336c326
 < Cycle 36. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 36. CC=Z=0 S=1 O=1, Stat=AOK
-335c335
+345c335
 < Cycle 37. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 37. CC=Z=0 S=1 O=1, Stat=AOK
-344c344
+354c344
 < Status 'HLT', CC Z=0 S=0 O=0
 ---
 > Status 'HLT', CC Z=0 S=1 O=1

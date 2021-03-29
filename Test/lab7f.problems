@@ -34,7 +34,25 @@
 < Cycle 9. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 9. CC=Z=1 S=0 O=0, Stat=AOK
-92c92
+91,92d90
+< FLAGS WERE SET
+< OF was set
+94c92
 < Cycle 10. CC=Z=0 S=0 O=0, Stat=AOK
 ---
 > Cycle 10. CC=Z=1 S=0 O=0, Stat=AOK
+102,103d99
+< FLAGS WERE SET
+< OF was set
+122,123d117
+< FLAGS WERE SET
+< OF was set
+133,134d126
+< FLAGS WERE SET
+< OF was set
+153,154d144
+< FLAGS WERE SET
+< OF was set
+164,165d153
+< FLAGS WERE SET
+< OF was set

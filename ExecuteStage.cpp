@@ -11,6 +11,7 @@
 #include "ExecuteStage.h"
 #include "Forward.h"
 #include "ProgRegisters.h"
+#include "Tools.h"
 
 /*---------------------------------------------------------------------------
     reset- used to connect to other Y86 components
@@ -155,11 +156,15 @@ void ExecuteStage::selectDstE() {
 }
 
 void ExecuteStage::setFlags(uint64_t val) {
-    if (val <= 0xffffffffffffffff) {
+    std::cout << "FLAGS WERE SET" << '\n';
+    if (Tools::isNegative(val)) {
         regs->setCC(SF, 1);
+        //std::cout << "SF was set" << '\n';    
     } else if (val == 0) {
         regs->setCC(ZF, 1);
+        //std::cout << "ZF was set" << '\n';
     } else {
         regs->setCC(OF, 1);
+        //std::cout << "OF was set" << '\n';
     }
 }
