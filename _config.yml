@@ -18,7 +18,7 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: YESS Simulator
+title: Y Eighty Six Sixty-Four Simulator
 # email: manncp@appstate.edu
 description: >- # this means to ignore newlines until "baseurl:"
   This project creates a simulator for the Y86-64 processor. The Y86-64 is modeled after the x86-64 and
