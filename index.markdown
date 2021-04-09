@@ -51,6 +51,17 @@ Once you have a yess executable you are ready to begin use.
 Instructions for Use
 ===========
 
+### Using:
+
+*STEP 1:* Ensure your file is in the same directory as the yess executable or you know the path to the file.
+
+*STEP 2:* Invoke the yess executable from the command line.  
+*See `Invoking` section below*
+
+*STEP 3:* Observe the output of simulating the yess with your file as input.
+
+### Invoking from the command line
+
 The yess executable is invoked from the command line as so:
 
 `./yess [OPTIONS] [PATH/FILE]`
